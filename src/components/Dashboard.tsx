@@ -9,7 +9,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Carousel } from 'primereact/carousel';
 import { Timeline } from 'primereact/timeline';
-import CustomerService from '../service/CustomerService';
+import DashboardService from '../service/DashboardService';
 
 const visitorChart = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
@@ -433,9 +433,9 @@ const Dashboard = () => {
     let customerAvg = '875';
 
     useEffect(() => {
-        const customerService = new CustomerService();
+        const dashboardService = new DashboardService();
 
-        customerService.getCustomersLarge().then((customers) => {
+        dashboardService.getCustomersLarge().then((customers) => {
             const _customersTable = customers.map((customer: any) => {
                 let date = new Date(customer.date);
                 return { ...customer, date };
@@ -443,7 +443,7 @@ const Dashboard = () => {
             setCustomersTable(_customersTable);
         });
 
-        customerService.getCustomersLarge().then((customers) => {
+        dashboardService.getCustomersLarge().then((customers) => {
             const _customersTable1 = customers.map((customer: any) => {
                 let date = new Date(customer.date);
                 return { ...customer, date };
@@ -451,7 +451,7 @@ const Dashboard = () => {
             setCustomersTable1(_customersTable1);
         });
 
-        customerService.getCustomersMixed().then((customers) => {
+        dashboardService.getCustomersMixed().then((customers) => {
             const _customersTable2 = customers.map((customer: any) => {
                 let date = new Date(customer.date);
                 return { ...customer, date };
