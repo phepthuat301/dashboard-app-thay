@@ -2,19 +2,16 @@
 import { httpGet } from '../HttpService';
 
 export default class ProfileTypeService {
-    getProfileTypesSmall() {
-        return httpGet('assets/demo/data/products-small.json').then((res) => res.data.data);
+    private static instance: ProfileTypeService;
+    private constructor() { }
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new ProfileTypeService();
+        }
+        return this.instance;
     }
 
     getProfileTypes() {
-        return httpGet('assets/demo/data/profile-type.json').then((res) => res.data.data);
-    }
-
-    getProfileTypesMixed() {
-        return httpGet('assets/demo/data/products-mixed.json').then((res) => res.data.data);
-    }
-
-    getProfileTypesWithOrdersSmall() {
-        return httpGet('assets/demo/data/products-orders-small.json').then((res) => res.data.data);
+        return httpGet('../../../assets/demo/data/profile-type.json').then((res) => res.data.data);
     }
 }

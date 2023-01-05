@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 
 import ProfileTypeService from '../../service/dictionaryListing/ProfileTypeService';
-import { threeDot } from '../../utilities/util';
+
 import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
@@ -13,20 +13,18 @@ import Joi from 'joi';
 
 interface IProfileType {
     id: string,
-    slug: string,
+    key: string,
     name: string,
-    description: string
 }
 let defaultFormValue: IProfileType = {
     id: '',
-    slug: '',
+    key: '',
     name: '',
-    description: ''
 };
 
 const ProfileType = () => {
     const [refresh, setRefresh] = useState<boolean>(false)
-    const [defaultEthnic, setDefaultEthnic] = useState<IProfileType>(defaultFormValue)
+    const [defaultData, setDefaultData] = useState<IProfileType>(defaultFormValue)
     const [deleteProfileTypeDialog, setDeleteProfileTypeDialog] = useState<boolean>(false);
     const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
 
@@ -38,9 +36,9 @@ const ProfileType = () => {
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="New" icon="pi pi-plus" className="p-button-success mr-2 mb-2"
+                <Button label="New" icon="pi pi-plus" className="p-button-success"
                     onClick={() => {
-                        setDefaultEthnic(defaultFormValue)
+                        setDefaultData(defaultFormValue)
                         setFormDialogShow(true)
                         setRefresh(!refresh)
                     }} />
@@ -62,11 +60,11 @@ const ProfileType = () => {
             <div className="actions">
                 <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2"
                     onClick={() => {
-                        setDefaultEthnic(rowData)
+                        setDefaultData(rowData)
                         setFormDialogShow(true)
                         setRefresh(!refresh)
                     }} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mt-2"
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
                     onClick={() => {
                         setDeleteProfileTypeDialog(true)
                     }} />
@@ -75,14 +73,10 @@ const ProfileType = () => {
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const profileTypeService = new ProfileTypeService();
-        const profileTypes = await profileTypeService.getProfileTypes()
-        console.log(option);
+        const profileTypes = await ProfileTypeService.getInstance().getProfileTypes()
 
-        return {
-            total: 3,
-            data: profileTypes
-        }
+
+        return profileTypes
     }
 
     return (
@@ -99,9 +93,8 @@ const ProfileType = () => {
                         refresh={refresh}
                     >
                         <Column field="id" header="ID" sortable headerStyle={{ minWidth: '10rem' }}></Column>
-                        <Column field="slug" header="Slug" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="key" header="Key" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="name" header="Name" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="description" header="description" body={(rowdata: any) => <p>{threeDot(rowdata.description, 20)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </CustomDataTable>
 
@@ -125,19 +118,14 @@ const ProfileType = () => {
                                 validate: Joi.string().min(6).required()
                             },
                             {
-                                name: 'slug',
-                                label: 'Slug',
+                                name: 'key',
+                                label: 'Key',
                                 type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
                                 validate: Joi.string().min(6).required()
                             },
-                            {
-                                name: 'description',
-                                label: 'Description',
-                                type: CUSTOM_FORM_DIALOG_FIELD_TYPE.areaText,
-                                validate: Joi.string().min(6).required()
-                            },
+
                         ]}
-                        defaultValue={defaultEthnic}
+                        defaultValue={defaultData}
                         onAccept={function (data: any): void {
                             console.log(data);
                         }}

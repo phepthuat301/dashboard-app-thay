@@ -10,6 +10,7 @@ const AppWrapper = (props: any) => {
     const defaultTheme = readTheme() ?? 'blue'
     const defaultComponentTheme = readComponentTheme() ?? 'blue'
 
+
     const [colorScheme, setColorScheme] = useState<string>(() => defaultColorSchema);
     const [theme, setTheme] = useState(() => defaultTheme);
     const [componentTheme, setComponentTheme] = useState(() => defaultComponentTheme);
@@ -46,7 +47,7 @@ const AppWrapper = (props: any) => {
 
     const onMenuThemeChange = (theme: string) => {
         const layoutLink = document.getElementById('layout-css');
-        const href = 'assets/layout/css/' + theme + '/layout-' + colorScheme + '.css';
+        const href = '../../../assets/layout/css/' + theme + '/layout-' + colorScheme + '.css';
 
         replaceLink(layoutLink, href);
         setTheme(theme);
@@ -55,7 +56,7 @@ const AppWrapper = (props: any) => {
 
     const onComponentThemeChange = (theme: string) => {
         const themeLink = document.getElementById('theme-css');
-        const href = 'assets/theme/' + theme + '/theme-' + colorScheme + '.css';
+        const href = '../../../assets/theme/' + theme + '/theme-' + colorScheme + '.css';
 
         replaceLink(themeLink, href);
         setComponentTheme(theme);
@@ -90,13 +91,13 @@ const AppWrapper = (props: any) => {
 
         // theme
         const layoutLink = document.getElementById('layout-css');
-        const themeHref = 'assets/layout/css/' + theme + '/layout-' + defaultColorSchema + '.css';
+        const themeHref = '../../../assets/layout/css/' + defaultTheme + '/layout-' + defaultColorSchema + '.css';
 
         replaceLink(layoutLink, themeHref);
 
         // component theme
         const themeLink = document.getElementById('theme-css');
-        const compThemeHref = 'assets/theme/' + componentTheme + '/theme-' + defaultColorSchema + '.css';
+        const compThemeHref = '../../../assets/theme/' + defaultComponentTheme + '/theme-' + defaultColorSchema + '.css';
 
         replaceLink(themeLink, compThemeHref);
         // eslint-disable-next-line

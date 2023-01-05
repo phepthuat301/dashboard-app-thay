@@ -2,19 +2,18 @@
 import { httpGet } from '../HttpService';
 
 export default class SexualityService {
-    getSexualitysSmall() {
-        return httpGet('assets/demo/data/products-small.json').then((res) => res.data.data);
+    private static instance: SexualityService;
+    private constructor() { }
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new SexualityService();
+        }
+        return this.instance;
     }
 
     getSexualitys() {
-        return httpGet('assets/demo/data/sexuality.json').then((res) => res.data.data);
+        return httpGet('../../../assets/demo/data/sexuality.json').then((res) => res.data.data);
     }
 
-    getSexualitysMixed() {
-        return httpGet('assets/demo/data/products-mixed.json').then((res) => res.data.data);
-    }
 
-    getSexualitysWithOrdersSmall() {
-        return httpGet('assets/demo/data/products-orders-small.json').then((res) => res.data.data);
-    }
 }

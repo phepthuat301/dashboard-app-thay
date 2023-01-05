@@ -12,11 +12,11 @@ const AppRightPanel = (props: any) => {
             </button>
             <div className="user-detail-wrapper">
                 <div className="user-detail-content">
-                    <img src="assets/layout/images/dashboard/gene.png" alt="atlantis" className="user-image" />
+                    <img src="../../../assets/layout/images/dashboard/gene.png" alt="atlantis" className="user-image" />
                     <span className="user-name">Gene Russell</span>
                     <span className="user-number">(406) 555-0120</span>
                 </div>
-                <div className="user-tasks">
+                {/* <div className="user-tasks">
                     <div className="user-tasks-item in-progress">
                         <button className="task-number p-link">23</button>
                         <span className="task-name">Progress</span>
@@ -29,12 +29,12 @@ const AppRightPanel = (props: any) => {
                         <button className="task-number p-link">38</button>
                         <span className="task-name">All deals</span>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div>
                 <Calendar value={date} onChange={(e) => setDate(e.value)} inline></Calendar>
             </div>
-            <div className="daily-plan-wrapper">
+            {/* <div className="daily-plan-wrapper">
                 <span className="today-date">14 Sunday, Jun 2020</span>
                 <ul>
                     <li>
@@ -54,7 +54,7 @@ const AppRightPanel = (props: any) => {
                         <span className="event-topic">Meeting with Engineering managers</span>
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </div>
     );
 };

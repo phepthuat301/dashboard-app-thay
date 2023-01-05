@@ -10,19 +10,19 @@ import AppMenu from './layout/AppMenu';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
-
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import { menu } from './utilities/Menu';
 import { routes } from "./utilities/Routes";
 import { NotFound } from './pages/NotFound';
 import Dashboard from './components/Dashboard';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AppBreadcrumb from './layout/AppBreadcrumb';
 import { persistMenuMode, readMenuMode } from './service/LocalStorageService';
+import ProfileType from './pages/dictionaryListing/ProfileType';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -316,9 +316,10 @@ const App = (props: any) => {
                 <div className="layout-main-content">
                     <Routes>
                         <Route index element={<Dashboard />} />
-                        {routes.map((route, key) => <Route key={key} {...route} >
+                        <Route path={'dictionary-listing/1'} element={<ProfileType></ProfileType>}></Route>
+                        {routes.map((route, key) => <Route key={key} path={route.path} >
                             {
-                                route.childs && route.childs.map((child, key) => <Route key={key} {...child} />)
+                                route.childs && route.childs.map((child, key) => <Route key={key} path={child.path} element={child.element} />)
                             }
                         </Route>)}
                         <Route path="*" element={<NotFound colorScheme={props.colorScheme} />} />

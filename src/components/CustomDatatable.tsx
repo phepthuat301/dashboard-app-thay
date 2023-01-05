@@ -61,6 +61,8 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
                 if (updateDataTimeout)
                     clearTimeout(updateDataTimeout);
                 updateDataTimeout = setTimeout(() => {
+                    console.log(options);
+
                     onOptionChange(options)
                         .then(data => {
                             setValue(data)
@@ -117,7 +119,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
                 {children}
             </DataTable>
             <br />
-            <ReactPaginate
+            {Math.ceil(value.total / options.rowPerPage) > 1 && <ReactPaginate
                 onPageChange={(e) => { setOptions({ ...options, page: e.selected }) }}
                 pageCount={Math.ceil(value.total / options.rowPerPage)}
                 previousLabel="Prev"
@@ -132,7 +134,8 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
                 breakClassName="page-item"
                 breakLinkClassName="page-link"
                 containerClassName='pagination'
-            />
+            />}
+
         </>
     );
 };
@@ -180,13 +183,13 @@ export const representativeFilterTemplate = (representatives: { name: string, im
     return result
 };
 
-//filterElement={()=> return selectFilterTemplate(selectOptions)}
+//filterElement={selectFilterTemplate(selectOptions)}
 export const selectFilterTemplate = (selectOptions: string[]) => {
     const statusItemTemplate = (option: any) => {
         return <span className={`customer-badge status-${option}`}>{option}</span>;
     };
     const result = (options: any) => {
-        return <Dropdown value={options.value} options={selectOptions} onChange={(e: any) => options.filterCallback(e.value, options.index)} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />;
+        return <Dropdown value={options.value} options={selectOptions} onChange={(e: any) => options.filterCallback(e.value, options.index)} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />
     }
     return result
 };

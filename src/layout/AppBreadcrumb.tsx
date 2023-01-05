@@ -10,20 +10,20 @@ const AppBreadcrumb = (props: any) => {
     props.routes.forEach((route: any) => {
         const currrentPath = location.pathname.toLowerCase().replace(/\s/g, '').slice(1)
         const routePath = route.path.replace(/\s/g, '').toLowerCase()
-        route.childs.forEach((child: any) => {
-            const currrentPath = location.pathname.toLowerCase().replace(/\s/g, '').slice(1)
+        route.parent = 'Home'
+        if (currrentPath.startsWith(routePath)) activeRoute = route
+        for (const child of route.childs) {
             const childPath = routePath + "/" + child.path.replace(/\s/g, '').toLowerCase()
             child.parent = route.label
-            if (childPath === currrentPath) activeRoute = child
-        });
-        if (routePath === currrentPath) activeRoute = route
+            if (currrentPath.startsWith(childPath)) activeRoute = child
+        }
     });
 
-    let items;
+    let items: any[] = [];
     if (location.pathname === '/') {
         items = [{ label: 'Dashboard' }, { label: 'Dashboard' }];
     } else if (!activeRoute) {
-        items = [{ label: '' }, { label: '' }];
+        items = [];
     } else {
         items = [{ label: activeRoute.parent }, { label: activeRoute.label }];
     }

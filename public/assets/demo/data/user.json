@@ -1,0 +1,21 @@
+{
+	"data": {
+		"total": 1,
+		"data": [
+			{
+				"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"first_name": "Nguyễn",
+				"last_name": "Ngọc Phước",
+				"created_at": "2023-01-11T16:00:00",
+				"updated_at": "2023-01-11T16:00:00"
+			},
+			{
+				"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"first_name": "Nguyễn",
+				"last_name": "Ngọc Phước",
+				"created_at": "2023-01-11T16:00:00",
+				"updated_at": "2023-01-11T16:00:00"
+			}
+		]
+	}
+}

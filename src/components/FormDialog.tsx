@@ -2,6 +2,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { Dropdown } from 'primereact/dropdown';
 import { useEffect, useState } from 'react';
 import Joi from 'joi'
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../utilities/constant';
@@ -20,6 +21,7 @@ interface IDialogField {
     label: string;
     type: CUSTOM_FORM_DIALOG_FIELD_TYPE;
     validate: any;
+    selectValue?: Array<{ label: string, value: string }>
 }
 
 
@@ -54,6 +56,14 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
             setError(validate.error.details)
             console.log(validate.error.details);
         }
+    }
+
+    const onSelectChange = (event: any, name: string) => {
+        const val = (event.value) || '';
+        let _data = { ...data };
+        // @ts-ignore
+        _data[`${name}`] = val;
+        setData(_data);
     }
 
     const generateField = (field: IDialogField) => {
@@ -97,6 +107,17 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
                         </div>
                     )
                 break;
+
+            case CUSTOM_FORM_DIALOG_FIELD_TYPE.select:
+                result = (
+                    <div className="field" key={field.name}>
+                        <label htmlFor={field.name}>{field.label}</label>
+                        <Dropdown options={field.selectValue} value={data[field.name]} onChange={(e) => onSelectChange(e, field.name)}></Dropdown>
+                        <small id="username-help" className="p-error">
+                            {errorMessage}
+                        </small>
+                    </div>
+                )
 
         }
         return result

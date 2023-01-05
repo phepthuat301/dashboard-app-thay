@@ -1,0 +1,24 @@
+{
+	"data": {
+		"total": 1,
+		"data": [
+			{
+				"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"report_type": "Chat",
+				"report_by": "User",
+				"user_report_id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"user_report": {
+					"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+					"first_name": "Nguyễn",
+					"last_name": "Ngọc Phước",
+					"created_at": "2023-01-11T16:00:00",
+					"updated_at": "2023-01-11T16:00:00"
+				},
+				"reported_id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"reason": "Nỏ biết anh nợ",
+				"created_at": "2023-01-11T16:00:00",
+				"updated_at": "2023-01-11T16:00:00"
+			}
+		]
+	}
+}

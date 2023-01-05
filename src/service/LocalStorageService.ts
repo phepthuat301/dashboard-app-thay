@@ -32,11 +32,11 @@ export const readColorSchema = (): string | undefined => {
 
 
 export const persistTheme = (theme: string): void => {
-  localStorage.setItem('theme', theme);
+  localStorage.setItem('themeWeb', theme);
 };
 
 export const readTheme = (): string | undefined => {
-  return localStorage.getItem('theme') || undefined;
+  return localStorage.getItem('themeWeb') || undefined;
 };
 
 export const persistComponentTheme = (componentTheme: string): void => {

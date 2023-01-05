@@ -4,7 +4,6 @@ import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 
 import EthnicityService from '../../service/dictionaryListing/EthnicityService';
-import { threeDot } from '../../utilities/util';
 import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
@@ -13,22 +12,20 @@ import Joi from 'joi';
 
 interface IEthnicity {
     id: string,
-    slug: string,
+    key: string,
     name: string,
-    description: string
 }
 let defaultFormValue: IEthnicity = {
     id: '',
-    slug: '',
-    name: '',
-    description: ''
+    key: '',
+    name: ''
 };
 
 
 
 const Ethnicity = () => {
     const [refresh, setRefresh] = useState<boolean>(false)
-    const [defaultEthnic, setDefaultEthnic] = useState<IEthnicity>(defaultFormValue)
+    const [defaultData, setDefaultData] = useState<IEthnicity>(defaultFormValue)
     const [deleteEthnicityDialog, setDeleteEthnicityDialog] = useState<boolean>(false);
     const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
     const dt = useRef<any>(null);
@@ -39,9 +36,9 @@ const Ethnicity = () => {
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="New" icon="pi pi-plus" className="p-button-success mr-2 mb-2"
+                <Button label="New" icon="pi pi-plus" className="p-button-success"
                     onClick={() => {
-                        setDefaultEthnic(defaultFormValue)
+                        setDefaultData(defaultFormValue)
                         setFormDialogShow(true)
                         setRefresh(!refresh)
                     }} />
@@ -63,11 +60,11 @@ const Ethnicity = () => {
             <div className="actions">
                 <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2"
                     onClick={() => {
-                        setDefaultEthnic(rowData)
+                        setDefaultData(rowData)
                         setFormDialogShow(true)
                         setRefresh(!refresh)
                     }} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mt-2"
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
                     onClick={() => {
                         setDeleteEthnicityDialog(true)
                     }} />
@@ -76,34 +73,24 @@ const Ethnicity = () => {
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const ethnicityService = new EthnicityService();
-        const ethnicitys = await ethnicityService.getEthnicitys()
-        console.log(option);
+        const ethnicitys = await EthnicityService.getInstance().getEthnicitys()
 
-        return {
-            total: 3,
-            data: ethnicitys
-        }
+
+        return ethnicitys
     }
 
 
     const fields = [
         {
+            name: 'key',
+            label: 'Key',
+            type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
+            validate: Joi.string().min(6).required()
+        },
+        {
             name: 'name',
             label: 'Name',
             type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
-            validate: Joi.string().min(6).required()
-        },
-        {
-            name: 'slug',
-            label: 'Slug',
-            type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
-            validate: Joi.string().min(6).required()
-        },
-        {
-            name: 'description',
-            label: 'Description',
-            type: CUSTOM_FORM_DIALOG_FIELD_TYPE.areaText,
             validate: Joi.string().min(6).required()
         },
     ]
@@ -121,10 +108,8 @@ const Ethnicity = () => {
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >
-                        <Column field="id" header="ID" sortable headerStyle={{ minWidth: '10rem' }}></Column>
-                        <Column field="slug" header="Slug" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="key" header="key" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="name" header="Name" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="description" header="description" body={(rowdata: any) => <p>{threeDot(rowdata.description, 20)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </CustomDataTable>
 
@@ -141,7 +126,7 @@ const Ethnicity = () => {
                     <FormDialog
                         show={formDialogShow}
                         fields={fields}
-                        defaultValue={defaultEthnic}
+                        defaultValue={defaultData}
                         onAccept={function (data: any): void {
                             console.log(data);
                         }}

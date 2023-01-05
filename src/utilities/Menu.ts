@@ -25,8 +25,92 @@ export const menu = [
         ]
     },
     {
+        label: 'Content management',
+        icon: 'pi pi-bookmark',
+        items: [
+            { label: 'Content', icon: 'pi pi-book', to: '/content-management/content' }
+        ]
+    },
+    {
+        label: 'Reported management',
+        icon: 'pi pi-info-circle',
+        items: [
+            { label: 'Reported', icon: 'pi pi-times-circle', to: '/reported-management/reported' }
+        ]
+    },
+    {
+        label: 'Chat management',
+        icon: 'pi pi-comments',
+        items: [
+            {
+                label: 'Single chat - Content related',
+                icon: 'pi pi-comment',
+                to: '/chat-management/single'
+            },
+            {
+                label: 'Group chat - Content related',
+                icon: 'pi pi-comments',
+                to: '/chat-management/group'
+            },
+            {
+                label: 'Single chat - Directly',
+                icon: 'pi pi-send',
+                to: '/chat-management/single-directly'
+            },
+            {
+                label: 'Group chat - Directly',
+                icon: 'pi pi-globe',
+                to: '/chat-management/group-directly',
+            }
+        ]
+    },
+    {
+        label: 'User management',
+        icon: 'pi pi-id-card',
+        items: [
+            {
+                label: 'Users',
+                icon: 'pi pi-user',
+                to: 'user-management/user'
+
+            },
+            {
+                label: 'User permission',
+                icon: 'pi pi-key',
+                to: 'user-management/permission'
+            }
+        ]
+    },
+    {
+        label: 'Activities management',
+        icon: 'pi pi-users',
+        items: [
+            {
+                label: 'Admin members',
+                icon: 'pi pi-user',
+                to: '/activities-management/admin'
+            }
+        ]
+    },
+    {
+        label: 'Team management',
+        icon: 'pi pi-users',
+        items: [
+            {
+                label: 'Team members',
+                icon: 'pi pi-user',
+                to: '/documentation'
+            },
+            {
+                label: 'Team permission',
+                icon: 'pi pi-key',
+                to: '/documentation'
+            }
+        ]
+    },
+    {
         label: 'Notification management',
-        icon: 'pi pi-flag-fill',
+        icon: 'pi pi-flag',
         items: [
             {
                 label: 'Welcome message',
@@ -48,63 +132,6 @@ export const menu = [
                 icon: 'pi pi-check',
                 to: '/blocks',
             },
-        ]
-    },
-    {
-        label: 'Content management',
-        icon: 'pi pi-list',
-        items: [
-            { label: 'Content', icon: 'pi pi-list', to: '/icons' },
-            {
-                label: 'Reported content',
-                icon: 'pi pi-list',
-                url: 'https://www.primefaces.org/primeflex'
-            }
-        ]
-    },
-    {
-        label: 'Chat management',
-        icon: 'pi pi-comments',
-        items: [
-            { label: 'Single chat - Content related', icon: 'pi pi-comment', to: '/crud' },
-            { label: 'Group chat - Content related', icon: 'pi pi-comments', to: '/calendar' },
-            { label: 'Single chat - Directly', icon: 'pi pi-send', to: '/timeline' },
-            {
-                label: 'Group chat - Directly',
-                icon: 'pi pi-globe',
-                url: 'assets/pages/landing.html',
-            }
-        ]
-    },
-    {
-        label: 'User management',
-        icon: 'pi pi-id-card',
-        items: [
-            {
-                label: 'Users',
-                icon: 'pi pi-user',
-
-            },
-            {
-                label: 'User permission',
-                icon: 'pi pi-key',
-            }
-        ]
-    },
-    {
-        label: 'Team management',
-        icon: 'pi pi-users',
-        items: [
-            {
-                label: 'Team members',
-                icon: 'pi pi-user',
-                to: '/documentation'
-            },
-            {
-                label: 'Team permission',
-                icon: 'pi pi-key',
-                to: '/documentation'
-            }
         ]
     }
 ];

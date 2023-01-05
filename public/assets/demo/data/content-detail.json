@@ -1,0 +1,28 @@
+{
+	"data": {
+		"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+		"content": "this is title",
+		"media": "https://firebasestorage.googleapis.com/v0/b/dtucom-4dedb.appspot.com/o/abc.mp4?alt=media&token=327dfb9b-a7d6-453e-9433-86acf307af99",
+		"created_at": "2023-01-01T16:00:00",
+		"updated_at": "2023-01-01T16:00:00",
+		"status": "public",
+		"user": {
+			"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+			"first_name": "Nguyễn",
+			"last_name": "Ngọc Phước",
+			"created_at": "2023-01-11T16:00:00",
+			"updated_at": "2023-01-11T16:00:00"
+		},
+		"tag": [],
+		"tag_friends": [],
+		"location": "64 Ngô Sĩ Liên, Hoà Minh, Liên Chiểu, Đà Nẵng",
+		"chat": "Single",
+		"comment": [
+			{
+				"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"content": "this is comment",
+				"user_id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731"
+			}
+		]
+	}
+}

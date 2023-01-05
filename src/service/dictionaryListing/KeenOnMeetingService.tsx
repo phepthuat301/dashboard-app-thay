@@ -2,19 +2,18 @@
 import { httpGet } from '../HttpService';
 
 export default class KeenOnMeetingService {
-    getKeenOnMeetingsSmall() {
-        return httpGet('assets/demo/data/products-small.json').then((res) => res.data.data);
+    private static instance: KeenOnMeetingService;
+    private constructor() { }
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new KeenOnMeetingService();
+        }
+        return this.instance;
     }
 
     getKeenOnMeetings() {
-        return httpGet('assets/demo/data/keen-on-meeting.json').then((res) => res.data.data);
+        return httpGet('../../../assets/demo/data/keen-on-meeting.json').then((res) => res.data.data);
     }
 
-    getKeenOnMeetingsMixed() {
-        return httpGet('assets/demo/data/products-mixed.json').then((res) => res.data.data);
-    }
 
-    getKeenOnMeetingsWithOrdersSmall() {
-        return httpGet('assets/demo/data/products-orders-small.json').then((res) => res.data.data);
-    }
 }

@@ -2,19 +2,16 @@
 import { httpGet } from '../HttpService';
 
 export default class EthnicityService {
-    getEthnicitysSmall() {
-        return httpGet('assets/demo/data/products-small.json').then((res) => res.data.data);
+    private static instance: EthnicityService;
+    private constructor() { }
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new EthnicityService();
+        }
+        return this.instance;
     }
 
     getEthnicitys() {
-        return httpGet('assets/demo/data/ethnicity.json').then((res) => res.data.data);
-    }
-
-    getEthnicitysMixed() {
-        return httpGet('assets/demo/data/products-mixed.json').then((res) => res.data.data);
-    }
-
-    getEthnicitysWithOrdersSmall() {
-        return httpGet('assets/demo/data/products-orders-small.json').then((res) => res.data.data);
+        return httpGet('../../../assets/demo/data/ethnicity.json').then((res) => res.data.data);
     }
 }

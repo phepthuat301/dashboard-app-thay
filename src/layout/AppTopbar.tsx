@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppMenu from './AppMenu';
 import { classNames } from 'primereact/utils';
+import { RightSideNotification } from '../components/RightSideNotification';
 
 const AppTopbar = (props: any) => {
     const onTopbarSubItemClick = (event: any) => {
@@ -19,11 +20,11 @@ const AppTopbar = (props: any) => {
                     </button>
 
                     <button className="logo p-link" onClick={() => navigate('/')}>
-                        <img src={`assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
+                        <img src={`../../../assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
                     </button>
 
                     <button className="p-link" onClick={() => navigate('/')}>
-                        <img src={`assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="app-name" alt="app-name" />
+                        <img src={`../../../assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="app-name" alt="app-name" />
                     </button>
                 </div>
 
@@ -46,7 +47,7 @@ const AppTopbar = (props: any) => {
                     <ul className="layout-topbar-right-items">
                         <li id="profile" className={classNames('profile-item', { 'active-topmenuitem': props.topbarMenuActive })}>
                             <button className="p-link" onClick={props.onTopbarItemClick}>
-                                <img src="assets/layout/images/profile-image.png" alt="profile" />
+                                <img src="../../../assets/layout/images/profile-image.png" alt="profile" />
                             </button>
 
                             <ul className="fadeInDown">
@@ -70,20 +71,14 @@ const AppTopbar = (props: any) => {
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <button className="p-link">
-                                <i className="topbar-icon pi pi-fw pi-bell"></i>
-                                <span className="topbar-badge">2</span>
-                                <span className="topbar-item-name">Notifications</span>
-                            </button>
-                        </li>
-                        <li>
+                        <RightSideNotification />
+                        {/* <li>
                             <button className="p-link">
                                 <i className="topbar-icon pi pi-fw pi-comment"></i>
                                 <span className="topbar-badge">5</span>
                                 <span className="topbar-item-name">Messages</span>
                             </button>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

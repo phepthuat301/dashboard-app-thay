@@ -1,0 +1,50 @@
+{
+	"data": {
+		"total": 1,
+		"data": [
+			{
+				"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"content": "this is title",
+				"media": "https://firebasestorage.googleapis.com/v0/b/dtucom-4dedb.appspot.com/o/abc.mp4?alt=media&token=327dfb9b-a7d6-453e-9433-86acf307af99",
+				"created_at": "2023-01-01T16:00:00",
+				"updated_at": "2023-01-01T16:00:00",
+				"status": "public",
+				"owner": {
+					"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+					"first_name": "Nguyễn",
+					"last_name": "Ngọc Phước",
+					"created_at": "2023-01-11T16:00:00",
+					"updated_at": "2023-01-11T16:00:00"
+				}
+			},
+			{
+				"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+				"content": "this is title",
+				"status": "deleted",
+				"media": [
+					{
+						"url": "https://image.thanhnien.vn/w1024/Uploaded/2022/drkxrvyxqx/2022_09_15/a32i1494-943.jpg"
+					},
+					{
+						"url": "https://image.thanhnien.vn/w1024/Uploaded/2022/drkxrvyxqx/2022_09_15/a32i1494-943.jpg"
+					},
+					{
+						"url": "https://image.thanhnien.vn/w1024/Uploaded/2022/drkxrvyxqx/2022_09_15/a32i1494-943.jpg"
+					},
+					{
+						"url": "https://image.thanhnien.vn/w1024/Uploaded/2022/drkxrvyxqx/2022_09_15/a32i1494-943.jpg"
+					}
+				],
+				"created_at": "2023-01-03T16:00:00",
+				"updated_at": "2023-01-03T16:00:00",
+				"owner": {
+					"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
+					"first_name": "Nguyễn",
+					"last_name": "Ngọc Phước",
+					"created_at": "2023-01-11T16:00:00",
+					"updated_at": "2023-01-11T16:00:00"
+				}
+			}
+		]
+	}
+}

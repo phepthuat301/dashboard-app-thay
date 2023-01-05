@@ -17,8 +17,8 @@ export const Error = (props: any) => {
                 <Button type="button" label="Go back to home" onClick={goDashboard}></Button>
             </div>
             <div className="exception-footer">
-                <img src={`assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-logo" alt="exception-logo" />
-                <img src={`assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-appname" alt="exception-appname" />
+                <img src={`../../../assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-logo" alt="exception-logo" />
+                <img src={`../../../assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-appname" alt="exception-appname" />
             </div>
         </div>
     );
