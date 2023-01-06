@@ -52,8 +52,28 @@ export default class UserService {
         return httpDelete('').then((res) => res.data.data);
     }
 
-    getUserActivities(id: string) {
-        return httpGet('').then((res) => res.data.data);
+    async getUserActivities(id: string, options: {
+        from?: Date;
+        to?: Date;
+        page: number
+    }) {
+        if (!id) return {
+            total: 0,
+            data: []
+        }
+        const result = await httpGet('assets/demo/data/user-activities.json').then((res) => res.data.data);
+        result.data = result.data.map((user: any) => {
+            const created_at = new Date(user.created_at)
+            const updated_at = new Date(user.updated_at)
+            return { ...user, created_at, updated_at }
+        })
+        if (!result) {
+            return {
+                total: 0,
+                data: []
+            }
+        }
+        return result
     }
 
     async getUserFriend(id: string) {

@@ -20,7 +20,8 @@ export enum ReportByEnum {
 }
 
 export enum ActivitiesActionEnum {
-    CHAT = 'Chat',
-    POST = 'Post',
-    COMMENT = 'Comment',
+    SEND_CHAT = 'SEND_CHAT',
+    SEND_POST = 'SEND_POST',
+    COMMENTED = 'COMMENTED',
+    CREATE_ACCOUNT = 'CREATE_ACCOUNT'
 }

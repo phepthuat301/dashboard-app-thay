@@ -86,10 +86,10 @@ const ReportedPage = () => {
                     onClick={() => {
                         switch (rowData.report_type) {
                             case ReportTypeEnum.CHAT:
-                                navigate('/chat-management/detail/' + rowData.reported_id)
+                                navigate('/chat-management/detail-' + rowData.reported_id)
                                 break;
                             case ReportTypeEnum.COMMENT:
-                                navigate('/content-management/comment/' + rowData.reported_id)
+                                navigate('/content-management/comment-' + rowData.reported_id)
                                 break;
                             case ReportTypeEnum.POST:
                                 navigate('/content-management/content-' + rowData.reported_id)

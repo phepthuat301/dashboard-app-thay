@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Timeline } from 'primereact/timeline';
@@ -17,8 +16,6 @@ const AdminActivities = () => {
         { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-envelope', color: '#FF9800' },
         { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
     ];
-
-    const horizontalEvents = ['2020', '2021', '2022', '2023'];
 
     const customizedContent = (item: any) => {
         return (

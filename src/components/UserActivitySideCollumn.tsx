@@ -1,108 +1,69 @@
-
-import { Avatar } from 'primereact/avatar';
+import { Button } from 'primereact/button';
+import { Calendar } from 'primereact/calendar';
 import { Timeline } from 'primereact/timeline';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
+import { ActivitiesActionEnum } from '../utilities/enums';
 import { formatDate } from '../utilities/util';
 
 interface UserActivityCollumnProps {
     title: string;
     subTitle: string;
-    onPageChange: (page: number) => Promise<{
+    onPageChange: (page: IFilterOptions) => Promise<{
         total: number;
         data: Array<IActivity>
     }>;
 }
 
-interface IActivity {
-    action: string,
-    target: string,
-    created_at: Date,
-    icon: 'pi pi-check',
-    iconColor: '#0F8BFD',
+interface IFilterOptions {
+    from?: Date;
+    to?: Date;
+    page: number
+
 }
 
+interface IActivity {
+    action: ActivitiesActionEnum,
+    target: string,
+    created_at: Date,
+    updated_at: Date;
+    user: IUser
+}
+interface IUser {
+    id: string;
+    first_name: string;
+    last_name: string;
+    created_at: Date;
+    updated_at: Date;
+}
+
+let updateDataTimeout: any;
+
 export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ title, subTitle, onPageChange }) => {
-    const timelineEvents = [
-        {
-            transaction: 'Payment from #28492',
-            amount: '+$250.00',
-            date: 'June 13, 2020 11:09 AM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Process refund to #94830',
-            amount: '-$570.00',
-            date: 'June 13, 2020 08:22 AM',
-            icon: 'pi pi-refresh',
-            iconColor: '#FC6161',
-            amountColor: '#FC6161'
-        },
-        {
-            transaction: 'New 8 user to #5849',
-            amount: '+$50.00',
-            date: 'June 12, 2020 02:56 PM',
-            icon: 'pi pi-plus',
-            iconColor: '#0BD18A',
-            amountColor: '#0BD18A'
-        },
-        {
-            transaction: 'Payment from #3382',
-            amount: '+$3830.00',
-            date: 'June 11, 2020 06:11 AM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Payment from #4738',
-            amount: '+$845.00',
-            date: 'June 11, 2020 03:50 AM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Payment failed form #60958',
-            amount: '$1450.00',
-            date: 'June 10, 2020 07:54 PM',
-            icon: 'pi pi-exclamation-triangle',
-            iconColor: '#EC4DBC',
-            amountColor: '#EC4DBC'
-        },
-        {
-            transaction: 'Payment from #5748',
-            amount: '+$50.00',
-            date: 'June 09, 2020 11:37 PM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Removed 32 users from #5849',
-            amount: '-$240.00',
-            date: 'June 09, 2020 08:40 PM',
-            icon: 'pi pi-minus',
-            iconColor: '#FC6161',
-            amountColor: '#FC6161'
-        }
-    ];
-    const marker = (item: any) => {
+
+    const marker = (item: IActivity) => {
         return (
-            <span className="custom-marker" style={{ backgroundColor: item.iconColor }}>
-                <i className={item.icon}></i>
+            <span className="custom-marker" style={{ backgroundColor: getColorByAction(item.action) }}>
+                <i className={getIconByAction(item.action)}></i>
             </span>
         );
     };
     const content = (item: IActivity) => {
         return (
             <>
-                <div className="flex align-items-center justify-content-between">
-                    <p>{item.action}</p>
-                    <h6> {item.target}</h6>
+                <div className="flex align-items-center justify-content-between" >
+                    <p>{getTitleByAction(item.action)}</p>
+                    <h6
+                        style={{
+                            cursor: "pointer"
+                        }}
+                        onClick={() => {
+                            const url = readirectByAction(item.action, item.target)
+                            if (url) {
+                                navigate(url)
+                            }
+                        }}><i className='pi pi-info-circle' />&nbsp;Details</h6>
                 </div>
                 <span>{formatDate(item.created_at)}</span>
             </>
@@ -110,8 +71,9 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
     };
     const [activities, setActivities] = useState<IActivity[]>([])
     const [total, setTotal] = useState<number>(0)
+    const [options, setOptions] = useState<IFilterOptions>({ page: 1 })
     const navigate = useNavigate()
-    const onPageChangeHandle = async (page: number) => {
+    const onPageChangeHandle = async (page: IFilterOptions) => {
         const data = await onPageChange(page)
         if (data) {
             setActivities(data.data)
@@ -119,8 +81,19 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
         }
     }
     useEffect(() => {
-        onPageChangeHandle(1)
-    }, [])
+        (async () => {
+            if (updateDataTimeout)
+                clearTimeout(updateDataTimeout);
+            updateDataTimeout = setTimeout(() => {
+                console.log(options);
+                onPageChangeHandle(options)
+                if (updateDataTimeout)
+                    clearTimeout(updateDataTimeout);
+            }, 200);
+        })()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [options])
     return (
         <div className="card widget-timeline">
             <div className="timeline-header flex justify-content-between align-items-center">
@@ -131,12 +104,39 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
                     color: "#868C9B"
                 }}>{subTitle}</p>
             </div>
-            <div className="timeline-content">
-                {/* <Timeline value={timelineEvents} marker={marker} content={content} className="custimized-timeline" /> */}
+            <div className="timeline-header flex justify-content-between align-items-center">
+                <Calendar
+                    value={options.from}
+                    onChange={(e: any) => setOptions({ ...options, from: new Date(e.target.value) })}
+                    dateFormat="mm/dd/yy"
+                    placeholder="from"
+                    mask="99/99/9999" />
+                &nbsp;
+                <Calendar
+                    value={options.to}
+                    onChange={(e: any) => setOptions({ ...options, to: new Date(e.target.value) })}
+                    dateFormat="mm/dd/yy"
+                    placeholder="to"
+                    mask="99/99/9999" />
+                &nbsp;
+                <Button
+                    onClick={() => {
+                        console.log({ ...options, from: undefined, to: undefined });
+                        setOptions({ ...options, from: undefined, to: undefined })
+                    }}>
+                    <i className={`pi pi-filter-${(options?.from || options?.to) ? 'slash' : 'fill'}`} />
+                </Button>
             </div>
-            <ReactPaginate
-                onPageChange={(e) => { }}
-                pageCount={Math.ceil(3)}
+
+            <div className="timeline-content">
+                <Timeline value={activities} marker={marker} content={content} className="custimized-timeline" />
+            </div>
+            <div className='timeline-header'>
+                {activities.length === 0 && <p> This user is currently have no activity</p>}
+            </div>
+            {Math.ceil(total / 5) > 1 && <ReactPaginate
+                onPageChange={(e) => setOptions({ ...options, page: e.selected })}
+                pageCount={Math.ceil(total / 5)}
                 previousLabel="Prev"
                 nextLabel="Next"
                 pageClassName="page-item"
@@ -149,8 +149,77 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
                 breakClassName="page-item"
                 breakLinkClassName="page-link"
                 containerClassName='pagination'
-            />
+            />}
+
             <br />
         </div>
     );
 };
+
+
+const getColorByAction = (action: ActivitiesActionEnum) => {
+    let color = "rgb(15, 139, 253)"
+    switch (action) {
+        case ActivitiesActionEnum.COMMENTED:
+            color = "rgb(11, 209, 138)"
+            break;
+        case ActivitiesActionEnum.SEND_CHAT:
+            color = "rgb(238, 229, 0)"
+            break;
+        case ActivitiesActionEnum.SEND_POST:
+            color = "rgb(236, 77, 188)"
+            break;
+    }
+    return color
+}
+
+const getIconByAction = (action: ActivitiesActionEnum) => {
+    let icon = "pi pi-refresh"
+    switch (action) {
+        case ActivitiesActionEnum.COMMENTED:
+            icon = "pi pi-comment"
+            break;
+        case ActivitiesActionEnum.SEND_CHAT:
+            icon = "pi pi-comments"
+            break;
+        case ActivitiesActionEnum.SEND_POST:
+            icon = "pi pi-book"
+            break;
+    }
+    return icon
+}
+
+const getTitleByAction = (action: ActivitiesActionEnum) => {
+    let title = ""
+    switch (action) {
+        case ActivitiesActionEnum.COMMENTED:
+            title = "Sent a comment"
+            break;
+        case ActivitiesActionEnum.SEND_CHAT:
+            title = "Sent a chat"
+            break;
+        case ActivitiesActionEnum.SEND_POST:
+            title = "Created a post"
+            break;
+        case ActivitiesActionEnum.CREATE_ACCOUNT:
+            title = "Signing up"
+            break;
+    }
+    return title
+}
+
+const readirectByAction = (action: ActivitiesActionEnum, id: string) => {
+    let url = ''
+    switch (action) {
+        case ActivitiesActionEnum.COMMENTED:
+            url = '/content-management/comment-' + id
+            break;
+        case ActivitiesActionEnum.SEND_CHAT:
+            url = '/chat-management/detail-' + id
+            break;
+        case ActivitiesActionEnum.SEND_POST:
+            url = '/content-management/content-' + id
+            break;
+    }
+    return url
+}

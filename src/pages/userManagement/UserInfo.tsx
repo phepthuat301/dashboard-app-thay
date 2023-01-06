@@ -1,11 +1,10 @@
 import Joi from "joi";
 import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
-import { Timeline } from "primereact/timeline";
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormDialog } from "../../components/FormDialog";
+import { UserActivitySideCollumn } from "../../components/UserActivitySideCollumn";
 import { UserListCollumn } from "../../components/UserListCollumn";
 import UserService from "../../service/userManagement/UserService";
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from "../../utilities/constant";
@@ -38,90 +37,7 @@ export const UserInfo: React.FC = () => {
             setUserDetail(res)
         })
     }, [id])
-    const timelineEvents = [
-        {
-            transaction: 'Payment from #28492',
-            amount: '+$250.00',
-            date: 'June 13, 2020 11:09 AM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Process refund to #94830',
-            amount: '-$570.00',
-            date: 'June 13, 2020 08:22 AM',
-            icon: 'pi pi-refresh',
-            iconColor: '#FC6161',
-            amountColor: '#FC6161'
-        },
-        {
-            transaction: 'New 8 user to #5849',
-            amount: '+$50.00',
-            date: 'June 12, 2020 02:56 PM',
-            icon: 'pi pi-plus',
-            iconColor: '#0BD18A',
-            amountColor: '#0BD18A'
-        },
-        {
-            transaction: 'Payment from #3382',
-            amount: '+$3830.00',
-            date: 'June 11, 2020 06:11 AM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Payment from #4738',
-            amount: '+$845.00',
-            date: 'June 11, 2020 03:50 AM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Payment failed form #60958',
-            amount: '$1450.00',
-            date: 'June 10, 2020 07:54 PM',
-            icon: 'pi pi-exclamation-triangle',
-            iconColor: '#EC4DBC',
-            amountColor: '#EC4DBC'
-        },
-        {
-            transaction: 'Payment from #5748',
-            amount: '+$50.00',
-            date: 'June 09, 2020 11:37 PM',
-            icon: 'pi pi-check',
-            iconColor: '#0F8BFD',
-            amountColor: '#00D0DE'
-        },
-        {
-            transaction: 'Removed 32 users from #5849',
-            amount: '-$240.00',
-            date: 'June 09, 2020 08:40 PM',
-            icon: 'pi pi-minus',
-            iconColor: '#FC6161',
-            amountColor: '#FC6161'
-        }
-    ];
-    const marker = (item: any) => {
-        return (
-            <span className="custom-marker" style={{ backgroundColor: item.iconColor }}>
-                <i className={item.icon}></i>
-            </span>
-        );
-    };
-    const content = (item: any) => {
-        return (
-            <>
-                <div className="flex align-items-center justify-content-between">
-                    <p>{item.transaction}</p>
-                    <h6 style={{ color: item.amountColor }}> {item.amount}</h6>
-                </div>
-                <span>{item.date}</span>
-            </>
-        );
-    };
+
 
     const fields = [
         {
@@ -160,10 +76,10 @@ export const UserInfo: React.FC = () => {
                             <h5>More infomation </h5>
                             <div className="grid">
                                 <div className="col-12 md:col-6">
-                                    {userDetail?.bonus_infomation.filter((info, index) => index % 2 === 0).map(info => <p>{info.key}: {info.value}</p>)}
+                                    {userDetail?.bonus_infomation.filter((info, index) => index % 2 === 0).map(info => <p key={info.key}>{info.key}: {info.value}</p>)}
                                 </div>
                                 <div className="col-12 md:col-6">
-                                    {userDetail?.bonus_infomation.filter((info, index) => index % 2 !== 0).map(info => <p>{info.key}: {info.value}</p>)}
+                                    {userDetail?.bonus_infomation.filter((info, index) => index % 2 !== 0).map(info => <p key={info.key}>{info.key}: {info.value}</p>)}
                                 </div>
                             </div>
                         </div>}
@@ -209,31 +125,17 @@ export const UserInfo: React.FC = () => {
                             const result = await UserService.getInstance().getUserFollower(id ?? "")
                             return result
                         }} />
-                    <div className="card widget-timeline">
-                        <div className="timeline-header flex justify-content-between align-items-center">
-                            <p>Activities</p>
-                        </div>
-                        <div className="timeline-content">
-                            <Timeline value={timelineEvents} marker={marker} content={content} className="custimized-timeline" />
-                        </div>
-                        <ReactPaginate
-                            onPageChange={(e) => { }}
-                            pageCount={Math.ceil(3)}
-                            previousLabel="Prev"
-                            nextLabel="Next"
-                            pageClassName="page-item"
-                            pageLinkClassName="page-link"
-                            previousClassName="page-item"
-                            previousLinkClassName="page-link"
-                            nextClassName="page-item"
-                            nextLinkClassName="page-link"
-                            breakLabel="..."
-                            breakClassName="page-item"
-                            breakLinkClassName="page-link"
-                            containerClassName='pagination'
-                        />
-                        <br />
-                    </div>
+                    <UserActivitySideCollumn
+                        title={"Activities"}
+                        subTitle={userDetail?.first_name + " " + userDetail?.last_name}
+                        onPageChange={async (options: {
+                            from?: Date;
+                            to?: Date;
+                            page: number
+                        }) => {
+                            const userActivities = UserService.getInstance().getUserActivities(id ?? "", options)
+                            return userActivities
+                        }} />
                 </div>
             </div>
             <FormDialog
