@@ -1,7 +1,7 @@
 {
   "name": "atlantis-react-ts",
   "version": "8.0.1",
-  "homepage": ".",
+  "homepage": "../",
   "private": true,
   "dependencies": {
     "@fullcalendar/core": "^5.7.2",
