@@ -4,6 +4,7 @@ import App from '../App';
 import { Login } from '../pages/Login';
 import { Error } from '../pages/Error';
 import { persistColorSchema, persistComponentTheme, persistTheme, readColorSchema, readComponentTheme, readTheme } from '../service/LocalStorageService';
+import { Access } from '../pages/Access';
 
 const AppWrapper = (props: any) => {
     const defaultColorSchema = readColorSchema() ?? 'dark'
@@ -104,8 +105,9 @@ const AppWrapper = (props: any) => {
     }, [])
     return (
         <Routes>
-            <Route path="/login" element={<Login colorScheme={colorScheme} />} />
             <Route path="/error" element={<Error colorScheme={colorScheme} />} />
+            <Route path="/access" element={<Access colorScheme={colorScheme} />} />
+            <Route path="/login" element={<Login colorScheme={colorScheme} />} />
             <Route path="*" element={<App colorScheme={colorScheme} onColorSchemeChange={onColorSchemeChange} componentTheme={componentTheme} onComponentThemeChange={onComponentThemeChange} theme={theme} onMenuThemeChange={onMenuThemeChange} />} />
         </Routes>
     );

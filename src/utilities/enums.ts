@@ -18,3 +18,9 @@ export enum ReportByEnum {
     USER = 'User',
     BOT = 'Bot',
 }
+
+export enum ActivitiesActionEnum {
+    CHAT = 'Chat',
+    POST = 'Post',
+    COMMENT = 'Comment',
+}

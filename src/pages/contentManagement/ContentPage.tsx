@@ -2,14 +2,14 @@ import React, { useState, useRef } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
-import { OverlayPanel } from 'primereact/overlaypanel';
 import ContentService from '../../service/contentManagement/ContentService';
 import { CustomDataTable, customTableOptions, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, selectFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate, threeDot } from '../../utilities/util';
 import { DataTable } from 'primereact/datatable';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ContentStatusEnum } from '../../utilities/enums';
+import { ShowPanelBtn } from '../../components/ShowPanelBtn';
 
 interface IContent {
     id: string;
@@ -31,11 +31,11 @@ interface IUser {
 
 
 const ContentPage = () => {
-    const op = useRef<any>(null);
     const navigate = useNavigate()
     const [refresh, setRefresh] = useState<boolean>(false)
     const [deleteContentDialog, setDeleteContentDialog] = useState<boolean>(false);
     const dt = useRef<any>(null);
+    const [searchParams] = useSearchParams();
     const exportCSV = () => {
         dt.current.exportCSV();
     };
@@ -44,7 +44,6 @@ const ContentPage = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-
                 <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
             </React.Fragment>
         );
@@ -69,11 +68,6 @@ const ContentPage = () => {
 
     const onOptionChange = async (option: customTableOptions) => {
         const contents = await ContentService.getInstance().getContents()
-        contents.data = contents.data.map((content: any) => {
-            const created_at = new Date(content.created_at)
-            const updated_at = new Date(content.updated_at)
-            return { ...content, created_at, updated_at }
-        })
         return contents
     }
 
@@ -88,24 +82,23 @@ const ContentPage = () => {
                         dt={dt}
                         onOptionChange={onOptionChange}
                         refresh={refresh}
+                        defaultFilter={searchParams.get("search") ?? ""}
                     >
                         <Column field="content" header="Content" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="media" header="Video" sortable headerStyle={{ minWidth: '10rem' }}
                             body={(rowdata: IContent) => {
                                 return (<>
-                                    <Button type="button" label="Watch" onClick={(event) => { op.current.toggle(event); }} className="p-button-success" />
-                                    <OverlayPanel ref={op} showCloseIcon>
+                                    <ShowPanelBtn message={'Watch'}>
                                         {typeof rowdata.media === "string" ? <video src={rowdata.media} controls style={{ maxHeight: 500 }}></video>
                                             : <DataTable value={rowdata.media} selectionMode="single" paginator rows={3} >
                                                 <Column header="Image" body={(rowdata: any) => <img src={rowdata.url} alt="" className="product-image" width="50" style={{ boxShadow: '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)' }} />}></Column>
                                                 <Column field="url" header="Detail" body={(rowdata: any) => <a href={rowdata.url} target={"_blank"} rel={"noreferrer"}>{threeDot(rowdata.url, 30)}</a>}></Column>
                                             </DataTable>}
-
-                                    </OverlayPanel>
+                                    </ShowPanelBtn>
                                 </>)
                             }
                             }></Column>
-                        <Column field="owner" header="Owner" sortable headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <Button>{rowdata?.owner?.first_name} {rowdata?.owner?.last_name}</Button>} ></Column>
+                        <Column field="owner" header="Owner" sortable headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <Button onClick={() => navigate('/user-management/user/' + rowdata.id)}>{rowdata?.owner?.first_name} {rowdata?.owner?.last_name}</Button>} ></Column>
                         <Column field="updated_at" filterField="updated_at" dataType="date" header="Last update" body={(rowdata: IContent) => <p>{formatDate(rowdata.updated_at)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterElement={dateFilterTemplate}></Column>
                         <Column field="status" header="Status" headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <span className={`customer-badge status-${rowdata.status}`}>{rowdata.status}</span>} filter filterElement={selectFilterTemplate(Object.values(ContentStatusEnum))}></Column>
                         <Column body={actionBodyTemplate}></Column>

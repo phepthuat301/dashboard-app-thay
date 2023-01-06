@@ -1,0 +1,28 @@
+.user-detail {
+    .detail-content{
+        .basic-info{
+            .left-info{
+                text-align: center;
+                
+            }
+            .right-info {
+                padding-left: 20px;
+                padding-right: 20px;
+                border-left: 1px solid gray;
+            }
+         
+            padding-bottom: 20px;
+        }
+        .more-info{
+            padding-top: 20px;
+            border-top: 1px solid gray;
+        }
+        .post-list {
+            padding-top: 20px;
+            border-top: 1px solid gray;
+        }
+    }
+    .save-permission{
+        width: auto;
+    }
+}

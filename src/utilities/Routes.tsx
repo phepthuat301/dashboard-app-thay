@@ -7,7 +7,9 @@ import KeenOnMeeting from "../pages/dictionaryListing/KeenOnMeeting";
 import ProfileType from "../pages/dictionaryListing/ProfileType";
 import Sexuality from "../pages/dictionaryListing/Sexuality";
 import { ContentDetailPage } from "../pages/contentManagement/ContentDetailPage";
-import UserPage from "../pages/userManagement/userPage";
+import UserPage from "../pages/userManagement/UserPage";
+import { UserDetailPage } from "../pages/userManagement/UserDetailPage";
+import AdminActivities from "../pages/activitisManagement/AdminActivities";
 interface Iroute {
     path: string;
     element?: any;
@@ -87,9 +89,26 @@ export const routes: Iroute[] = [
         label: 'User Management',
         childs: [
             {
+                path: "user/:id",
+                label: 'User Detail',
+                element: < UserDetailPage />
+            },
+            {
                 path: "user",
                 label: 'User',
                 element: < UserPage />
+            },
+
+        ]
+    },
+    {
+        path: "activities-management",
+        label: 'Activities Management',
+        childs: [
+            {
+                path: "admin-activies",
+                label: 'Admin activities',
+                element: < AdminActivities />
             },
         ]
     }

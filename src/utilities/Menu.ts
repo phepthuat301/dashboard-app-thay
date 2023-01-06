@@ -39,6 +39,41 @@ export const menu = [
         ]
     },
     {
+        label: 'User management',
+        icon: 'pi pi-id-card',
+        items: [
+            {
+                label: 'Users',
+                icon: 'pi pi-user',
+                to: 'user-management/user'
+
+            }
+        ]
+    },
+    {
+        label: 'Activities management',
+        icon: 'pi pi-history',
+        items: [
+            {
+                label: 'Admin members',
+                icon: 'pi pi-history',
+                to: '/activities-management/admin-activies'
+            }
+        ]
+    },
+    {
+        label: 'Team management',
+        icon: 'pi pi-users',
+        items: [
+            {
+                label: 'Team members',
+                icon: 'pi pi-users',
+                to: '/documentation'
+            },
+
+        ]
+    },
+    {
         label: 'Chat management',
         icon: 'pi pi-comments',
         items: [
@@ -61,50 +96,6 @@ export const menu = [
                 label: 'Group chat - Directly',
                 icon: 'pi pi-globe',
                 to: '/chat-management/group-directly',
-            }
-        ]
-    },
-    {
-        label: 'User management',
-        icon: 'pi pi-id-card',
-        items: [
-            {
-                label: 'Users',
-                icon: 'pi pi-user',
-                to: 'user-management/user'
-
-            },
-            {
-                label: 'User permission',
-                icon: 'pi pi-key',
-                to: 'user-management/permission'
-            }
-        ]
-    },
-    {
-        label: 'Activities management',
-        icon: 'pi pi-users',
-        items: [
-            {
-                label: 'Admin members',
-                icon: 'pi pi-user',
-                to: '/activities-management/admin'
-            }
-        ]
-    },
-    {
-        label: 'Team management',
-        icon: 'pi pi-users',
-        items: [
-            {
-                label: 'Team members',
-                icon: 'pi pi-user',
-                to: '/documentation'
-            },
-            {
-                label: 'Team permission',
-                icon: 'pi pi-key',
-                to: '/documentation'
             }
         ]
     },
@@ -133,5 +124,6 @@ export const menu = [
                 to: '/blocks',
             },
         ]
-    }
+    },
 ];
+

@@ -75,7 +75,14 @@ const ReportedPage = () => {
     const actionBodyTemplate = (rowData: IReported) => {
         return (
             <div className="actions">
-                <Button icon="pi pi-arrow-up-right" className="p-button-rounded p-button-success mr-2"
+                <Button icon="pi pi-times-circle" className="p-button-rounded p-button-success mr-2"
+                    onClick={() => {
+                        setDeleteReportedDialog(true)
+                        ReportedService.getInstance().banReported(rowData.id).then(() => {
+                            setRefresh(!refresh)
+                        })
+                    }} />
+                <Button icon="pi pi-arrow-up-right" className="p-button-rounded p-button-info mr-2"
                     onClick={() => {
                         switch (rowData.report_type) {
                             case ReportTypeEnum.CHAT:
@@ -92,9 +99,12 @@ const ReportedPage = () => {
                                 break;
                         }
                     }} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger mr-2"
                     onClick={() => {
                         setDeleteReportedDialog(true)
+                        ReportedService.getInstance().deleteReported(rowData.id).then(() => {
+                            setRefresh(!refresh)
+                        })
                     }} />
             </div>
         );
@@ -102,11 +112,6 @@ const ReportedPage = () => {
 
     const onOptionChange = async (option: customTableOptions) => {
         const reporteds = await ReportedService.getInstance().getReporteds()
-        reporteds.data = reporteds.data.map((reported: any) => {
-            const created_at = new Date(reported.created_at)
-            const updated_at = new Date(reported.updated_at)
-            return { ...reported, created_at, updated_at }
-        })
         return reporteds
     }
     const selectValue = Object.values(ReportTypeEnum).map((value) => ({
@@ -160,7 +165,7 @@ const ReportedPage = () => {
 
                     <ConfirmDialog
                         show={deleteReportedDialog}
-                        message={'Please confirm the deletion of this item ?'}
+                        message={'are you sure ?'}
                         onAccept={function (): void {
                             setDeleteReportedDialog(false)
                             setRefresh(!refresh)

@@ -3,9 +3,42 @@
 		"id": "10918eb1-69fd-4e61-8145-9e7ca7c1c731",
 		"first_name": "Nguyễn",
 		"last_name": "Ngọc Phước",
-		"created_at": "2023-01-11T16:00:00",
-		"updated_at": "2023-01-11T16:00:00",
-		"friend": [],
-		"follower": []
+		"email": "phuocnguyenngoc1997@gmail.com",
+		"phone": "0947467073",
+		"sexuality": "Male",
+		"isVip": true,
+		"location": "64 Ngô Sĩ Liên, Đà Nẵng",
+		"ethnicity": "Vietnamese",
+		"keen_on_meetings": [
+			"Female",
+			"Hourse",
+			"Sheep",
+			"Deer"
+		],
+		"topics": [
+			"Gay chat"
+		],
+		"bonus_infomation": [
+			{
+				"key": "Created At",
+				"value": "2023-01-11"
+			},
+			{
+				"key": "Last Updated At",
+				"value": "2023-01-11"
+			},
+			{
+				"key": "Like",
+				"value": "512"
+			},
+			{
+				"key": "Comment",
+				"value": "34"
+			},
+			{
+				"key": "Follow",
+				"value": "3524"
+			}
+		]
 	}
 }

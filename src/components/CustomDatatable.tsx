@@ -16,6 +16,7 @@ interface customDataTableProps {
     rowPerPage?: number;
     children: React.ReactNode;
     refresh?: boolean;
+    defaultFilter?: string;
     onOptionChange: (options: customTableOptions) => Promise<{
         total: number;
         data: Array<any>
@@ -34,7 +35,7 @@ export interface customTableOptions {
     orderType: 1 | 0 | -1 | undefined | null
 }
 
-export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, rowPerPage, onOptionChange, children }) => {
+export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, rowPerPage, onOptionChange, children, defaultFilter }) => {
     const [value, setValue] = useState<{
         total: number;
         data: Array<any>
@@ -45,7 +46,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
     const [loading, setLoading] = useState(false)
     const [options, setOptions] = useState<customTableOptions>(
         {
-            filter: "",
+            filter: defaultFilter ?? "",
             rowPerPage: rowPerPage ?? 10,
             filters: undefined,
             page: 1,
@@ -91,7 +92,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
             ]} value={options.rowPerPage} onChange={(e: any) => setOptions({ ...options, rowPerPage: e.value })} />
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText type="search" onInput={(e) => setOptions({ ...options, filter: e.currentTarget.value })} placeholder="Search..." />
+                <InputText type="search" value={options.filter} onInput={(e) => setOptions({ ...options, filter: e.currentTarget.value })} placeholder="Search..." />
             </span>
         </div>
     );

@@ -6,6 +6,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { useEffect, useState } from 'react';
 import Joi from 'joi'
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../utilities/constant';
+import { Slider } from 'primereact/slider';
 
 interface confirmDialogProps {
     show: boolean;
@@ -22,6 +23,7 @@ interface IDialogField {
     type: CUSTOM_FORM_DIALOG_FIELD_TYPE;
     validate: any;
     selectValue?: Array<{ label: string, value: string }>
+    maxValue?: number
 }
 
 
@@ -50,8 +52,11 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
         const validate = validateSchema.validate(data, {
             abortEarly: false
         })
-        if (!validate.error)
+        if (!validate.error) {
+            setError([])
             onAccept(data)
+        }
+
         else {
             setError(validate.error.details)
             console.log(validate.error.details);
@@ -59,6 +64,14 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
     }
 
     const onSelectChange = (event: any, name: string) => {
+        const val = (event.value) || '';
+        let _data = { ...data };
+        // @ts-ignore
+        _data[`${name}`] = val;
+        setData(_data);
+    }
+
+    const onSliderChange = (event: any, name: string) => {
         const val = (event.value) || '';
         let _data = { ...data };
         // @ts-ignore
@@ -118,6 +131,18 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
                         </small>
                     </div>
                 )
+                break;
+            case CUSTOM_FORM_DIALOG_FIELD_TYPE.slider:
+                result = (
+                    <div className="field" key={field.name}>
+                        <label htmlFor={field.name}>{field.label}: {data[field.name]}</label>
+                        < Slider value={data[field.name]} onChange={(e: any) => onSliderChange(e, field.name)} max={field.maxValue ?? 300} />
+                        <small id="username-help" className="p-error">
+                            {errorMessage}
+                        </small>
+                    </div>
+                )
+                break
 
         }
         return result
@@ -131,7 +156,7 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
     );
     return (
         <>
-            <Dialog visible={show} style={{ width: '450px' }} header=" Details" modal className="p-fluid" footer={DialogFooter} onHide={onDeny}>
+            <Dialog visible={show} style={{ width: '450px' }} header={message ?? "Form"} modal className="p-fluid" footer={DialogFooter} onHide={onDeny}>
                 {
                     fields.map(generateField)
                 }

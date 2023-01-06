@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface IUser {
     id: string;
+    avatar: string;
     first_name: string;
     last_name: string;
     created_at: Date;
@@ -41,10 +42,13 @@ const UserPage = () => {
             <div className="actions">
                 <Button icon="pi pi-info-circle" className="p-button-rounded mr-2"
                     onClick={() => {
-                        setRefresh(!refresh)
                         navigate("/user-management/user/" + rowData.id);
                     }} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
+                <Button icon="pi pi-key" className="p-button-rounded p-button-info mr-2"
+                    onClick={() => {
+                        navigate(`/user-management/user/${rowData.id}?tab=Permission`);
+                    }} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger mr-2"
                     onClick={() => {
                         setDeleteUserDialog(true)
                         UserService.getInstance().deleteUser(rowData.id)
@@ -55,11 +59,6 @@ const UserPage = () => {
 
     const onOptionChange = async (option: customTableOptions) => {
         const users = await UserService.getInstance().getUsers()
-        users.data = users.data.map((user: any) => {
-            const created_at = new Date(user.created_at)
-            const updated_at = new Date(user.updated_at)
-            return { ...user, created_at, updated_at }
-        })
         return users
     }
 
@@ -75,7 +74,11 @@ const UserPage = () => {
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >
-                        <Column field="user" header="User" sortable headerStyle={{ minWidth: '10rem' }} body={(rowdata: IUser) => <Button>{rowdata?.first_name} {rowdata?.last_name}</Button>} ></Column>
+                        <Column field="user" header="User" sortable headerStyle={{ minWidth: '10rem' }}
+                            body={(rowdata: IUser) => <>
+                                <img alt={rowdata.first_name + " " + rowdata.last_name} src={rowdata.avatar} width={24} height={24} className="mr-2" style={{ verticalAlign: 'middle', borderRadius: '50%' }} />
+                                <span className="image-text">{rowdata.first_name + " " + rowdata.last_name}
+                                </span></>} />
                         <Column field="updated_at" filterField="updated_at" dataType="date" header="Last update" body={(rowdata: IUser) => <p>{formatDate(rowdata.updated_at)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterElement={dateFilterTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </CustomDataTable>

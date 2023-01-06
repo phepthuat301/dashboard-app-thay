@@ -11,8 +11,14 @@ export default class ContentService {
         return this.instance;
     }
 
-    getContents() {
-        return httpGet('../../../assets/demo/data/content.json').then((res) => res.data.data);
+    async getContents() {
+        const contents = await httpGet('../../../assets/demo/data/content.json').then((res) => res.data.data);
+        contents.data = contents.data.map((content: any) => {
+            const created_at = new Date(content.created_at)
+            const updated_at = new Date(content.updated_at)
+            return { ...content, created_at, updated_at }
+        })
+        return contents
     }
 
     getContentDetail(id: string) {
