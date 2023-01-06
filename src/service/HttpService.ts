@@ -52,10 +52,10 @@ export const checkHttpStatus = async (result: AxiosResponse<any>) => {
             deleteToken()
         }
         if (result.status === 403) {
-            window.location.href = '../../../../access'
+            window.location.href = '../access'
         }
         if (result.status >= 500) {
-            window.location.href = '../../../../error'
+            window.location.href = '../error'
         }
         return null
     }

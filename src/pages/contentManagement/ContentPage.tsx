@@ -55,7 +55,7 @@ const ContentPage = () => {
                 <Button icon="pi pi-info-circle" className="p-button-rounded mr-2"
                     onClick={() => {
                         setRefresh(!refresh)
-                        navigate("/content-management/content/" + rowData.id);
+                        navigate("/content-management/content-" + rowData.id);
                     }} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
                     onClick={() => {
@@ -98,7 +98,7 @@ const ContentPage = () => {
                                 </>)
                             }
                             }></Column>
-                        <Column field="owner" header="Owner" sortable headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <Button onClick={() => navigate('/user-management/user/' + rowdata.id)}>{rowdata?.owner?.first_name} {rowdata?.owner?.last_name}</Button>} ></Column>
+                        <Column field="owner" header="Owner" sortable headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <Button onClick={() => navigate('/user-management/user-' + rowdata.id)}>{rowdata?.owner?.first_name} {rowdata?.owner?.last_name}</Button>} ></Column>
                         <Column field="updated_at" filterField="updated_at" dataType="date" header="Last update" body={(rowdata: IContent) => <p>{formatDate(rowdata.updated_at)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterElement={dateFilterTemplate}></Column>
                         <Column field="status" header="Status" headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <span className={`customer-badge status-${rowdata.status}`}>{rowdata.status}</span>} filter filterElement={selectFilterTemplate(Object.values(ContentStatusEnum))}></Column>
                         <Column body={actionBodyTemplate}></Column>

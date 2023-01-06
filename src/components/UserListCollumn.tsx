@@ -44,7 +44,7 @@ export const UserListCollumn: React.FC<userListCollumnProps> = ({ title, subTitl
             <div className="content">
                 <ul>
                     {users.map(user =>
-                        <li className="person-item" style={{ cursor: "pointer" }} onClick={() => navigate("/user-management/user/" + user.id)}>
+                        <li className="person-item" style={{ cursor: "pointer" }} onClick={() => navigate("/user-management/user-" + user.id)}>
                             <Avatar image={user.avatar} className="mr-2 p-overlay-badge" shape="circle" />
                             <div className="person-info">
                                 <div className="amount">{user.full_name}</div>

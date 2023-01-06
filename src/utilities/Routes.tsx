@@ -57,14 +57,14 @@ export const routes: Iroute[] = [
         label: 'Content Management',
         childs: [
             {
-                path: "content/:id",
-                label: 'Content',
-                element: < ContentDetailPage />
-            },
-            {
                 path: "content",
                 label: 'Content',
                 element: < ContentPage />
+            },
+            {
+                path: "content-:id",
+                label: 'Content',
+                element: < ContentDetailPage />
             },
             {
                 path: "reported-content",
@@ -89,14 +89,14 @@ export const routes: Iroute[] = [
         label: 'User Management',
         childs: [
             {
-                path: "user/:id",
-                label: 'User Detail',
-                element: < UserDetailPage />
-            },
-            {
                 path: "user",
                 label: 'User',
                 element: < UserPage />
+            },
+            {
+                path: "user-:id",
+                label: 'User Detail',
+                element: < UserDetailPage />
             },
 
         ]

@@ -12,7 +12,7 @@ export default class ContentService {
     }
 
     async getContents() {
-        const contents = await httpGet('../../../assets/demo/data/content.json').then((res) => res.data.data);
+        const contents = await httpGet('assets/demo/data/content.json').then((res) => res.data.data);
         contents.data = contents.data.map((content: any) => {
             const created_at = new Date(content.created_at)
             const updated_at = new Date(content.updated_at)
@@ -22,7 +22,7 @@ export default class ContentService {
     }
 
     getContentDetail(id: string) {
-        return httpGet('../../../assets/demo/data/content-detail.json').then((res) => res.data.data);
+        return httpGet('assets/demo/data/content-detail.json').then((res) => res.data.data);
     }
 
     deleteContent(id: string) {

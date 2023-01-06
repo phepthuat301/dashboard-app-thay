@@ -92,7 +92,7 @@ const ReportedPage = () => {
                                 navigate('/content-management/comment/' + rowData.reported_id)
                                 break;
                             case ReportTypeEnum.POST:
-                                navigate('/content-management/content/' + rowData.reported_id)
+                                navigate('/content-management/content-' + rowData.reported_id)
                                 break;
                             default:
                                 NotifyController.warning("cant open !")

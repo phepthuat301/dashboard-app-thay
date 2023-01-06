@@ -20,11 +20,11 @@ const AppTopbar = (props: any) => {
                     </button>
 
                     <button className="logo p-link" onClick={() => navigate('/')}>
-                        <img src={`../../../assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
+                        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
                     </button>
 
                     <button className="p-link" onClick={() => navigate('/')}>
-                        <img src={`../../../assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="app-name" alt="app-name" />
+                        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="app-name" alt="app-name" />
                     </button>
                 </div>
 
@@ -47,7 +47,7 @@ const AppTopbar = (props: any) => {
                     <ul className="layout-topbar-right-items">
                         <li id="profile" className={classNames('profile-item', { 'active-topmenuitem': props.topbarMenuActive })}>
                             <button className="p-link" onClick={props.onTopbarItemClick}>
-                                <img src="../../../assets/layout/images/profile-image.png" alt="profile" />
+                                <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/profile-image.png"} alt="profile" />
                             </button>
 
                             <ul className="fadeInDown">

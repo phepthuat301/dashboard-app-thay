@@ -26,7 +26,7 @@ const AppInlineMenu = (props: any) => {
             {!isMobile() && (isStatic() || isSlim() || isSidebar()) && (
                 <div className={classNames('layout-inline-menu', { 'layout-inline-menu-active': props.activeInlineProfile })}>
                     <button className="layout-inline-menu-action p-link" onClick={props.onChangeActiveInlineMenu}>
-                        <img src="../../../assets/layout/images/profile-image.png" alt="avatar" style={{ width: '44px', height: '44px' }} />
+                        <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/profile-image.png"} alt="avatar" style={{ width: '44px', height: '44px' }} />
                         <span className="layout-inline-menu-text">Gene Russell</span>
                         <i className="layout-inline-menu-icon pi pi-angle-down"></i>
                     </button>

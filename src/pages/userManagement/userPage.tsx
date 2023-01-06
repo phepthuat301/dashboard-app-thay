@@ -42,11 +42,11 @@ const UserPage = () => {
             <div className="actions">
                 <Button icon="pi pi-info-circle" className="p-button-rounded mr-2"
                     onClick={() => {
-                        navigate("/user-management/user/" + rowData.id);
+                        navigate("/user-management/user-" + rowData.id);
                     }} />
                 <Button icon="pi pi-key" className="p-button-rounded p-button-info mr-2"
                     onClick={() => {
-                        navigate(`/user-management/user/${rowData.id}?tab=Permission`);
+                        navigate(`/user-management/user-${rowData.id}?tab=Permission`);
                     }} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-danger mr-2"
                     onClick={() => {

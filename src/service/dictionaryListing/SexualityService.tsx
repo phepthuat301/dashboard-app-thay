@@ -12,7 +12,7 @@ export default class SexualityService {
     }
 
     getSexualitys() {
-        return httpGet('../../../assets/demo/data/sexuality.json').then((res) => res.data.data);
+        return httpGet('assets/demo/data/sexuality.json').then((res) => res.data.data);
     }
 
 

@@ -11,6 +11,6 @@ export default class InterestTopicsService {
         return this.instance;
     }
     getInterestTopicss() {
-        return httpGet('../../../assets/demo/data/interest-topics.json').then((res) => res.data.data);
+        return httpGet('assets/demo/data/interest-topics.json').then((res) => res.data.data);
     }
 }

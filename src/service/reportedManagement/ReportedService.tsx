@@ -11,7 +11,7 @@ export default class ReportedService {
         return this.instance;
     }
     async getReporteds() {
-        const reporteds = await httpGet('../../../assets/demo/data/reported.json').then((res) => res.data.data)
+        const reporteds = await httpGet('assets/demo/data/reported.json').then((res) => res.data.data)
         reporteds.data = reporteds.data.map((reported: any) => {
             const created_at = new Date(reported.created_at)
             const updated_at = new Date(reported.updated_at)
@@ -20,10 +20,10 @@ export default class ReportedService {
         return reporteds;
     }
     deleteReported(id: string) {
-        return httpDelete('../../../assets/demo/data/reported.json').then((res) => res.data.data);
+        return httpDelete('assets/demo/data/reported.json').then((res) => res.data.data);
     }
 
     banReported(id: string) {
-        return httpDelete('../../../assets/demo/data/reported.json').then((res) => res.data.data);
+        return httpDelete('assets/demo/data/reported.json').then((res) => res.data.data);
     }
 }

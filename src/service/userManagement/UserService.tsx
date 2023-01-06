@@ -12,7 +12,7 @@ export default class UserService {
     }
 
     async getUsers() {
-        const users = await httpGet('../../../assets/demo/data/user.json').then((res) => res.data.data);
+        const users = await httpGet('assets/demo/data/user.json').then((res) => res.data.data);
         if (!users) {
             return {
                 total: 0,
@@ -32,7 +32,7 @@ export default class UserService {
             total: 0,
             data: []
         }
-        const result = await httpGet('../../../assets/demo/data/user-detail.json').then((res) => res.data.data);
+        const result = await httpGet('assets/demo/data/user-detail.json').then((res) => res.data.data);
         if (!result) {
             return {
                 total: 0,
@@ -63,7 +63,7 @@ export default class UserService {
             total: 0,
             data: []
         }
-        const result = await httpGet('../../../assets/demo/data/user-friends.json').then((res) => res.data.data);
+        const result = await httpGet('assets/demo/data/user-friends.json').then((res) => res.data.data);
         result.data = result.data.map((user: any) => {
             const created_at = new Date(user.created_at)
             const updated_at = new Date(user.updated_at)
@@ -84,7 +84,7 @@ export default class UserService {
             total: 0,
             data: []
         }
-        const result = await httpGet('../../../assets/demo/data/user-followers.json').then((res) => res.data.data);
+        const result = await httpGet('assets/demo/data/user-followers.json').then((res) => res.data.data);
         result.data = result.data.map((user: any) => {
             const created_at = new Date(user.created_at)
             const updated_at = new Date(user.updated_at)

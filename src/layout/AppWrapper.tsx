@@ -48,7 +48,7 @@ const AppWrapper = (props: any) => {
 
     const onMenuThemeChange = (theme: string) => {
         const layoutLink = document.getElementById('layout-css');
-        const href = '../../../assets/layout/css/' + theme + '/layout-' + colorScheme + '.css';
+        const href = process.env.REACT_APP_ROOT_PATH + 'assets/layout/css/' + theme + '/layout-' + colorScheme + '.css';
 
         replaceLink(layoutLink, href);
         setTheme(theme);
@@ -57,7 +57,7 @@ const AppWrapper = (props: any) => {
 
     const onComponentThemeChange = (theme: string) => {
         const themeLink = document.getElementById('theme-css');
-        const href = '../../../assets/theme/' + theme + '/theme-' + colorScheme + '.css';
+        const href = process.env.REACT_APP_ROOT_PATH + 'assets/theme/' + theme + '/theme-' + colorScheme + '.css';
 
         replaceLink(themeLink, href);
         setComponentTheme(theme);
@@ -92,13 +92,13 @@ const AppWrapper = (props: any) => {
 
         // theme
         const layoutLink = document.getElementById('layout-css');
-        const themeHref = '../../../assets/layout/css/' + defaultTheme + '/layout-' + defaultColorSchema + '.css';
+        const themeHref = process.env.REACT_APP_ROOT_PATH + 'assets/layout/css/' + defaultTheme + '/layout-' + defaultColorSchema + '.css';
 
         replaceLink(layoutLink, themeHref);
 
         // component theme
         const themeLink = document.getElementById('theme-css');
-        const compThemeHref = '../../../assets/theme/' + defaultComponentTheme + '/theme-' + defaultColorSchema + '.css';
+        const compThemeHref = process.env.REACT_APP_ROOT_PATH + 'assets/theme/' + defaultComponentTheme + '/theme-' + defaultColorSchema + '.css';
 
         replaceLink(themeLink, compThemeHref);
         // eslint-disable-next-line

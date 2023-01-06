@@ -19,8 +19,8 @@ export const NotFound = (props: any) => {
                 <Button type="button" label="Go back to home" onClick={goDashboard}></Button>
             </div>
             <div className="exception-footer">
-                <img src={`../../../assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-logo" alt="expection-logo" />
-                <img src={`../../../assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-appname" alt="expection-appname" />
+                <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-logo" alt="expection-logo" />
+                <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="exception-appname" alt="expection-appname" />
             </div>
         </div>
     );

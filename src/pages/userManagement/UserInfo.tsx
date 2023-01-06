@@ -141,7 +141,7 @@ export const UserInfo: React.FC = () => {
                         <div className="grid basic-info">
                             <div className="col-12 md:col-6 left-info">
 
-                                <Avatar image="../../../assets/layout/images/dashboard/ann.png" className="m-auto p-overlay-badge" shape="circle" style={{ width: 100, height: 100 }} />
+                                <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/ann.png"} className="m-auto p-overlay-badge" shape="circle" style={{ width: 100, height: 100 }} />
                                 <h4>{userDetail?.first_name + " " + userDetail?.last_name}</h4>
                                 <p>{userDetail?.email}</p>
 

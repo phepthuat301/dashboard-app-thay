@@ -12,7 +12,7 @@ export default class KeenOnMeetingService {
     }
 
     getKeenOnMeetings() {
-        return httpGet('../../../assets/demo/data/keen-on-meeting.json').then((res) => res.data.data);
+        return httpGet('assets/demo/data/keen-on-meeting.json').then((res) => res.data.data);
     }
 
 

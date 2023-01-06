@@ -206,10 +206,10 @@ const AppMenu = (props: any) => {
         >
             <div className="menu-logo">
                 <button className="logo p-link">
-                    <img src={`../../../assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" onClick={() => navigate('/')} />
+                    <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" onClick={() => navigate('/')} />
                 </button>
                 <button className="app-name p-link">
-                    <img src={`../../../assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="app-name" onClick={() => navigate('/')} />
+                    <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="app-name" onClick={() => navigate('/')} />
                 </button>
                 <button className="menu-pin p-link" onClick={props.onToggleMenu}>
                     {isOverlay() && <span className="pi pi-times"></span>}
