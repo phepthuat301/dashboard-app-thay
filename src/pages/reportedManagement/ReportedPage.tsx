@@ -191,7 +191,7 @@ const ReportedPage = () => {
                         }} />
                     <ConfirmDialog
                         show={!!solveReportedID}
-                        message={'are you sure to solve it ?'}
+                        message={'are you sure to ban it ?'}
                         onAccept={function (): void {
                             if (solveReportedID) {
                                 ReportedService
