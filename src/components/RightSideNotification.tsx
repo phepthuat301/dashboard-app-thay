@@ -2,6 +2,7 @@
 import { Sidebar } from 'primereact/sidebar';
 import { useEffect, useState } from 'react';
 import NotificationService from '../service/NotificationService';
+import NotifyController from '../utilities/Toast';
 
 interface INotification {
     seen: boolean
@@ -14,10 +15,14 @@ export const RightSideNotification: React.FC = () => {
     const [show, setShow] = useState(false)
     const [notifications, setNotifications] = useState<INotification[]>([])
     useEffect(() => {
-        (async () => {
-            const result = await NotificationService.getInstance().getNotifications()
-            setNotifications(result)
-        })()
+        NotificationService
+            .getInstance()
+            .getNotifications()
+            .then((res) => setNotifications(res))
+            ?.catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
     }, [])
     return (
         <>

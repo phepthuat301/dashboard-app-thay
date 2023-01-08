@@ -3,10 +3,10 @@ import { Button } from "primereact/button";
 import { MultiSelect } from "primereact/multiselect";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UserService from "../../service/userManagement/UserService";
+import AdminService from "../../service/adminManagement/AdminService";
 import NotifyController from "../../utilities/Toast";
 
-export const UserPermission: React.FC = () => {
+export const AdminPermission: React.FC = () => {
     const { id } = useParams();
     const [roles, setRoles] = useState<any>([]);
     const [currentRoles, setCurrentRoles] = useState<any>(null);
@@ -33,7 +33,7 @@ export const UserPermission: React.FC = () => {
     };
 
     useEffect(() => {
-        UserService
+        AdminService
             .getInstance()
             .getAllRoles()
             .then((res) => {
@@ -42,7 +42,7 @@ export const UserPermission: React.FC = () => {
                         name: role.name, code: role.code
                     }))
                     setRoles(roles)
-                    UserService.getInstance().getUserRolesByID(id ?? "").then((res) => {
+                    AdminService.getInstance().getAdminRolesByID(id ?? "").then((res) => {
                         if (Array.isArray(res)) {
                             const roles = res.map((role) => ({
                                 name: role.name, code: role.code
@@ -58,7 +58,7 @@ export const UserPermission: React.FC = () => {
 
     return (
         <>
-            <div className="grid p-fluid input-demo user-detail ">
+            <div className="grid p-fluid input-demo admin-detail ">
                 <div className="col-12 md:col-12">
                     <div className="card ">
                         <h5>Permission</h5>
@@ -77,11 +77,11 @@ export const UserPermission: React.FC = () => {
                         <Button className="p-button save-permission p-component p-button-success mr-2 mb-2"
                             icon={<i className="pi pi-check"></i>}
                             onClick={() => {
-                                UserService
+                                AdminService
                                     .getInstance()
                                     .setRolesById(id ?? "", roles)
                                     .then(() => {
-                                        NotifyController.success("Change user role success")
+                                        NotifyController.success("Change Admin role success")
                                     }).catch((error) => {
                                         NotifyController.error(error?.message)
                                         setSelectedRoles(currentRoles)
@@ -95,7 +95,7 @@ export const UserPermission: React.FC = () => {
                         <Button className="p-button save-permission p-component p-button-secondary mr-2 mb-2"
                             icon={<i className="pi pi-sign-out"></i>}
                             onClick={() => {
-                                navigate('/user-management/user')
+                                navigate('/Admin-management/Admin')
                             }}>&nbsp;Close</Button>
                     </div>
 

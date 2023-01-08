@@ -43,7 +43,9 @@ let defaultFormValue: IReported = {
 const ReportedPage = () => {
     const [refresh, setRefresh] = useState<boolean>(false)
     const [defaultData, setDefaultData] = useState<IReported>(defaultFormValue)
-    const [deleteReportedDialog, setDeleteReportedDialog] = useState<boolean>(false);
+    const [deleteReportedID, setDeleteReportedID] = useState<string | null>(null);
+    const [solveReportedID, setSolveReportedID] = useState<string | null>(null);
+
     const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
     const navigate = useNavigate()
     const dt = useRef<any>(null);
@@ -77,10 +79,7 @@ const ReportedPage = () => {
             <div className="actions">
                 <Button icon="pi pi-times-circle" className="p-button-rounded p-button-success mr-2"
                     onClick={() => {
-                        setDeleteReportedDialog(true)
-                        ReportedService.getInstance().banReported(rowData.id).then(() => {
-                            setRefresh(!refresh)
-                        })
+                        setSolveReportedID(rowData.id)
                     }} />
                 <Button icon="pi pi-arrow-up-right" className="p-button-rounded p-button-info mr-2"
                     onClick={() => {
@@ -101,17 +100,20 @@ const ReportedPage = () => {
                     }} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-danger mr-2"
                     onClick={() => {
-                        setDeleteReportedDialog(true)
-                        ReportedService.getInstance().deleteReported(rowData.id).then(() => {
-                            setRefresh(!refresh)
-                        })
+                        setDeleteReportedID(rowData.id)
                     }} />
             </div>
         );
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const reporteds = await ReportedService.getInstance().getReporteds()
+        const reporteds = await ReportedService
+            .getInstance()
+            .getReporteds()
+            .catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
         return reporteds
     }
     const selectValue = Object.values(ReportTypeEnum).map((value) => ({
@@ -164,14 +166,50 @@ const ReportedPage = () => {
                     </CustomDataTable>
 
                     <ConfirmDialog
-                        show={deleteReportedDialog}
-                        message={'are you sure ?'}
+                        show={!!deleteReportedID}
+                        message={'are you sure to delete it?'}
                         onAccept={function (): void {
-                            setDeleteReportedDialog(false)
-                            setRefresh(!refresh)
+                            if (deleteReportedID) {
+                                ReportedService
+                                    .getInstance()
+                                    .deleteReported(deleteReportedID)
+                                    .then(() => {
+                                        setRefresh(!refresh)
+                                    })
+                                    .catch((error) => {
+                                        NotifyController.error(error?.message)
+                                        console.log(error);
+                                    })
+                                    .finally(() => setRefresh(!refresh))
+                            }
+
+                            setDeleteReportedID(null)
+
                         }}
                         onDeny={function (): void {
-                            setDeleteReportedDialog(false)
+                            setDeleteReportedID(null)
+                        }} />
+                    <ConfirmDialog
+                        show={!!solveReportedID}
+                        message={'are you sure to solve it ?'}
+                        onAccept={function (): void {
+                            if (solveReportedID) {
+                                ReportedService
+                                    .getInstance()
+                                    .banReported(solveReportedID)
+                                    .then(() => {
+                                        setRefresh(!refresh)
+                                    })
+                                    .catch((error) => {
+                                        NotifyController.error(error?.message)
+                                        console.log(error);
+                                    })
+                            }
+                            setSolveReportedID(null)
+
+                        }}
+                        onDeny={function (): void {
+                            setSolveReportedID(null)
                         }} />
                     <FormDialog
                         show={formDialogShow}

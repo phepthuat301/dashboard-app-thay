@@ -25,3 +25,9 @@ export enum ActivitiesActionEnum {
     COMMENTED = 'COMMENTED',
     CREATE_ACCOUNT = 'CREATE_ACCOUNT'
 }
+
+export enum AdminActivitiesActionEnum {
+    BAN_CHAT = 'SEND_CHAT',
+    BAN_POST = 'SEND_POST',
+    BAN_COMMENT = 'COMMENTED'
+}

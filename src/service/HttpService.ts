@@ -38,7 +38,6 @@ export const httpPut = async (url: string, body: any, config?: AxiosRequestConfi
 
 }
 export const httpDelete = async (url: string, body?: any) => {
-
     const result = await httpApi.delete(url, body ?? {})
     checkHttpStatus(result)
     return result

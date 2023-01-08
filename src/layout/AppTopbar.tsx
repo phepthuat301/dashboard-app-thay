@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import AppMenu from './AppMenu';
 import { classNames } from 'primereact/utils';
 import { RightSideNotification } from '../components/RightSideNotification';
+import { useSelector } from 'react-redux';
+import { getUserState } from '../redux/reducers/userReducer';
+import AuthService from '../service/AuthService';
 
 const AppTopbar = (props: any) => {
     const onTopbarSubItemClick = (event: any) => {
-        event.preventDefault();
+        AuthService.getInstance().logout()
     };
-
+    const user = useSelector(getUserState)
     const navigate = useNavigate();
 
     return (
@@ -47,7 +50,7 @@ const AppTopbar = (props: any) => {
                     <ul className="layout-topbar-right-items">
                         <li id="profile" className={classNames('profile-item', { 'active-topmenuitem': props.topbarMenuActive })}>
                             <button className="p-link" onClick={props.onTopbarItemClick}>
-                                <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/profile-image.png"} alt="profile" />
+                                <img src={user.avatar} alt="profile" />
                             </button>
 
                             <ul className="fadeInDown">
@@ -57,12 +60,12 @@ const AppTopbar = (props: any) => {
                                         <span>Profile</span>
                                     </button>
                                 </li>
-                                <li role="menuitem">
+                                {/* <li role="menuitem">
                                     <button className="p-link" onClick={onTopbarSubItemClick}>
                                         <i className="pi pi-fw pi-cog"></i>
                                         <span>Settings</span>
                                     </button>
-                                </li>
+                                </li> */}
                                 <li role="menuitem">
                                     <button className="p-link" onClick={onTopbarSubItemClick}>
                                         <i className="pi pi-fw pi-sign-out"></i>

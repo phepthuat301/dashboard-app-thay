@@ -10,6 +10,8 @@ import { ContentDetailPage } from "../pages/contentManagement/ContentDetailPage"
 import UserPage from "../pages/userManagement/UserPage";
 import { UserDetailPage } from "../pages/userManagement/UserDetailPage";
 import AdminActivities from "../pages/activitisManagement/AdminActivities";
+import AdminPage from "../pages/adminManagement/AdminPage";
+import { AdminDetailPage } from "../pages/adminManagement/AdminDetailPage";
 interface Iroute {
     path: string;
     element?: any;
@@ -111,5 +113,22 @@ export const routes: Iroute[] = [
                 element: < AdminActivities />
             },
         ]
-    }
+    },
+    {
+        path: "Admin-management",
+        label: 'Team Management',
+        childs: [
+            {
+                path: "admin",
+                label: 'Admin',
+                element: < AdminPage />
+            },
+            {
+                path: "admin-:id",
+                label: 'User Detail',
+                element: < AdminDetailPage />
+            },
+
+        ]
+    },
 ]

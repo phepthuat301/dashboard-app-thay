@@ -10,6 +10,7 @@ import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
 import Joi from 'joi';
+import NotifyController from '../../utilities/Toast';
 
 interface IKeenOnMeeting {
     id: string,
@@ -73,9 +74,10 @@ const KeenOnMeeting = () => {
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const keenOnMeetings = await KeenOnMeetingService.getInstance().getKeenOnMeetings()
-
-
+        const keenOnMeetings = await KeenOnMeetingService.getInstance().getKeenOnMeetings().catch((error) => {
+            NotifyController.error(error?.message)
+            console.log(error);
+        })
         return keenOnMeetings
     }
 

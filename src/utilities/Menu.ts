@@ -47,7 +47,12 @@ export const menu = [
                 icon: 'pi pi-user',
                 to: 'user-management/user'
 
-            }
+            },
+            {
+                label: 'Permission',
+                icon: 'pi pi-key',
+                to: '/documentation'
+            },
         ]
     },
     {
@@ -68,9 +73,13 @@ export const menu = [
             {
                 label: 'Team members',
                 icon: 'pi pi-users',
+                to: '/admin-management/admin'
+            },
+            {
+                label: 'Permission',
+                icon: 'pi pi-key',
                 to: '/documentation'
             },
-
         ]
     },
     {

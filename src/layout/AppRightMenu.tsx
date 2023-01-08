@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { classNames } from 'primereact/utils';
 import { Calendar } from 'primereact/calendar';
+import { useSelector } from 'react-redux';
+import { getUserState } from '../redux/reducers/userReducer';
 
 const AppRightPanel = (props: any) => {
     const [date, setDate] = useState<any>(null);
-
+    const user = useSelector(getUserState)
     return (
         <div className={classNames('layout-rightmenu', { 'layout-rightmenu-active': props.rightMenuActive })} onClick={props.onRightMenuClick}>
             <button onClick={() => props.onRightMenuActiveChange(false)} className="layout-rightmenu-close p-link">
@@ -12,9 +14,8 @@ const AppRightPanel = (props: any) => {
             </button>
             <div className="user-detail-wrapper">
                 <div className="user-detail-content">
-                    <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/gene.png"} alt="atlantis" className="user-image" />
-                    <span className="user-name">Gene Russell</span>
-                    <span className="user-number">(406) 555-0120</span>
+                    <img src={user.avatar} alt="atlantis" className="user-image" />
+                    <span className="user-name">{user.first_name + " " + user.last_name}</span>
                 </div>
                 {/* <div className="user-tasks">
                     <div className="user-tasks-item in-progress">

@@ -10,6 +10,7 @@ import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
 import Joi from 'joi';
+import NotifyController from '../../utilities/Toast';
 
 interface ISexuality {
     id: string,
@@ -75,9 +76,10 @@ const Sexuality = () => {
 
     const onOptionChange = async (option: customTableOptions) => {
 
-        const sexualitys = await SexualityService.getInstance().getSexualitys()
-
-
+        const sexualitys = await SexualityService.getInstance().getSexualitys().catch((error) => {
+            NotifyController.error(error?.message)
+            console.log(error);
+        })
         return sexualitys
     }
 

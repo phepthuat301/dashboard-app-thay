@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { classNames } from 'primereact/utils';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import AppTopbar from './layout/AppTopbar';
 import AppFooter from './layout/AppFooter';
@@ -14,15 +14,19 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
-import 'react-toastify/dist/ReactToastify.css';
 import { menu } from './utilities/Menu';
 import { routes } from "./utilities/Routes";
 import { NotFound } from './pages/NotFound';
 import Dashboard from './components/Dashboard';
-import { ToastContainer } from 'react-toastify';
 import AppBreadcrumb from './layout/AppBreadcrumb';
-import { persistMenuMode, readMenuMode } from './service/LocalStorageService';
+import { persistMenuMode, readMenuMode, readToken } from './service/LocalStorageService';
 import ProfileType from './pages/dictionaryListing/ProfileType';
+import { Access } from './pages/Access';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserState } from './redux/reducers/userReducer';
+import { setLogin, setUser } from './redux/actions/userActions';
+import UserService from './service/userManagement/UserService';
+import NotifyController from './utilities/Toast';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -43,7 +47,9 @@ const App = (props: any) => {
     const [resetActiveIndex, setResetActiveIndex] = useState<boolean>(false);
     const copyTooltipRef = useRef<any>();
     const location = useLocation();
-
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const user = useSelector(getUserState)
     PrimeReact.ripple = true;
 
     let rightMenuClick: any;
@@ -60,6 +66,27 @@ const App = (props: any) => {
         setResetActiveIndex(true);
         setMenuActive(false);
     }, [menuMode]);
+
+    useEffect(() => {
+        const token = readToken()
+        if (token && token.length > 0) {
+            dispatch(setLogin(true))
+            UserService.getInstance().getUser().then((res) => {
+                dispatch(setUser({
+                    id: res.id,
+                    avatar: res.avatar,
+                    first_name: res.first_name,
+                    last_name: res.last_name,
+                    isLoggedIn: true
+                }))
+            }).catch((error) => NotifyController.error(error?.message))
+
+        } else {
+            navigate("login")
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user.isLoggedIn])
 
     const onDocumentClick = () => {
         if (!searchClick && searchActive) {
@@ -273,7 +300,6 @@ const App = (props: any) => {
     return (
         <div className={layoutClassName} onClick={onDocumentClick}>
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
-            <ToastContainer />
             <div className="layout-main">
                 <AppTopbar
                     items={menu}
@@ -322,6 +348,7 @@ const App = (props: any) => {
                                 route.childs && route.childs.map((child, key) => <Route key={key} path={child.path} element={child.element} />)
                             }
                         </Route>)}
+                        <Route path="/access" element={<Access colorScheme={props.colorScheme} />} />
                         <Route path="*" element={<NotFound colorScheme={props.colorScheme} />} />
                     </Routes>
                 </div>

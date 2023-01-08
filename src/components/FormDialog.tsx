@@ -56,7 +56,6 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
             setError([])
             onAccept(data)
         }
-
         else {
             setError(validate.error.details)
             console.log(validate.error.details);

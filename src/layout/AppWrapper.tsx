@@ -4,7 +4,8 @@ import App from '../App';
 import { Login } from '../pages/Login';
 import { Error } from '../pages/Error';
 import { persistColorSchema, persistComponentTheme, persistTheme, readColorSchema, readComponentTheme, readTheme } from '../service/LocalStorageService';
-import { Access } from '../pages/Access';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const AppWrapper = (props: any) => {
     const defaultColorSchema = readColorSchema() ?? 'dark'
@@ -17,6 +18,9 @@ const AppWrapper = (props: any) => {
     const [componentTheme, setComponentTheme] = useState(() => defaultComponentTheme);
 
     let location = useLocation();
+
+
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -104,12 +108,14 @@ const AppWrapper = (props: any) => {
         // eslint-disable-next-line
     }, [])
     return (
-        <Routes>
-            <Route path="/error" element={<Error colorScheme={colorScheme} />} />
-            <Route path="/access" element={<Access colorScheme={colorScheme} />} />
-            <Route path="/login" element={<Login colorScheme={colorScheme} />} />
-            <Route path="*" element={<App colorScheme={colorScheme} onColorSchemeChange={onColorSchemeChange} componentTheme={componentTheme} onComponentThemeChange={onComponentThemeChange} theme={theme} onMenuThemeChange={onMenuThemeChange} />} />
-        </Routes>
+        <>
+            <ToastContainer />
+            <Routes>
+                <Route path="/error" element={<Error colorScheme={colorScheme} />} />
+                <Route path="/login" element={<Login colorScheme={colorScheme} />} />
+                <Route path="*" element={<App colorScheme={colorScheme} onColorSchemeChange={onColorSchemeChange} componentTheme={componentTheme} onComponentThemeChange={onComponentThemeChange} theme={theme} onMenuThemeChange={onMenuThemeChange} />} />
+            </Routes>
+        </>
     );
 };
 

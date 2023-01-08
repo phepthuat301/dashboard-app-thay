@@ -1,5 +1,5 @@
 
-import { httpDelete, httpGet } from '../HttpService';
+import { httpDelete, httpGet, httpPost } from '../HttpService';
 
 export default class UserService {
     private static instance: UserService;
@@ -9,6 +9,11 @@ export default class UserService {
             this.instance = new UserService();
         }
         return this.instance;
+    }
+
+    async getUser() {
+        const user = await httpGet('assets/demo/data/current-user.json').then((res) => res.data.data);
+        return user
     }
 
     async getUsers() {
@@ -52,6 +57,11 @@ export default class UserService {
         return httpDelete('').then((res) => res.data.data);
     }
 
+    warningUser(id: string, warning: number) {
+        if (!id) return;
+        return httpDelete('').then((res) => res.data.data);
+    }
+
     async getUserActivities(id: string, options: {
         from?: Date;
         to?: Date;
@@ -75,6 +85,9 @@ export default class UserService {
         }
         return result
     }
+
+
+
 
     async getUserFriend(id: string) {
         console.log(id);
@@ -120,4 +133,25 @@ export default class UserService {
 
     }
 
+
+    async getAllRoles() {
+        const users = await httpGet('assets/demo/data/all-roles.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
+
+    async setRolesById(id: string, roles: { name: string, code: string }) {
+        const users = await httpPost('assets/demo/data/all-roles.json', {
+            id,
+            roles
+        }).then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
+
+    async getUserRolesByID(id: string) {
+        const users = await httpGet('assets/demo/data/all-roles.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
 }

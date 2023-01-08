@@ -3,16 +3,19 @@ import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { FormDialog } from "../../components/FormDialog";
 import { UserActivitySideCollumn } from "../../components/UserActivitySideCollumn";
 import { UserListCollumn } from "../../components/UserListCollumn";
 import UserService from "../../service/userManagement/UserService";
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from "../../utilities/constant";
+import NotifyController from "../../utilities/Toast";
 
 interface IUser {
     id: string;
     first_name: string;
     last_name: string;
+    avatar: string;
     email: string;
     phone: string;
     sexuality: string;
@@ -30,12 +33,20 @@ interface IUser {
 export const UserInfo: React.FC = () => {
     const { id } = useParams();
     const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
+    const [banUserConfirmDialogShow, setBanUserConfirmDialogShow] = useState<boolean>(false);
     const [userDetail, setUserDetail] = useState<IUser | null>()
     const navigate = useNavigate()
     useEffect(() => {
-        UserService.getInstance().getUserDetail(id ?? "").then((res: IUser) => {
-            setUserDetail(res)
-        })
+        UserService
+            .getInstance()
+            .getUserDetail(id ?? "")
+            .then((res: IUser) => {
+                setUserDetail(res)
+            })
+            .catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
     }, [id])
 
 
@@ -57,7 +68,7 @@ export const UserInfo: React.FC = () => {
                         <div className="grid basic-info">
                             <div className="col-12 md:col-6 left-info">
 
-                                <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/ann.png"} className="m-auto p-overlay-badge" shape="circle" style={{ width: 100, height: 100 }} />
+                                <Avatar image={userDetail?.avatar} className="m-auto p-overlay-badge" shape="circle" style={{ width: 100, height: 100 }} />
                                 <h4>{userDetail?.first_name + " " + userDetail?.last_name}</h4>
                                 <p>{userDetail?.email}</p>
 
@@ -100,7 +111,7 @@ export const UserInfo: React.FC = () => {
                         <Button className="p-button p-component p-button-danger mr-2 mb-2"
                             icon={<i className="pi pi-user-minus"></i>}
                             onClick={() => {
-                                UserService.getInstance().banUser(id ?? "")
+                                setBanUserConfirmDialogShow(true)
                             }}>&nbsp;Ban User</Button>
                         <Button className="p-button p-component p-button-warning mr-2 mb-2"
                             icon={<i className="pi pi-exclamation-triangle"></i>}
@@ -117,12 +128,24 @@ export const UserInfo: React.FC = () => {
                 <div className="col-12 md:col-4">
                     <UserListCollumn title={"Friends"} subTitle={"Friend list"}
                         onPageChange={async (page: number) => {
-                            const result = await UserService.getInstance().getUserFriend(id ?? "")
+                            const result = await UserService
+                                .getInstance()
+                                .getUserFriend(id ?? "")
+                                .catch((error) => {
+                                    NotifyController.error(error?.message)
+                                    console.log(error);
+                                })
                             return result
                         }} />
                     <UserListCollumn title={"Followers"} subTitle={"Follower list"}
                         onPageChange={async (page: number) => {
-                            const result = await UserService.getInstance().getUserFollower(id ?? "")
+                            const result = await UserService
+                                .getInstance()
+                                .getUserFollower(id ?? "")
+                                .catch((error) => {
+                                    NotifyController.error(error?.message)
+                                    console.log(error);
+                                })
                             return result
                         }} />
                     <UserActivitySideCollumn
@@ -133,7 +156,7 @@ export const UserInfo: React.FC = () => {
                             to?: Date;
                             page: number
                         }) => {
-                            const userActivities = UserService.getInstance().getUserActivities(id ?? "", options)
+                            const userActivities = await UserService.getInstance().getUserActivities(id ?? "", options)
                             return userActivities
                         }} />
                 </div>
@@ -146,11 +169,34 @@ export const UserInfo: React.FC = () => {
                     warning: 0
                 }}
                 onAccept={function (data: any): void {
-                    console.log(data);
+                    UserService
+                        .getInstance()
+                        .warningUser(id ?? "", data.warning)
+                        ?.catch((error) => {
+                            NotifyController.error(error?.message)
+                            console.log(error);
+                        })
+                        ?.finally(() => setFormDialogShow(false));
                 }}
                 onDeny={function (): void {
                     setFormDialogShow(false)
                 }} />
+            <ConfirmDialog
+                show={banUserConfirmDialogShow}
+                message={"Are you sure you will ban this user?"}
+                onAccept={function (): void {
+                    UserService
+                        .getInstance()
+                        .banUser(id ?? "")
+                        ?.catch((error) => {
+                            NotifyController.error(error?.message)
+                            console.log(error);
+                        })
+                        ?.finally(() => setBanUserConfirmDialogShow(false))
+                }} onDeny={function (): void {
+                    setBanUserConfirmDialogShow(false)
+                }}
+            />
         </>
     );
 };

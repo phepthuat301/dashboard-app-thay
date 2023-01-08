@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
 import { ActivitiesActionEnum } from '../utilities/enums';
-import { formatDate } from '../utilities/util';
+import NotifyController from '../utilities/Toast';
+import { formatDate, getColorByActionActivities, getIconByActionActivities, getTitleByActionActivities, readirectByActionActivities } from '../utilities/util';
+import { SpinWraper } from './SpinWraper';
 
 interface UserActivityCollumnProps {
     title: string;
@@ -44,8 +46,8 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
 
     const marker = (item: IActivity) => {
         return (
-            <span className="custom-marker" style={{ backgroundColor: getColorByAction(item.action) }}>
-                <i className={getIconByAction(item.action)}></i>
+            <span className="custom-marker" style={{ backgroundColor: getColorByActionActivities(item.action) }}>
+                <i className={getIconByActionActivities(item.action)}></i>
             </span>
         );
     };
@@ -53,13 +55,13 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
         return (
             <>
                 <div className="flex align-items-center justify-content-between" >
-                    <p>{getTitleByAction(item.action)}</p>
+                    <p>{getTitleByActionActivities(item.action)}</p>
                     <h6
                         style={{
                             cursor: "pointer"
                         }}
                         onClick={() => {
-                            const url = readirectByAction(item.action, item.target)
+                            const url = readirectByActionActivities(item.action, item.target)
                             if (url) {
                                 navigate(url)
                             }
@@ -70,11 +72,17 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
         );
     };
     const [activities, setActivities] = useState<IActivity[]>([])
+    const [loading, setLoading] = useState<boolean>(false)
     const [total, setTotal] = useState<number>(0)
     const [options, setOptions] = useState<IFilterOptions>({ page: 1 })
     const navigate = useNavigate()
     const onPageChangeHandle = async (page: IFilterOptions) => {
         const data = await onPageChange(page)
+            .catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
+            .finally(() => setLoading(false))
         if (data) {
             setActivities(data.data)
             setTotal(data.total)
@@ -82,6 +90,7 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
     }
     useEffect(() => {
         (async () => {
+            setLoading(true)
             if (updateDataTimeout)
                 clearTimeout(updateDataTimeout);
             updateDataTimeout = setTimeout(() => {
@@ -89,137 +98,70 @@ export const UserActivitySideCollumn: React.FC<UserActivityCollumnProps> = ({ ti
                 onPageChangeHandle(options)
                 if (updateDataTimeout)
                     clearTimeout(updateDataTimeout);
-            }, 200);
+            }, 500);
         })()
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [options])
     return (
-        <div className="card widget-timeline">
-            <div className="timeline-header flex justify-content-between align-items-center">
-                <p>{title}</p>
+        <SpinWraper isSpin={loading}>
+            <div className="card widget-timeline">
+                <div className="timeline-header flex justify-content-between align-items-center">
+                    <p>{title}</p>
+                    <br />
+                    <p className='subtitle' style={{
+                        fontSize: 12,
+                        color: "#868C9B"
+                    }}>{subTitle}</p>
+                </div>
+                <div className="timeline-header flex justify-content-between align-items-center">
+                    <Calendar
+                        value={options.from}
+                        onChange={(e: any) => setOptions({ ...options, from: new Date(e.target.value) })}
+                        dateFormat="mm/dd/yy"
+                        placeholder="From"
+                        mask="99/99/9999" />
+                    &nbsp;
+                    <Calendar
+                        value={options.to}
+                        onChange={(e: any) => setOptions({ ...options, to: new Date(e.target.value) })}
+                        dateFormat="mm/dd/yy"
+                        placeholder="To"
+                        mask="99/99/9999" />
+                    &nbsp;
+                    <Button
+                        className={`p-button-${(options?.from || options?.to) ? 'info' : 'secondary'}`}
+                        onClick={() => {
+                            setOptions({ ...options, from: undefined, to: undefined })
+                        }}>
+                        <i className={`pi pi-filter-${(options?.from || options?.to) ? 'slash' : 'fill'}`} />
+                    </Button>
+                </div>
+
+                <div className="timeline-content">
+                    <Timeline value={activities} marker={marker} content={content} className="custimized-timeline" />
+                </div>
+                <div className='timeline-header'>
+                    {activities.length === 0 && <p> This user is currently have no activity</p>}
+                </div>
+                {Math.ceil(total / 5) > 1 && <ReactPaginate
+                    onPageChange={(e) => setOptions({ ...options, page: e.selected })}
+                    pageCount={Math.ceil(total / 5)}
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakLabel="..."
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName='pagination'
+                />}
+
                 <br />
-                <p className='subtitle' style={{
-                    fontSize: 12,
-                    color: "#868C9B"
-                }}>{subTitle}</p>
             </div>
-            <div className="timeline-header flex justify-content-between align-items-center">
-                <Calendar
-                    value={options.from}
-                    onChange={(e: any) => setOptions({ ...options, from: new Date(e.target.value) })}
-                    dateFormat="mm/dd/yy"
-                    placeholder="from"
-                    mask="99/99/9999" />
-                &nbsp;
-                <Calendar
-                    value={options.to}
-                    onChange={(e: any) => setOptions({ ...options, to: new Date(e.target.value) })}
-                    dateFormat="mm/dd/yy"
-                    placeholder="to"
-                    mask="99/99/9999" />
-                &nbsp;
-                <Button
-                    onClick={() => {
-                        console.log({ ...options, from: undefined, to: undefined });
-                        setOptions({ ...options, from: undefined, to: undefined })
-                    }}>
-                    <i className={`pi pi-filter-${(options?.from || options?.to) ? 'slash' : 'fill'}`} />
-                </Button>
-            </div>
-
-            <div className="timeline-content">
-                <Timeline value={activities} marker={marker} content={content} className="custimized-timeline" />
-            </div>
-            <div className='timeline-header'>
-                {activities.length === 0 && <p> This user is currently have no activity</p>}
-            </div>
-            {Math.ceil(total / 5) > 1 && <ReactPaginate
-                onPageChange={(e) => setOptions({ ...options, page: e.selected })}
-                pageCount={Math.ceil(total / 5)}
-                previousLabel="Prev"
-                nextLabel="Next"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName='pagination'
-            />}
-
-            <br />
-        </div>
+        </SpinWraper>
     );
 };
-
-
-const getColorByAction = (action: ActivitiesActionEnum) => {
-    let color = "rgb(15, 139, 253)"
-    switch (action) {
-        case ActivitiesActionEnum.COMMENTED:
-            color = "rgb(11, 209, 138)"
-            break;
-        case ActivitiesActionEnum.SEND_CHAT:
-            color = "rgb(238, 229, 0)"
-            break;
-        case ActivitiesActionEnum.SEND_POST:
-            color = "rgb(236, 77, 188)"
-            break;
-    }
-    return color
-}
-
-const getIconByAction = (action: ActivitiesActionEnum) => {
-    let icon = "pi pi-refresh"
-    switch (action) {
-        case ActivitiesActionEnum.COMMENTED:
-            icon = "pi pi-comment"
-            break;
-        case ActivitiesActionEnum.SEND_CHAT:
-            icon = "pi pi-comments"
-            break;
-        case ActivitiesActionEnum.SEND_POST:
-            icon = "pi pi-book"
-            break;
-    }
-    return icon
-}
-
-const getTitleByAction = (action: ActivitiesActionEnum) => {
-    let title = ""
-    switch (action) {
-        case ActivitiesActionEnum.COMMENTED:
-            title = "Sent a comment"
-            break;
-        case ActivitiesActionEnum.SEND_CHAT:
-            title = "Sent a chat"
-            break;
-        case ActivitiesActionEnum.SEND_POST:
-            title = "Created a post"
-            break;
-        case ActivitiesActionEnum.CREATE_ACCOUNT:
-            title = "Signing up"
-            break;
-    }
-    return title
-}
-
-const readirectByAction = (action: ActivitiesActionEnum, id: string) => {
-    let url = ''
-    switch (action) {
-        case ActivitiesActionEnum.COMMENTED:
-            url = '/content-management/comment-' + id
-            break;
-        case ActivitiesActionEnum.SEND_CHAT:
-            url = '/chat-management/detail-' + id
-            break;
-        case ActivitiesActionEnum.SEND_POST:
-            url = '/content-management/content-' + id
-            break;
-    }
-    return url
-}

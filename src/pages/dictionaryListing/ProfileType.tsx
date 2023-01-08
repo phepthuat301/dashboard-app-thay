@@ -10,6 +10,7 @@ import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
 import Joi from 'joi';
+import NotifyController from '../../utilities/Toast';
 
 interface IProfileType {
     id: string,
@@ -73,7 +74,10 @@ const ProfileType = () => {
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const profileTypes = await ProfileTypeService.getInstance().getProfileTypes()
+        const profileTypes = await ProfileTypeService.getInstance().getProfileTypes().catch((error) => {
+            NotifyController.error(error?.message)
+            console.log(error);
+        })
 
 
         return profileTypes

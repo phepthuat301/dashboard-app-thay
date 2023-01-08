@@ -11,8 +11,8 @@ interface confirmDialogProps {
 export const ConfirmDialog: React.FC<confirmDialogProps> = ({ show, message, onAccept, onDeny }) => {
     const deleteDialogFooter = (
         <>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={onAccept} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={onDeny} />
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={onDeny} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={onAccept} />
         </>
     );
     return (

@@ -10,6 +10,7 @@ import { DataTable } from 'primereact/datatable';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ContentStatusEnum } from '../../utilities/enums';
 import { ShowPanelBtn } from '../../components/ShowPanelBtn';
+import NotifyController from '../../utilities/Toast';
 
 interface IContent {
     id: string;
@@ -33,7 +34,7 @@ interface IUser {
 const ContentPage = () => {
     const navigate = useNavigate()
     const [refresh, setRefresh] = useState<boolean>(false)
-    const [deleteContentDialog, setDeleteContentDialog] = useState<boolean>(false);
+    const [deleteContentID, setDeleteContentID] = useState<string | undefined>(undefined);
     const dt = useRef<any>(null);
     const [searchParams] = useSearchParams();
     const exportCSV = () => {
@@ -49,7 +50,7 @@ const ContentPage = () => {
         );
     };
 
-    const actionBodyTemplate = (rowData: any) => {
+    const actionBodyTemplate = (rowData: IContent) => {
         return (
             <div className="actions">
                 <Button icon="pi pi-info-circle" className="p-button-rounded mr-2"
@@ -59,15 +60,20 @@ const ContentPage = () => {
                     }} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
                     onClick={() => {
-                        setDeleteContentDialog(true)
-                        ContentService.getInstance().deleteContent(rowData.id)
+                        setDeleteContentID(rowData.id)
                     }} />
             </div>
         );
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const contents = await ContentService.getInstance().getContents()
+        const contents = await ContentService
+            .getInstance()
+            .getContents()
+            .catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
         return contents
     }
 
@@ -105,14 +111,26 @@ const ContentPage = () => {
                     </CustomDataTable>
 
                     <ConfirmDialog
-                        show={deleteContentDialog}
+                        show={!!deleteContentID}
                         message={'Please confirm the deletion of this item ?'}
                         onAccept={function (): void {
-                            setDeleteContentDialog(false)
-                            setRefresh(!refresh)
+                            if (deleteContentID)
+                                ContentService.getInstance().deleteContent(deleteContentID)
+                                    .then(() => {
+                                        NotifyController.success('Delete successfully')
+                                    })
+                                    .catch((error) => {
+                                        NotifyController.error(error?.message)
+                                        console.log(error);
+                                    })
+                                    .finally(() => {
+                                        setDeleteContentID(undefined)
+                                        setRefresh(!refresh)
+                                    })
+
                         }}
                         onDeny={function (): void {
-                            setDeleteContentDialog(false)
+                            setDeleteContentID(undefined)
                         }} />
                 </div>
             </div>

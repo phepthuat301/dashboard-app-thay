@@ -1,0 +1,32 @@
+.admin-detail {
+    .detail-content{
+        .basic-info{
+            .left-info{
+                text-align: center;
+                
+            }
+            .right-info {
+                padding-left: 20px;
+                padding-right: 20px;
+                border-left: 1px solid gray;
+            }
+         
+            padding-bottom: 20px;
+        }
+        .more-info{
+            padding-top: 20px;
+            border-top: 1px solid gray;
+            .grid{
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+        }
+        .post-list {
+            padding-top: 20px;
+            border-top: 1px solid gray;
+        }
+    }
+    .save-permission{
+        width: auto;
+    }
+}

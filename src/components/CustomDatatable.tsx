@@ -88,7 +88,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <Dropdown className='m-0' options={[
-                5, 10, 25, 100
+                5, 10, 25, 100, 1000
             ]} value={options.rowPerPage} onChange={(e: any) => setOptions({ ...options, rowPerPage: e.value })} />
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
@@ -101,10 +101,10 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
         <>
             <DataTable
                 ref={dt}
-                value={value.data}
+                value={value?.data}
                 paginator={false}
                 className="datatable-responsive"
-                emptyMessage="No ethnicitys found."
+                emptyMessage="No record found."
                 header={header}
                 responsiveLayout="scroll"
                 sortField={options.order}
@@ -120,9 +120,9 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
                 {children}
             </DataTable>
             <br />
-            {Math.ceil(value.total / options.rowPerPage) > 1 && <ReactPaginate
+            {Math.ceil(value?.total / options.rowPerPage) > 1 && <ReactPaginate
                 onPageChange={(e) => { setOptions({ ...options, page: e.selected }) }}
-                pageCount={Math.ceil(value.total / options.rowPerPage)}
+                pageCount={Math.ceil(value?.total / options.rowPerPage)}
                 previousLabel="Prev"
                 nextLabel="Next"
                 pageClassName="page-item"
