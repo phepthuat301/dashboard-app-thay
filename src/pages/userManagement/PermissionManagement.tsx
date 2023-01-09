@@ -3,8 +3,7 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 
-import ProfileTypeService from '../../service/dictionaryListing/ProfileTypeService';
-
+import EthnicityService from '../../service/dictionaryListing/EthnicityService';
 import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
@@ -12,23 +11,24 @@ import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
 import Joi from 'joi';
 import NotifyController from '../../utilities/Toast';
 
-interface IProfileType {
+interface IEthnicity {
     id: string,
     key: string,
     name: string,
 }
-let defaultFormValue: IProfileType = {
+let defaultFormValue: IEthnicity = {
     id: '',
     key: '',
-    name: '',
+    name: ''
 };
 
-const ProfileType = () => {
-    const [refresh, setRefresh] = useState<boolean>(false)
-    const [defaultData, setDefaultData] = useState<IProfileType>(defaultFormValue)
-    const [deleteProfileTypeDialog, setDeleteProfileTypeDialog] = useState<boolean>(false);
-    const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
 
+
+const PermissionManagement = () => {
+    const [refresh, setRefresh] = useState<boolean>(false)
+    const [defaultData, setDefaultData] = useState<IEthnicity>(defaultFormValue)
+    const [deleteEthnicityDialog, setDeleteEthnicityDialog] = useState<boolean>(false);
+    const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
     const dt = useRef<any>(null);
     const exportCSV = () => {
         dt.current.exportCSV();
@@ -67,27 +67,44 @@ const ProfileType = () => {
                     }} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
                     onClick={() => {
-                        setDeleteProfileTypeDialog(true)
+                        setDeleteEthnicityDialog(true)
                     }} />
             </div>
         );
     };
 
     const onOptionChange = async (option: customTableOptions) => {
-        const profileTypes = await ProfileTypeService.getInstance().getProfileTypes().catch((error) => {
-            NotifyController.error(error?.message)
-            console.log(error);
-        })
+        const ethnicitys = await EthnicityService.getInstance().getEthnicitys()
+            .catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
 
 
-        return profileTypes
+        return ethnicitys
     }
+
+
+    const fields = [
+        {
+            name: 'name',
+            label: 'Role Name',
+            type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
+            validate: Joi.string().min(6).required()
+        },
+        {
+            name: 'permissions',
+            label: 'Permissions',
+            type: CUSTOM_FORM_DIALOG_FIELD_TYPE.multiSelect,
+            validate: Joi.array().min(0).required()
+        }
+    ]
 
     return (
         <div className="grid crud-demo">
             <div className="col-12">
                 <div className="card">
-                    <h5>ProfileType</h5>
+                    <h5>Permission</h5>
                     <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
                     <CustomDataTable
@@ -96,39 +113,24 @@ const ProfileType = () => {
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >
-
-                        <Column field="key" header="Key" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="key" header="key" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="name" header="Name" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </CustomDataTable>
 
                     <ConfirmDialog
-                        show={deleteProfileTypeDialog}
+                        show={deleteEthnicityDialog}
                         message={'Please confirm the deletion of this item ?'}
                         onAccept={function (): void {
-                            setDeleteProfileTypeDialog(false)
+                            setDeleteEthnicityDialog(false)
                             setRefresh(!refresh)
                         }}
                         onDeny={function (): void {
-                            setDeleteProfileTypeDialog(false)
+                            setDeleteEthnicityDialog(false)
                         }} />
                     <FormDialog
                         show={formDialogShow}
-                        fields={[
-                            {
-                                name: 'name',
-                                label: 'Name',
-                                type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
-                                validate: Joi.string().min(6).required()
-                            },
-                            {
-                                name: 'key',
-                                label: 'Key',
-                                type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
-                                validate: Joi.string().min(6).required()
-                            },
-
-                        ]}
+                        fields={fields}
                         defaultValue={defaultData}
                         onAccept={function (data: any): void {
                             console.log(data);
@@ -142,4 +144,4 @@ const ProfileType = () => {
     );
 };
 
-export default ProfileType;
+export default PermissionManagement;

@@ -56,17 +56,6 @@ export const menu = [
         ]
     },
     {
-        label: 'Activities management',
-        icon: 'pi pi-history',
-        items: [
-            {
-                label: 'Admin members',
-                icon: 'pi pi-history',
-                to: '/activities-management/admin-activies'
-            }
-        ]
-    },
-    {
         label: 'Team management',
         icon: 'pi pi-users',
         items: [
@@ -80,6 +69,11 @@ export const menu = [
                 icon: 'pi pi-key',
                 to: '/documentation'
             },
+            {
+                label: 'Admin members',
+                icon: 'pi pi-history',
+                to: '/admin-management/activies'
+            }
         ]
     },
     {

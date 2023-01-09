@@ -104,17 +104,6 @@ export const routes: Iroute[] = [
         ]
     },
     {
-        path: "activities-management",
-        label: 'Activities Management',
-        childs: [
-            {
-                path: "admin-activies",
-                label: 'Admin activities',
-                element: < AdminActivities />
-            },
-        ]
-    },
-    {
         path: "Admin-management",
         label: 'Team Management',
         childs: [
@@ -128,7 +117,11 @@ export const routes: Iroute[] = [
                 label: 'User Detail',
                 element: < AdminDetailPage />
             },
-
+            {
+                path: "activies",
+                label: 'Admin activities',
+                element: < AdminActivities />
+            },
         ]
     },
 ]

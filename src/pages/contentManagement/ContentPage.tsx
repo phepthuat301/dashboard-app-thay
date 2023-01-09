@@ -91,7 +91,7 @@ const ContentPage = () => {
                         defaultFilter={searchParams.get("search") ?? ""}
                     >
                         <Column field="content" header="Content" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="media" header="Video" sortable headerStyle={{ minWidth: '10rem' }}
+                        <Column field="media" header="Media" sortable headerStyle={{ minWidth: '10rem' }}
                             body={(rowdata: IContent) => {
                                 return (<>
                                     <ShowPanelBtn message={'Watch'}>

@@ -29,7 +29,7 @@ export const UserPermission: React.FC = () => {
             );
         }
 
-        return 'Select Countries';
+        return 'Select Permission';
     };
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export const UserPermission: React.FC = () => {
                             onChange={(e) => setSelectedRoles(e.value)}
                             options={roles}
                             optionLabel="name"
-                            placeholder="Select Countries"
+                            placeholder="Select Permission"
                             filter
                             itemTemplate={itemTemplate}
                             selectedItemTemplate={selectedItemTemplate}

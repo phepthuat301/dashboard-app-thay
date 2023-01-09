@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Joi from 'joi'
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../utilities/constant';
 import { Slider } from 'primereact/slider';
+import { MultiSelect } from 'primereact/multiselect';
 
 interface confirmDialogProps {
     show: boolean;
@@ -23,6 +24,7 @@ interface IDialogField {
     type: CUSTOM_FORM_DIALOG_FIELD_TYPE;
     validate: any;
     selectValue?: Array<{ label: string, value: string }>
+    multiselectValue?: Array<{ name: string, code: string }>
     maxValue?: number
 }
 
@@ -131,6 +133,26 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
                     </div>
                 )
                 break;
+            case CUSTOM_FORM_DIALOG_FIELD_TYPE.multiSelect:
+                result = (
+                    <div className="field" key={field.name}>
+                        <label htmlFor={field.name}>{field.label}</label>
+                        <MultiSelect
+                            value={data[field.name]} onChange={(e) => onSelectChange(e, field.name)}
+                            options={field.multiselectValue}
+                            optionLabel="name"
+                            placeholder={field.label}
+                            filter
+                            itemTemplate={itemTemplate}
+                            selectedItemTemplate={selectedItemTemplate}
+                            className="multiselect-custom"
+                        />
+                        <small id="username-help" className="p-error">
+                            {errorMessage}
+                        </small>
+                    </div>
+                )
+                break;
             case CUSTOM_FORM_DIALOG_FIELD_TYPE.slider:
                 result = (
                     <div className="field" key={field.name}>
@@ -162,4 +184,24 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
             </Dialog>
         </>
     );
+};
+
+const itemTemplate = (option: any) => {
+    return (
+        <div className="flex align-items-center">
+            <span>{option.name}</span>
+        </div>
+    );
+};
+
+const selectedItemTemplate = (option: any) => {
+    if (option) {
+        return (
+            <div className="inline-flex align-items-center py-1 px-2 bg-primary text-primary border-round mr-2">
+                <span>{option.name}</span>
+            </div>
+        );
+    }
+
+    return 'select';
 };

@@ -95,7 +95,7 @@ const InterestTopics = () => {
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >
-                        <Column field="id" header="ID" sortable headerStyle={{ minWidth: '10rem' }}></Column>
+
                         <Column field="key" header="Key" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="name" header="Name" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>

@@ -3,5 +3,6 @@ export enum CUSTOM_FORM_DIALOG_FIELD_TYPE {
     areaText,
     number,
     select,
-    slider
+    slider,
+    multiSelect
 }
