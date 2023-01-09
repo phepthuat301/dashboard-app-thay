@@ -1,6 +1,6 @@
 import ReactPaginate from 'react-paginate';
 import { DataTable, DataTableFilterMeta } from "primereact/datatable"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NotifyController from '../utilities/Toast';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
@@ -10,9 +10,10 @@ import { MultiSelect } from 'primereact/multiselect';
 import { Slider } from 'primereact/slider';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
+import { Toolbar } from 'primereact/toolbar';
+import { Column } from 'primereact/column';
 
 interface customDataTableProps {
-    dt?: any;
     rowPerPage?: number;
     children: React.ReactNode;
     refresh?: boolean;
@@ -21,6 +22,14 @@ interface customDataTableProps {
         total: number;
         data: Array<any>
     }>;
+    leftToolbarBtn?: Array<leftToolbarBtnProps>
+}
+
+interface leftToolbarBtnProps {
+    icon: string;
+    name: string;
+    type?: "Primary" | "Secondary" | "Success" | "Info" | "Warning" | "Help" | "Danger";
+    onClick: (options: customTableOptions) => void
 }
 
 let updateDataTimeout: any;
@@ -32,10 +41,12 @@ export interface customTableOptions {
     rowPerPage: number;
     page: number;
     order: string | undefined;
-    orderType: 1 | 0 | -1 | undefined | null
+    orderType: 1 | 0 | -1 | undefined | null;
+    selected: any;
+    selectAll: boolean;
 }
 
-export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, rowPerPage, onOptionChange, children, defaultFilter }) => {
+export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn, refresh, rowPerPage, onOptionChange, children, defaultFilter }) => {
     const [value, setValue] = useState<{
         total: number;
         data: Array<any>
@@ -51,9 +62,15 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
             filters: undefined,
             page: 1,
             order: undefined,
-            orderType: undefined
+            orderType: undefined,
+            selected: null,
+            selectAll: false
         }
     )
+    const dt = useRef<any>(null);
+    const exportCSV = () => {
+        dt.current.exportCSV();
+    };
 
     useEffect(() => {
         (async () => {
@@ -97,9 +114,32 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
         </div>
     );
 
+    const rightToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
+            </React.Fragment>
+        );
+    };
+
+    const leftToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                {leftToolbarBtn?.map(btn =>
+                    <Button label={btn.name} icon={`pi ${btn.icon}`} className={`p-button-${btn.type?.toLowerCase() ?? 'secondary'} mr-2`}
+                        onClick={() => {
+                            btn.onClick(options)
+                        }} />)}
+            </React.Fragment>
+        );
+    };
+
     return (
         <>
+            <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
             <DataTable
+                selection={options.selected}
+                onSelectionChange={(e) => setOptions({ ...options, selected: e.value })}
                 ref={dt}
                 value={value?.data}
                 paginator={false}
@@ -116,7 +156,12 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ dt, refresh, r
                     setOptions({ ...options, filters: filters.filters })
                 }}
                 filters={options.filters}
+                onSelectAllChange={(e) => {
+                    setOptions({ ...options, selectAll: e.checked, selected: e.checked ? value?.data : null })
+                }}
+                selectAll={options.selectAll}
             >
+                <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
                 {children}
             </DataTable>
             <br />

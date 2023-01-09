@@ -28,14 +28,8 @@ export const menu = [
         label: 'Content management',
         icon: 'pi pi-bookmark',
         items: [
-            { label: 'Content', icon: 'pi pi-book', to: '/content-management/content' }
-        ]
-    },
-    {
-        label: 'Reported management',
-        icon: 'pi pi-info-circle',
-        items: [
-            { label: 'Reported', icon: 'pi pi-times-circle', to: '/reported-management/reported' }
+            { label: 'Content', icon: 'pi pi-book', to: '/content-management/content' },
+            { label: 'Reported', icon: 'pi pi-times-circle', to: '/content-management/reported' }
         ]
     },
     {

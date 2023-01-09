@@ -1,6 +1,6 @@
 
 import ContentPage from "../pages/contentManagement/ContentPage";
-import ReportedContentPage from "../pages/reportedManagement/ReportedPage";
+import ReportedContentPage from "../pages/reportedManagement/ReportedContentPage";
 import Ethnicity from "../pages/dictionaryListing/Ethnicity";
 import InterestTopics from "../pages/dictionaryListing/InterestTopics";
 import KeenOnMeeting from "../pages/dictionaryListing/KeenOnMeeting";
@@ -69,19 +69,8 @@ export const routes: Iroute[] = [
                 element: < ContentDetailPage />
             },
             {
-                path: "reported-content",
-                label: 'Reported Content',
-                element: < ReportedContentPage />
-            },
-        ]
-    },
-    {
-        path: "reported-management",
-        label: 'Reported Management',
-        childs: [
-            {
                 path: "reported",
-                label: 'Reported',
+                label: 'Reported Content',
                 element: < ReportedContentPage />
             },
         ]

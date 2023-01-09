@@ -126,6 +126,17 @@ export const UserInfo: React.FC = () => {
                     </div>
                 </div>
                 <div className="col-12 md:col-4">
+                    <UserActivitySideCollumn
+                        title={"Activities"}
+                        subTitle={userDetail?.first_name + " " + userDetail?.last_name}
+                        onPageChange={async (options: {
+                            from?: Date;
+                            to?: Date;
+                            page: number
+                        }) => {
+                            const userActivities = await UserService.getInstance().getUserActivities(id ?? "", options)
+                            return userActivities
+                        }} />
                     <UserListCollumn title={"Friends"} subTitle={"Friend list"}
                         onPageChange={async (page: number) => {
                             const result = await UserService
@@ -148,17 +159,7 @@ export const UserInfo: React.FC = () => {
                                 })
                             return result
                         }} />
-                    <UserActivitySideCollumn
-                        title={"Activities"}
-                        subTitle={userDetail?.first_name + " " + userDetail?.last_name}
-                        onPageChange={async (options: {
-                            from?: Date;
-                            to?: Date;
-                            page: number
-                        }) => {
-                            const userActivities = await UserService.getInstance().getUserActivities(id ?? "", options)
-                            return userActivities
-                        }} />
+
                 </div>
             </div>
             <FormDialog

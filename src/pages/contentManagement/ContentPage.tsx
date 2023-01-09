@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { Toolbar } from 'primereact/toolbar';
 import ContentService from '../../service/contentManagement/ContentService';
 import { CustomDataTable, customTableOptions, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, selectFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
@@ -35,20 +34,7 @@ const ContentPage = () => {
     const navigate = useNavigate()
     const [refresh, setRefresh] = useState<boolean>(false)
     const [deleteContentID, setDeleteContentID] = useState<string | undefined>(undefined);
-    const dt = useRef<any>(null);
     const [searchParams] = useSearchParams();
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
-            </React.Fragment>
-        );
-    };
 
     const actionBodyTemplate = (rowData: IContent) => {
         return (
@@ -82,10 +68,9 @@ const ContentPage = () => {
             <div className="col-12">
                 <div className="card">
                     <h5>Content</h5>
-                    <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
 
                     <CustomDataTable
-                        dt={dt}
+
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                         defaultFilter={searchParams.get("search") ?? ""}

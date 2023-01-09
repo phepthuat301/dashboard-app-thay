@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { Toolbar } from 'primereact/toolbar';
 
 import EthnicityService from '../../service/dictionaryListing/EthnicityService';
 import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
@@ -29,32 +28,6 @@ const PermissionManagement = () => {
     const [defaultData, setDefaultData] = useState<IEthnicity>(defaultFormValue)
     const [deleteEthnicityDialog, setDeleteEthnicityDialog] = useState<boolean>(false);
     const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
-    const dt = useRef<any>(null);
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-    const leftToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button label="New" icon="pi pi-plus" className="p-button-success"
-                    onClick={() => {
-                        setDefaultData(defaultFormValue)
-                        setFormDialogShow(true)
-                        setRefresh(!refresh)
-                    }} />
-            </React.Fragment>
-        );
-    };
-
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-
-                <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
-            </React.Fragment>
-        );
-    };
 
     const actionBodyTemplate = (rowData: any) => {
         return (
@@ -105,11 +78,19 @@ const PermissionManagement = () => {
             <div className="col-12">
                 <div className="card">
                     <h5>Permission</h5>
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
-
                     <CustomDataTable
-                        dt={dt}
-
+                        leftToolbarBtn={[
+                            {
+                                name: "New",
+                                icon: "pi-plus",
+                                type: "Success",
+                                onClick: () => {
+                                    setDefaultData(defaultFormValue)
+                                    setFormDialogShow(true)
+                                    setRefresh(!refresh)
+                                }
+                            }
+                        ]}
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >

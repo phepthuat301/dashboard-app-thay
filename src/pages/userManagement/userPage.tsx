@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { Toolbar } from 'primereact/toolbar';
 import UserService from '../../service/userManagement/UserService';
 import { CustomDataTable, customTableOptions, dateFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
@@ -23,21 +22,6 @@ const UserPage = () => {
     const navigate = useNavigate()
     const [refresh, setRefresh] = useState<boolean>(false)
     const [deleteUserDialog, setDeleteUserDialog] = useState<boolean>(false);
-    const dt = useRef<any>(null);
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-
-                <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
-            </React.Fragment>
-        );
-    };
-
     const actionBodyTemplate = (rowData: any) => {
         return (
             <div className="actions">
@@ -74,10 +58,7 @@ const UserPage = () => {
             <div className="col-12">
                 <div className="card">
                     <h5>User</h5>
-                    <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
-
                     <CustomDataTable
-                        dt={dt}
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >

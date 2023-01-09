@@ -8,12 +8,6 @@ export enum ChatRoomEnum {
     GROUP = 'Group',
 }
 
-export enum ReportTypeEnum {
-    CHAT = 'Chat',
-    POST = 'Post',
-    COMMENT = 'Comment',
-}
-
 export enum ReportByEnum {
     USER = 'User',
     BOT = 'Bot',

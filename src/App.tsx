@@ -33,16 +33,16 @@ const App = (props: any) => {
     const [configActive, setConfigActive] = useState(false);
     const defaultMenuMode = readMenuMode() ?? 'sidebar'
     const [menuMode, setMenuMode] = useState(() => defaultMenuMode);
-    const [overlayMenuActive, setOverlayMenuActive] = useState(false);
+    const [overlayMenuActive, setOverlayMenuActive] = useState(true);
     const [ripple, setRipple] = useState(true);
-    const [sidebarStatic, setSidebarStatic] = useState(false);
+    const [sidebarStatic, setSidebarStatic] = useState(true);
     const [staticMenuDesktopInactive, setStaticMenuDesktopInactive] = useState(false);
     const [staticMenuMobileActive, setStaticMenuMobileActive] = useState(false);
     const [menuActive, setMenuActive] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
     const [topbarMenuActive, setTopbarMenuActive] = useState(false);
-    const [sidebarActive, setSidebarActive] = useState(false);
-    const [pinActive, setPinActive] = useState(false);
+    const [sidebarActive, setSidebarActive] = useState(true);
+    const [pinActive, setPinActive] = useState(true);
     const [activeInlineProfile, setActiveInlineProfile] = useState(false);
     const [resetActiveIndex, setResetActiveIndex] = useState<boolean>(false);
     const copyTooltipRef = useRef<any>();

@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { Toolbar } from 'primereact/toolbar';
 import AdminService from '../../service/adminManagement/AdminService';
 import { CustomDataTable, customTableOptions, dateFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate } from '../../utilities/util';
 import { useNavigate } from 'react-router-dom';
 import NotifyController from '../../utilities/Toast';
+import React from 'react';
 
 interface IAdmin {
     id: string;
@@ -23,20 +23,6 @@ const AdminPage = () => {
     const navigate = useNavigate()
     const [refresh, setRefresh] = useState<boolean>(false)
     const [deleteAdminDialog, setDeleteAdminDialog] = useState<boolean>(false);
-    const dt = useRef<any>(null);
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-
-                <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
-            </React.Fragment>
-        );
-    };
 
     const actionBodyTemplate = (rowData: any) => {
         return (
@@ -74,10 +60,18 @@ const AdminPage = () => {
             <div className="col-12">
                 <div className="card">
                     <h5>Admin</h5>
-                    <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
 
                     <CustomDataTable
-                        dt={dt}
+                        leftToolbarBtn={[
+                            {
+                                name: "New",
+                                icon: "pi-plus",
+                                type: "Success",
+                                onClick: () => {
+
+                                }
+                            }
+                        ]}
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >
