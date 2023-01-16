@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import UserService from '../../service/userManagement/UserService';
-import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
+import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, tableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate } from '../../utilities/util';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +45,7 @@ const UserPage = () => {
         );
     };
 
-    const onOptionChange = async (option: outputTableOptions) => {
+    const onOptionChange = async (option: tableOptions) => {
         const users = await UserService.getInstance().getUsers().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);

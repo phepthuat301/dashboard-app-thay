@@ -34,18 +34,7 @@ interface leftToolbarBtnProps {
 let updateDataTimeout: any;
 
 
-interface tableOptions {
-    filter: string | undefined;
-    filters: DataTableFilterMeta | undefined;
-    rowPerPage: number;
-    page: number;
-    order: string | undefined;
-    orderType: 1 | 0 | -1 | undefined | null;
-    selected: Array<any> | null;
-    selectAll: boolean;
-}
-
-export interface outputTableOptions {
+export interface tableOptions {
     filter: string | undefined;
     filters: DataTableFilterMeta | undefined;
     rowPerPage: number;
@@ -78,6 +67,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
             selectAll: false
         }
     )
+
     const dt = useRef<any>(null);
     const exportCSV = () => {
         dt.current.exportCSV();
@@ -90,8 +80,6 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
                 if (updateDataTimeout)
                     clearTimeout(updateDataTimeout);
                 updateDataTimeout = setTimeout(() => {
-                    console.log(options);
-
                     onOptionChange(options)
                         .then(data => {
                             setValue(data)

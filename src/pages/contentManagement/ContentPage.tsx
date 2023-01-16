@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import ContentService from '../../service/contentManagement/ContentService';
-import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, outputTableOptions, selectFilterTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, tableOptions, selectFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate, threeDot } from '../../utilities/util';
 import { DataTable } from 'primereact/datatable';
@@ -52,7 +52,7 @@ const ContentPage = () => {
         );
     };
 
-    const onOptionChange = async (option: outputTableOptions) => {
+    const onOptionChange = async (option: tableOptions) => {
         const contents = await ContentService
             .getInstance()
             .getContents()

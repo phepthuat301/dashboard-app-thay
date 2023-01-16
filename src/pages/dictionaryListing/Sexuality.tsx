@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 
 import SexualityService from '../../service/dictionaryListing/SexualityService';
 
-import { CustomDataTable, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
+import { CustomDataTable, filterApplyTemplate, filterClearTemplate, tableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
@@ -47,7 +47,7 @@ const Sexuality = () => {
         );
     };
 
-    const onOptionChange = async (option: outputTableOptions) => {
+    const onOptionChange = async (option: tableOptions) => {
 
         const sexualitys = await SexualityService.getInstance().getSexualitys().catch((error) => {
             NotifyController.error(error?.message)

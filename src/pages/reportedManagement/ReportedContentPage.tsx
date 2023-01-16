@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import ReportedService from '../../service/reportedManagement/ReportedService';
-import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, outputTableOptions, selectFilterTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, tableOptions, selectFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
@@ -65,7 +65,7 @@ const ReportedContentPage = () => {
         );
     };
 
-    const onOptionChange = async (option: outputTableOptions) => {
+    const onOptionChange = async (option: tableOptions) => {
         const reporteds = await ReportedService
             .getInstance()
             .getReporteds()

@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 
 import InterestTopicsService from '../../service/dictionaryListing/InterestTopicsService';
 
-import { CustomDataTable, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
+import { CustomDataTable, filterApplyTemplate, filterClearTemplate, tableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
@@ -45,7 +45,7 @@ const InterestTopics = () => {
         );
     };
 
-    const onOptionChange = async (option: outputTableOptions) => {
+    const onOptionChange = async (option: tableOptions) => {
         const interestTopicss = await InterestTopicsService.getInstance().getInterestTopicss().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);
