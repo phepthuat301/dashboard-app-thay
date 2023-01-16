@@ -133,6 +133,11 @@ export default class UserService {
 
     }
 
+    async getRoles() {
+        const users = await httpGet('assets/demo/data/roles.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
 
     async getAllRoles() {
         const users = await httpGet('assets/demo/data/all-roles.json').then((res) => res.data.data);
@@ -140,8 +145,14 @@ export default class UserService {
         return users
     }
 
+    async getAllPermission() {
+        const users = await httpGet('assets/demo/data/user-all-permission.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
+
     async setRolesById(id: string, roles: { name: string, code: string }) {
-        const users = await httpPost('assets/demo/data/all-roles.json', {
+        const users = await httpPost('', {
             id,
             roles
         }).then((res) => res.data.data);

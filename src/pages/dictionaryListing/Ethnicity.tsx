@@ -3,7 +3,7 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 
 import EthnicityService from '../../service/dictionaryListing/EthnicityService';
-import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
@@ -47,7 +47,7 @@ const Ethnicity = () => {
         );
     };
 
-    const onOptionChange = async (option: customTableOptions) => {
+    const onOptionChange = async (option: outputTableOptions) => {
         const ethnicitys = await EthnicityService.getInstance().getEthnicitys()
             .catch((error) => {
                 NotifyController.error(error?.message)
@@ -97,8 +97,12 @@ const Ethnicity = () => {
                                 name: "Delete",
                                 icon: "pi-trash",
                                 type: "Danger",
-                                onClick: () => {
-
+                                onClick: (option) => {
+                                    if (option.selectAll || Number(option.selected?.length) > 0) {
+                                    }
+                                    else {
+                                        NotifyController.warning("No rows selected")
+                                    }
                                 }
                             }
                         ]}

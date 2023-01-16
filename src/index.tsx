@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { combineReducers, createStore } from 'redux';
 import AppWrapper from './layout/AppWrapper';
 import userReducer from './redux/reducers/userReducer';
 import reportWebVitals from './reportWebVitals';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 const reducers = {
@@ -14,6 +16,7 @@ const reducers = {
 const store = createStore(combineReducers(reducers));
 root.render(
     <React.StrictMode>
+        <ToastContainer />
         <BrowserRouter>
             <Provider store={store}>
                 <AppWrapper></AppWrapper>

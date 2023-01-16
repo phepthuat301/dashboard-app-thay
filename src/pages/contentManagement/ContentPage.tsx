@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import ContentService from '../../service/contentManagement/ContentService';
-import { CustomDataTable, customTableOptions, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, selectFilterTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, outputTableOptions, selectFilterTemplate } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate, threeDot } from '../../utilities/util';
 import { DataTable } from 'primereact/datatable';
@@ -52,7 +52,7 @@ const ContentPage = () => {
         );
     };
 
-    const onOptionChange = async (option: customTableOptions) => {
+    const onOptionChange = async (option: outputTableOptions) => {
         const contents = await ContentService
             .getInstance()
             .getContents()
@@ -90,6 +90,8 @@ const ContentPage = () => {
                             }
                             }></Column>
                         <Column field="owner" header="Owner" sortable headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <Button onClick={() => navigate('/user-management/user-' + rowdata.id)}>{rowdata?.owner?.first_name} {rowdata?.owner?.last_name}</Button>} ></Column>
+                        <Column field="like" header="Like" sortable headerStyle={{ minWidth: '10rem' }} ></Column>
+                        <Column field="comment" header="Comment" sortable headerStyle={{ minWidth: '10rem' }} ></Column>
                         <Column field="updated_at" filterField="updated_at" dataType="date" header="Last update" body={(rowdata: IContent) => <p>{formatDate(rowdata.updated_at)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterElement={dateFilterTemplate}></Column>
                         <Column field="status" header="Status" headerStyle={{ minWidth: '10rem' }} body={(rowdata: IContent) => <span className={`customer-badge status-${rowdata.status}`}>{rowdata.status}</span>} filter filterElement={selectFilterTemplate(Object.values(ContentStatusEnum))}></Column>
                         <Column body={actionBodyTemplate}></Column>

@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 
 import ProfileTypeService from '../../service/dictionaryListing/ProfileTypeService';
 
-import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
@@ -45,7 +45,7 @@ const ProfileType = () => {
         );
     };
 
-    const onOptionChange = async (option: customTableOptions) => {
+    const onOptionChange = async (option: outputTableOptions) => {
         const profileTypes = await ProfileTypeService.getInstance().getProfileTypes().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);
@@ -70,6 +70,19 @@ const ProfileType = () => {
                                     setDefaultData(defaultFormValue)
                                     setFormDialogShow(true)
                                     setRefresh(!refresh)
+                                }
+                            },
+                            {
+                                name: "Delete",
+                                icon: "pi-trash",
+                                type: "Danger",
+                                onClick: (option) => {
+                                    if (option.selectAll || Number(option.selected?.length) > 0) {
+
+                                    }
+                                    else {
+                                        NotifyController.warning("No rows selected")
+                                    }
                                 }
                             }
                         ]}

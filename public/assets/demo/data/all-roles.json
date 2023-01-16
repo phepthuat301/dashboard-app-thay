@@ -1,12 +1,24 @@
 {
 	"data": [
 		{
+			"id": "skjahdyuwdguiyawdluiasd",
 			"name": "admin",
-			"code": "admin"
+			"permission": [
+				{
+					"name": "sub-admin",
+					"code": "sub-admin"
+				}
+			]
 		},
 		{
+			"id": "skjahdyuwdguiyawdluiasd",
 			"name": "sub-admin",
-			"code": "sub-admin"
+			"permission": [
+				{
+					"name": "sub-admin",
+					"code": "sub-admin"
+				}
+			]
 		}
 	]
 }

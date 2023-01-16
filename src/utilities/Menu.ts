@@ -45,7 +45,7 @@ export const menu = [
             {
                 label: 'Permission',
                 icon: 'pi pi-key',
-                to: '/documentation'
+                to: '/user-management/permission'
             },
         ]
     },
@@ -61,7 +61,7 @@ export const menu = [
             {
                 label: 'Permission',
                 icon: 'pi pi-key',
-                to: '/documentation'
+                to: '/admin-management/permission'
             },
             {
                 label: 'Admin members',
@@ -119,6 +119,11 @@ export const menu = [
                 label: 'User criterias',
                 icon: 'pi pi-check',
                 to: '/blocks',
+            },
+            {
+                label: 'Batch Update Users',
+                icon: 'pi pi-calculator',
+                to: '/notification-management/bacth-update-user',
             },
         ]
     },

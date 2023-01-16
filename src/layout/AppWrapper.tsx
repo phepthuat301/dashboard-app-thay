@@ -3,9 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import App from '../App';
 import { Login } from '../pages/Login';
 import { Error } from '../pages/Error';
-import { persistColorSchema, persistComponentTheme, persistTheme, readColorSchema, readComponentTheme, readTheme } from '../service/LocalStorageService';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { persistColorSchema, persistComponentTheme, persistTheme, readColorSchema, readComponentTheme, readTheme } from '../service/LocalStorageService'
 
 const AppWrapper = (props: any) => {
     const defaultColorSchema = readColorSchema() ?? 'dark'
@@ -109,7 +107,6 @@ const AppWrapper = (props: any) => {
     }, [])
     return (
         <>
-            <ToastContainer />
             <Routes>
                 <Route path="/error" element={<Error colorScheme={colorScheme} />} />
                 <Route path="/login" element={<Login colorScheme={colorScheme} />} />

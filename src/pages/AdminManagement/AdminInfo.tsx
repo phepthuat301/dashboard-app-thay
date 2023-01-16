@@ -7,7 +7,7 @@ import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { FormDialog } from "../../components/FormDialog";
 import { UserActivitySideCollumn } from "../../components/UserActivitySideCollumn";
 import AdminService from "../../service/adminManagement/AdminService";
-import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from "../../utilities/constant";
+import { CUSTOM_FORM_DIALOG_FIELD_TYPE, MAXIUM_WARNING_POINT } from "../../utilities/constant";
 import NotifyController from "../../utilities/Toast";
 
 interface IAdmin {
@@ -54,8 +54,8 @@ export const AdminInfo: React.FC = () => {
             name: 'warning',
             label: 'Warning',
             type: CUSTOM_FORM_DIALOG_FIELD_TYPE.slider,
-            validate: Joi.number().max(300).required(),
-            maxValue: 300
+            validate: Joi.number().max(MAXIUM_WARNING_POINT).required(),
+            maxValue: MAXIUM_WARNING_POINT
         }
     ]
     return (

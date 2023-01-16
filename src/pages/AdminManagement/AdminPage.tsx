@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import AdminService from '../../service/adminManagement/AdminService';
-import { CustomDataTable, customTableOptions, dateFilterTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, dateFilterTemplate, outputTableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate } from '../../utilities/util';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +47,7 @@ const AdminPage = () => {
         );
     };
 
-    const onOptionChange = async (option: customTableOptions) => {
+    const onOptionChange = async (option: outputTableOptions) => {
         const admins = await AdminService.getInstance().getAdmins().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);

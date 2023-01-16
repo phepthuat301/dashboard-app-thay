@@ -12,6 +12,9 @@ import { UserDetailPage } from "../pages/userManagement/UserDetailPage";
 import AdminActivities from "../pages/activitisManagement/AdminActivities";
 import AdminPage from "../pages/adminManagement/AdminPage";
 import { AdminDetailPage } from "../pages/adminManagement/AdminDetailPage";
+import UserPermissionManagement from "../pages/userManagement/PermissionManagement";
+import AdminPermissionManagement from "../pages/adminManagement/PermissionManagement";
+import { BatchUpdateUser } from "../pages/notificationManagement/BatchUpdateUser";
 interface Iroute {
     path: string;
     element?: any;
@@ -89,7 +92,11 @@ export const routes: Iroute[] = [
                 label: 'User Detail',
                 element: < UserDetailPage />
             },
-
+            {
+                path: "permission",
+                label: 'Permission',
+                element: < UserPermissionManagement />
+            }
         ]
     },
     {
@@ -111,6 +118,22 @@ export const routes: Iroute[] = [
                 label: 'Admin activities',
                 element: < AdminActivities />
             },
+            {
+                path: "permission",
+                label: 'Permission',
+                element: < AdminPermissionManagement />
+            }
+        ]
+    },
+    {
+        path: "notification-management",
+        label: 'Batch Update User',
+        childs: [
+            {
+                path: "bacth-update-user",
+                label: 'Batch Update User',
+                element: < BatchUpdateUser />
+            }
         ]
     },
 ]

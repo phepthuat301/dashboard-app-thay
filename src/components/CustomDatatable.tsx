@@ -7,7 +7,6 @@ import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import React from 'react';
 import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { Toolbar } from 'primereact/toolbar';
@@ -18,7 +17,7 @@ interface customDataTableProps {
     children: React.ReactNode;
     refresh?: boolean;
     defaultFilter?: string;
-    onOptionChange: (options: customTableOptions) => Promise<{
+    onOptionChange: (options: tableOptions) => Promise<{
         total: number;
         data: Array<any>
     }>;
@@ -29,22 +28,34 @@ interface leftToolbarBtnProps {
     icon: string;
     name: string;
     type?: "Primary" | "Secondary" | "Success" | "Info" | "Warning" | "Help" | "Danger";
-    onClick: (options: customTableOptions) => void
+    onClick: (options: tableOptions) => void
 }
 
 let updateDataTimeout: any;
 
 
-export interface customTableOptions {
+interface tableOptions {
     filter: string | undefined;
     filters: DataTableFilterMeta | undefined;
     rowPerPage: number;
     page: number;
     order: string | undefined;
     orderType: 1 | 0 | -1 | undefined | null;
-    selected: any;
+    selected: Array<any> | null;
     selectAll: boolean;
 }
+
+export interface outputTableOptions {
+    filter: string | undefined;
+    filters: DataTableFilterMeta | undefined;
+    rowPerPage: number;
+    page: number;
+    order: string | undefined;
+    orderType: 1 | 0 | -1 | undefined | null;
+    selected: Array<any> | null;
+    selectAll: boolean;
+}
+
 
 export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn, refresh, rowPerPage, onOptionChange, children, defaultFilter }) => {
     const [value, setValue] = useState<{
@@ -55,7 +66,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
         data: []
     })
     const [loading, setLoading] = useState(false)
-    const [options, setOptions] = useState<customTableOptions>(
+    const [options, setOptions] = useState<tableOptions>(
         {
             filter: defaultFilter ?? "",
             rowPerPage: rowPerPage ?? 10,
@@ -99,14 +110,19 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
                 NotifyController.error(error?.message ?? "Get data table error")
             }
         })()
-    }, [options, onOptionChange, refresh])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [options.filter, options.filters, options.order, options.orderType, options.page, options.rowPerPage, refresh])
 
 
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <Dropdown className='m-0' options={[
-                5, 10, 25, 100, 1000
-            ]} value={options.rowPerPage} onChange={(e: any) => setOptions({ ...options, rowPerPage: e.value })} />
+            <div>
+                <span>Show </span>
+                <Dropdown className='m-0' options={[
+                    5, 10, 25, 100
+                ]} value={options.rowPerPage} onChange={(e: any) => setOptions({ ...options, rowPerPage: e.value })} />
+                <span className='m-0'> of {value?.total ?? 0} records</span>
+            </div>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" value={options.filter} onInput={(e) => setOptions({ ...options, filter: e.currentTarget.value })} placeholder="Search..." />
@@ -139,7 +155,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
             <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
             <DataTable
                 selection={options.selected}
-                onSelectionChange={(e) => setOptions({ ...options, selected: e.value })}
+                onSelectionChange={(e) => setOptions({ ...options, selected: e.value, selectAll: e.value.length === value.data.length })}
                 ref={dt}
                 value={value?.data}
                 paginator={false}
@@ -196,7 +212,7 @@ export const filterApplyTemplate = (options: any) => {
     return <Button type="button" icon="pi pi-check" onClick={options.filterApplyCallback} className="p-button-success"></Button>;
 };
 
-//filterElement={dateFilterTemplate}
+//filterElement={dateFilterTemplate}  dataType="date"
 export const dateFilterTemplate = (options: any) => {
     return <Calendar value={options.value} onChange={(e: any) => options.filterCallback(e.value, options.index)} dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />;
 };
@@ -206,7 +222,7 @@ export const balanceFilterTemplate = (options: any) => {
     return <InputNumber value={options.value} onChange={(e: any) => options.filterCallback(e.value, options.index)} mode="currency" currency="USD" locale="en-US" />;
 };
 
-//filterElement={()=> return representativeFilterTemplate(representatives)}
+//filterElement={representativeFilterTemplate(representatives)}
 export const representativeFilterTemplate = (representatives: { name: string, image: string }[]) => {
     const representativesItemTemplate = (option: any) => {
         return (
@@ -236,22 +252,6 @@ export const selectFilterTemplate = (selectOptions: string[]) => {
     };
     const result = (options: any) => {
         return <Dropdown value={options.value} options={selectOptions} onChange={(e: any) => options.filterCallback(e.value, options.index)} itemTemplate={statusItemTemplate} placeholder="Select a Status" className="p-column-filter" showClear />
-    }
-    return result
-};
-
-//filterElement={()=> return rangeFilterTemplate(from, to)}
-export const rangeFilterTemplate = (from: number, to: number) => {
-    const result = (options: any) => {
-        return (
-            <React.Fragment>
-                <Slider value={options.value} onChange={(e: any) => options.filterCallback(e.value)} range className="m-3"></Slider>
-                <div className="flex align-items-center justify-content-between px-2">
-                    <span>{options.value ? options.value[0] : from}</span>
-                    <span>{options.value ? options.value[1] : to}</span>
-                </div>
-            </React.Fragment>
-        );
     }
     return result
 };

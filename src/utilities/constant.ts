@@ -6,3 +6,5 @@ export enum CUSTOM_FORM_DIALOG_FIELD_TYPE {
     slider,
     multiSelect
 }
+
+export const MAXIUM_WARNING_POINT = 300

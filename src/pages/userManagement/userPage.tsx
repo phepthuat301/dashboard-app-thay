@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import UserService from '../../service/userManagement/UserService';
-import { CustomDataTable, customTableOptions, dateFilterTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, dateFilterTemplate, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { formatDate } from '../../utilities/util';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +45,7 @@ const UserPage = () => {
         );
     };
 
-    const onOptionChange = async (option: customTableOptions) => {
+    const onOptionChange = async (option: outputTableOptions) => {
         const users = await UserService.getInstance().getUsers().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);
@@ -62,11 +62,18 @@ const UserPage = () => {
                         onOptionChange={onOptionChange}
                         refresh={refresh}
                     >
-                        <Column field="user" header="User" sortable headerStyle={{ minWidth: '10rem' }}
+                        <Column field="username" header="User Name" sortable headerStyle={{ minWidth: '10rem' }}
+                            filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate} />
+                        <Column field="warning" header="Warning Point" sortable headerStyle={{ minWidth: '10rem' }}
+                            filter
+                            dataType="numeric"
+                        />
+                        <Column field="user" header="Full Name" sortable headerStyle={{ minWidth: '10rem' }}
                             body={(rowdata: IUser) => <>
                                 <img alt={rowdata.first_name + " " + rowdata.last_name} src={rowdata.avatar} width={24} height={24} className="mr-2" style={{ verticalAlign: 'middle', borderRadius: '50%' }} />
                                 <span className="image-text">{rowdata.first_name + " " + rowdata.last_name}
-                                </span></>} />
+                                </span></>} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate} />
+                        <Column field="created_at" filterField="created_at" dataType="date" header="Create Time" body={(rowdata: IUser) => <p>{formatDate(rowdata.updated_at)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterElement={dateFilterTemplate}></Column>
                         <Column field="updated_at" filterField="updated_at" dataType="date" header="Last update" body={(rowdata: IUser) => <p>{formatDate(rowdata.updated_at)}</p>} sortable headerStyle={{ minWidth: '10rem' }} filter filterElement={dateFilterTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </CustomDataTable>

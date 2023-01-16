@@ -39,13 +39,13 @@ export const AdminPermission: React.FC = () => {
             .then((res) => {
                 if (Array.isArray(res)) {
                     const roles = res.map((role) => ({
-                        name: role.name, code: role.code
+                        name: role.name, code: role.id
                     }))
                     setRoles(roles)
                     AdminService.getInstance().getAdminRolesByID(id ?? "").then((res) => {
                         if (Array.isArray(res)) {
                             const roles = res.map((role) => ({
-                                name: role.name, code: role.code
+                                name: role.name, code: role.id
                             }))
                             setCurrentRoles(roles)
                             setSelectedRoles(roles)

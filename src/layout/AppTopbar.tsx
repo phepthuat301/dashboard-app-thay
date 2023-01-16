@@ -50,7 +50,7 @@ const AppTopbar = (props: any) => {
                     <ul className="layout-topbar-right-items">
                         <li id="profile" className={classNames('profile-item', { 'active-topmenuitem': props.topbarMenuActive })}>
                             <button className="p-link" onClick={props.onTopbarItemClick}>
-                                <img src={user.avatar} alt="profile" />
+                                <img src={user.avatar} alt="profile" style={{ borderRadius: '50%' }} />
                             </button>
 
                             <ul className="fadeInDown">

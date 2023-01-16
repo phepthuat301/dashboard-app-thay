@@ -171,7 +171,7 @@ export default class AdminService {
     }
 
     async setRolesById(id: string, roles: { name: string, code: string }) {
-        const Admins = await httpPost('assets/demo/data/all-roles.json', {
+        const Admins = await httpPost('', {
             id,
             roles
         }).then((res) => res.data.data);
@@ -183,5 +183,18 @@ export default class AdminService {
         const Admins = await httpGet('assets/demo/data/all-roles.json').then((res) => res.data.data);
         if (!Admins) return []
         return Admins
+    }
+
+    async getRoles() {
+        const users = await httpGet('assets/demo/data/roles.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
+
+
+    async getAllPermission() {
+        const users = await httpGet('assets/demo/data/user-all-permission.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
     }
 }

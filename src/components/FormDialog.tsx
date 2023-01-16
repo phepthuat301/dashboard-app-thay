@@ -5,7 +5,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { useEffect, useState } from 'react';
 import Joi from 'joi'
-import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../utilities/constant';
+import { CUSTOM_FORM_DIALOG_FIELD_TYPE, MAXIUM_WARNING_POINT } from '../utilities/constant';
 import { Slider } from 'primereact/slider';
 import { MultiSelect } from 'primereact/multiselect';
 
@@ -157,7 +157,7 @@ export const FormDialog: React.FC<confirmDialogProps> = ({ show, message, fields
                 result = (
                     <div className="field" key={field.name}>
                         <label htmlFor={field.name}>{field.label}: {data[field.name]}</label>
-                        < Slider value={data[field.name]} onChange={(e: any) => onSliderChange(e, field.name)} max={field.maxValue ?? 300} />
+                        < Slider value={data[field.name]} onChange={(e: any) => onSliderChange(e, field.name)} max={field.maxValue ?? MAXIUM_WARNING_POINT} />
                         <small id="username-help" className="p-error">
                             {errorMessage}
                         </small>

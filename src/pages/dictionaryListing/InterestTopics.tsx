@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 
 import InterestTopicsService from '../../service/dictionaryListing/InterestTopicsService';
 
-import { CustomDataTable, customTableOptions, filterApplyTemplate, filterClearTemplate } from '../../components/CustomDatatable';
+import { CustomDataTable, filterApplyTemplate, filterClearTemplate, outputTableOptions } from '../../components/CustomDatatable';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { FormDialog } from '../../components/FormDialog';
 import { CUSTOM_FORM_DIALOG_FIELD_TYPE } from '../../utilities/constant';
@@ -45,7 +45,7 @@ const InterestTopics = () => {
         );
     };
 
-    const onOptionChange = async (option: customTableOptions) => {
+    const onOptionChange = async (option: outputTableOptions) => {
         const interestTopicss = await InterestTopicsService.getInstance().getInterestTopicss().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);
@@ -69,6 +69,19 @@ const InterestTopics = () => {
                                     setDefaultData(defaultFormValue)
                                     setFormDialogShow(true)
                                     setRefresh(!refresh)
+                                }
+                            },
+                            {
+                                name: "Delete",
+                                icon: "pi-trash",
+                                type: "Danger",
+                                onClick: (option) => {
+                                    if (option.selectAll || Number(option.selected?.length) > 0) {
+
+                                    }
+                                    else {
+                                        NotifyController.warning("No rows selected")
+                                    }
                                 }
                             }
                         ]}

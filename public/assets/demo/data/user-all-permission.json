@@ -1,0 +1,12 @@
+{
+	"data": [
+		{
+			"name": "admin",
+			"code": "admin"
+		},
+		{
+			"name": "sub-admin",
+			"code": "sub-admin"
+		}
+	]
+}

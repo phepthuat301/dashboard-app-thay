@@ -1,0 +1,27 @@
+{
+	"data": {
+		"total": 2,
+		"data": [
+			{
+				"id": "skjahdyuwdguiyawdluiasd",
+				"name": "admin",
+				"permission": [
+					{
+						"name": "sub-admin",
+						"code": "sub-admin"
+					}
+				]
+			},
+			{
+				"id": "skjahdyuwdguiyawdluiasd",
+				"name": "sub-admin",
+				"permission": [
+					{
+						"name": "sub-admin",
+						"code": "sub-admin"
+					}
+				]
+			}
+		]
+	}
+}
