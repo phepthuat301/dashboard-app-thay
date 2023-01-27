@@ -14,4 +14,8 @@ export default class EthnicityService {
     getEthnicitys() {
         return httpGet('assets/demo/data/ethnicity.json').then((res) => res.data.data);
     }
+
+    getAllEthnicitys() {
+        return httpGet('assets/demo/data/all-ethnicity.json').then((res) => res.data.data);
+    }
 }

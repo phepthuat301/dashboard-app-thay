@@ -1,0 +1,19 @@
+{
+	"data": [
+		{
+			"id": "f7f436a5-fc86-4e52-8e8b-3d912983bbd5",
+			"key": "viet-nam",
+			"name": "Việt Nam"
+		},
+		{
+			"id": "f7f436a5-fc86-4e52-8e8b-3d912983bbd6",
+			"key": "philippines",
+			"name": "filipina"
+		},
+		{
+			"id": "f7f436a5-fc86-4e52-8e8b-3d912983bbd7",
+			"key": "Indonesia",
+			"name": "Indonesia"
+		}
+	]
+}

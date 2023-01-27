@@ -165,4 +165,10 @@ export default class UserService {
         if (!users) return []
         return users
     }
+
+    async bacthUpdateSelectUser(options: any) {
+        const users = await httpGet('assets/demo/data/bacth-update-selected-user.json').then((res) => res.data.data);
+        if (!users) return []
+        return users
+    }
 }

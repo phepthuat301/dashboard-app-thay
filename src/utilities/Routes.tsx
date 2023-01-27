@@ -114,11 +114,6 @@ export const routes: Iroute[] = [
                 element: < AdminDetailPage />
             },
             {
-                path: "activies",
-                label: 'Admin activities',
-                element: < AdminActivities />
-            },
-            {
                 path: "permission",
                 label: 'Permission',
                 element: < AdminPermissionManagement />
@@ -134,6 +129,17 @@ export const routes: Iroute[] = [
                 label: 'Batch Update User',
                 element: < BatchUpdateUser />
             }
+        ]
+    },
+    {
+        path: "log-management",
+        label: 'Batch Update User',
+        childs: [
+            {
+                path: "activies",
+                label: 'Admin activities',
+                element: < AdminActivities />
+            },
         ]
     },
 ]

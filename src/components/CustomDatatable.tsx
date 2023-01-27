@@ -80,6 +80,8 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
                 if (updateDataTimeout)
                     clearTimeout(updateDataTimeout);
                 updateDataTimeout = setTimeout(() => {
+                    console.log(options);
+
                     onOptionChange(options)
                         .then(data => {
                             setValue(data)

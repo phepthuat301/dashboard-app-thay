@@ -127,5 +127,17 @@ export const menu = [
             },
         ]
     },
+
+    {
+        label: 'Log management',
+        icon: 'pi pi-desktop',
+        items: [
+            {
+                label: 'Admin Activities',
+                icon: 'pi pi-user',
+                to: '/log-management/activies'
+            }
+        ]
+    }
 ];
 

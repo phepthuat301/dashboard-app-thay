@@ -13,4 +13,7 @@ export default class InterestTopicsService {
     getInterestTopicss() {
         return httpGet('assets/demo/data/interest-topics.json').then((res) => res.data.data);
     }
+    getAllInterestTopicss() {
+        return httpGet('assets/demo/data/all-interest-topics.json').then((res) => res.data.data);
+    }
 }

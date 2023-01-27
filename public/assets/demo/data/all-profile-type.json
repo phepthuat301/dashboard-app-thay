@@ -1,0 +1,22 @@
+{
+	"data": [
+		{
+			"id": "f7f436a5-fc86-4e52-8e8b-3d912983bbd5",
+			"key": "male",
+			"name": "male",
+			"description": "of or denoting the sex that produces small, typically motile gametes, especially spermatozoa, with which a female may be fertilized or inseminated to produce offspring."
+		},
+		{
+			"id": "f7f436a5-fc86-4e52-8e8b-3d912983bbd6",
+			"key": "female",
+			"name": "female",
+			"description": "of or denoting the sex that can bear offspring or produce eggs, distinguished biologically by the production of gametes (ova) that can be fertilized by male gametes."
+		},
+		{
+			"id": "f7f436a5-fc86-4e52-8e8b-3d912983bbd7",
+			"key": "gay",
+			"name": "gay",
+			"description": "sexually or romantically attracted exclusively to people of one's own sex or gender (used especially of a man)."
+		}
+	]
+}

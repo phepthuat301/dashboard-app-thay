@@ -49,5 +49,9 @@ export default class ContentService {
         return httpDelete('').then((res) => res.data.data);
     }
 
+    reportContent(id: string) {
+        return httpDelete('').then((res) => res.data.data);
+    }
+
 
 }

@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CommentListCollumn } from "../../components/contentManagement/CommentListCollumn";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import ContentService from "../../service/contentManagement/ContentService";
@@ -13,6 +13,7 @@ import { threeDot } from "../../utilities/util";
 export const ContentDetailPage: React.FC = () => {
     const { id } = useParams();
     const [banContentConfirmDialogShow, setBanContentConfirmDialogShow] = useState(false);
+    const navigate = useNavigate()
     const [content, setContent] = useState<any>(undefined)
     useEffect(() => {
         ContentService.getInstance().getContentDetail(id ?? "").then(result => setContent(result)).catch(e => NotifyController.error(e))
@@ -48,6 +49,11 @@ export const ContentDetailPage: React.FC = () => {
 
                     <div className="card">
                         <h5>Actions</h5>
+                        <Button className="p-button p-component p-button-warning mr-2 mb-2"
+                            icon={<i className="pi pi-exclamation-triangle"></i>}
+                            onClick={() => {
+                                ContentService.getInstance().reportContent(id ?? "")
+                            }}>&nbsp;Report</Button>
                         <Button className="p-button p-component p-button-danger mr-2 mb-2"
                             icon={<i className="pi pi-trash"></i>}
                             onClick={() => {
@@ -56,7 +62,7 @@ export const ContentDetailPage: React.FC = () => {
                         <Button className="p-button p-component p-button-secondary mr-2 mb-2"
                             icon={<i className="pi pi-sign-out"></i>}
                             onClick={() => {
-
+                                navigate('/content-management/content')
                             }}>&nbsp;Close</Button>
                     </div>
                 </div>

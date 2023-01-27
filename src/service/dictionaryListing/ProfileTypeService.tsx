@@ -14,4 +14,8 @@ export default class ProfileTypeService {
     getProfileTypes() {
         return httpGet('assets/demo/data/profile-type.json').then((res) => res.data.data);
     }
+
+    getAllProfileTypes() {
+        return httpGet('assets/demo/data/all-profile-type.json').then((res) => res.data.data);
+    }
 }

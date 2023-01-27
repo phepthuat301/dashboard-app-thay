@@ -15,5 +15,7 @@ export default class KeenOnMeetingService {
         return httpGet('assets/demo/data/keen-on-meeting.json').then((res) => res.data.data);
     }
 
-
+    getAllKeenOnMeetings() {
+        return httpGet('assets/demo/data/all-keen-on-meeting.json').then((res) => res.data.data);
+    }
 }
