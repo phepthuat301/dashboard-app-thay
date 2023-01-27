@@ -15,6 +15,7 @@ import { AdminDetailPage } from "../pages/adminManagement/AdminDetailPage";
 import UserPermissionManagement from "../pages/userManagement/PermissionManagement";
 import AdminPermissionManagement from "../pages/adminManagement/PermissionManagement";
 import { BatchUpdateUser } from "../pages/notificationManagement/BatchUpdateUser";
+import { UserGroupUpdateUser } from "../pages/userManagement/UserGroupUpdateUser";
 interface Iroute {
     path: string;
     element?: any;
@@ -96,6 +97,11 @@ export const routes: Iroute[] = [
                 path: "permission",
                 label: 'Permission',
                 element: < UserPermissionManagement />
+            },
+            {
+                path: "usergroup-update-user",
+                label: 'User Group Update User',
+                element: < UserGroupUpdateUser />
             }
         ]
     },

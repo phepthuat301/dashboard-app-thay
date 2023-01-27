@@ -12,7 +12,7 @@ interface user {
     email: string | null,
 }
 
-export interface IBatchUpdateActions {
+export interface IUserGroupUpdateActions {
     addUserToOrderRolesAllow: boolean,
     addUserToOrderRoles: string | null,
     removeUserFromOrderRolesAllow: boolean,
@@ -32,16 +32,16 @@ export interface IBatchUpdateActions {
     deleteUsersAllow: boolean,
     deleteUsers: string | null,
 }
-interface BatchSelectActionProps {
+interface UserGroupSelectActionProps {
     selectedUser: Array<user> | null,
-    actions: IBatchUpdateActions
-    setActions: (actions: IBatchUpdateActions) => void
+    actions: IUserGroupUpdateActions
+    setActions: (actions: IUserGroupUpdateActions) => void
     back: () => void
 }
 
-export const BatchSelectActions: React.FC<BatchSelectActionProps> = ({ selectedUser, back, actions, setActions }) => {
+export const UserGroupSelectActions: React.FC<UserGroupSelectActionProps> = ({ selectedUser, back, actions, setActions }) => {
 
-    const renderCheckBoxFieldWithCheckBox = (checkboxField: keyof IBatchUpdateActions, secCheckboxField: keyof IBatchUpdateActions, text: string, text2: string) => {
+    const renderCheckBoxFieldWithCheckBox = (checkboxField: keyof IUserGroupUpdateActions, secCheckboxField: keyof IUserGroupUpdateActions, text: string, text2: string) => {
         return (<div className="col-12 md:col-8 px-5">
             <div className="grid">
                 <div className="col-12 md:col-6 field-checkbox">
@@ -83,7 +83,7 @@ export const BatchSelectActions: React.FC<BatchSelectActionProps> = ({ selectedU
         <>
             <div className="grid px-5">
                 <div className="col-12">
-                    <h2>Batch Update User</h2>
+                    <h2>UserGroup Update User</h2>
 
 
                 </div>

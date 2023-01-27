@@ -5,9 +5,9 @@ import { Steps } from 'primereact/steps';
 import { useState } from 'react';
 import UserService from '../../service/userManagement/UserService';
 import NotifyController from '../../utilities/Toast';
-import { BatchConfirm } from './BatchConfirm';
-import { BatchSelectActions, IBatchUpdateActions } from './BatchSelectActions';
-import { BatchSelectUser, IBatchSelectUserOptions } from './BatchSelectUser';
+import { UserGroupConfirm } from './UserGroupConfirm';
+import { UserGroupSelectActions, IUserGroupUpdateActions } from './UserGroupSelectActions';
+import { UserGroupSelectUser, IUserGroupSelectUserOptions } from './UserGroupSelectUser';
 
 enum TabMenuEnum {
     SELECT_USER,
@@ -17,7 +17,7 @@ enum TabMenuEnum {
 
 
 
-export const BatchUpdateUser: React.FC = () => {
+export const UserGroupUpdateUser: React.FC = () => {
     const [tab, setTab] = useState<TabMenuEnum>(TabMenuEnum.SELECT_USER)
     const [activeIndex, setActiveIndex] = useState(0)
     const [dataUser, setDataUser] = useState<Array<{
@@ -34,7 +34,7 @@ export const BatchUpdateUser: React.FC = () => {
         avatar: string,
         email: string,
     }> | null>(null)
-    const [options, setOptions] = useState<IBatchSelectUserOptions>({
+    const [options, setOptions] = useState<IUserGroupSelectUserOptions>({
         ExtraMatchUserAllow: false,
         ExtraMatchUser: null,
         ExtraMatchEmailAllow: false,
@@ -74,7 +74,7 @@ export const BatchUpdateUser: React.FC = () => {
         KeenOnMeetingsAllow: false,
         KeenOnMeetings: [],
     })
-    const [actions, setActions] = useState<IBatchUpdateActions>({
+    const [actions, setActions] = useState<IUserGroupUpdateActions>({
         addUserToOrderRolesAllow: false,
         addUserToOrderRoles: null,
         removeUserFromOrderRolesAllow: false,
@@ -103,10 +103,10 @@ export const BatchUpdateUser: React.FC = () => {
         let result = (<></>)
         switch (tab) {
             case TabMenuEnum.SELECT_USER:
-                result = <BatchSelectUser options={options} setOptions={setOptions} />
+                result = <UserGroupSelectUser options={options} setOptions={setOptions} />
                 break;
             case TabMenuEnum.ACTIONS:
-                result = <BatchSelectActions
+                result = <UserGroupSelectActions
                     actions={actions}
                     setActions={setActions}
                     selectedUser={selectedUser}
@@ -116,7 +116,7 @@ export const BatchUpdateUser: React.FC = () => {
                     }} />
                 break;
             case TabMenuEnum.CONFIRM:
-                result = <BatchConfirm data={dataUser} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+                result = <UserGroupConfirm data={dataUser} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 break;
         }
         return result
@@ -144,7 +144,7 @@ export const BatchUpdateUser: React.FC = () => {
         }
     }
     return (
-        <div className="batch-update-user">
+        <div className="usergroup-update-user">
             <div className='card'>
                 <div className="steps-list">
                     <Steps model={userTabMenu} activeIndex={activeIndex} readOnly={true} />

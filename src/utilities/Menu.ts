@@ -47,6 +47,11 @@ export const menu = [
                 icon: 'pi pi-key',
                 to: '/user-management/permission'
             },
+            {
+                label: 'Users Group Promotions',
+                icon: 'pi pi-user',
+                to: '/user-management/usergroup-update-user'
+            },
         ]
     },
     {
