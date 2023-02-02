@@ -14,13 +14,13 @@ import NotifyController from '../../utilities/Toast';
 interface ISexuality {
     id: string,
     key: string,
-    name: string,
+    value: string,
 
 }
 let defaultFormValue: ISexuality = {
     id: '',
     key: '',
-    name: '',
+    value: '',
 };
 
 const Sexuality = () => {
@@ -28,19 +28,21 @@ const Sexuality = () => {
     const [defaultData, setDefaultData] = useState<ISexuality>(defaultFormValue)
     const [deleteSexualityDialog, setDeleteSexualityDialog] = useState<boolean>(false);
     const [formDialogShow, setFormDialogShow] = useState<boolean>(false);
-
+    const [isEdit, setIsEdit] = useState<boolean>(false);
 
     const actionBodyTemplate = (rowData: any) => {
         return (
             <div className="actions">
                 <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2"
                     onClick={() => {
+                        setIsEdit(true);
                         setDefaultData(rowData)
                         setFormDialogShow(true)
                         setRefresh(!refresh)
                     }} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-warning mr-2"
                     onClick={() => {
+                        setDefaultData(rowData)
                         setDeleteSexualityDialog(true)
                     }} />
             </div>
@@ -49,13 +51,48 @@ const Sexuality = () => {
 
     const onOptionChange = async (option: tableOptions) => {
 
-        const sexualitys = await SexualityService.getInstance().getSexualitys().catch((error) => {
+        const sexualitys = await SexualityService.getInstance().getSexuality().catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);
         })
         return sexualitys
     }
+    const onSubmit = async (data: { key: string, value: string }) => {
+        if (isEdit) {
+            await SexualityService.getInstance().editSexuality({ id: defaultData.id, key: data.key, value: data.value }).then(res => NotifyController.success(res)).catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
+            setFormDialogShow(false)
+            setRefresh(!refresh)
+            setIsEdit(false)
+        } else {
+            await SexualityService.getInstance().addSexuality(data.key, data.value).then(res => NotifyController.success(res)).catch((error) => {
+                NotifyController.error(error?.message)
+                console.log(error);
+            })
+            setFormDialogShow(false)
+            setRefresh(!refresh)
+        }
 
+    }
+
+    const onDelete = async () => {
+        await SexualityService.getInstance().deleteSexuality(defaultData.id).then(res => NotifyController.success(res)).catch((error) => {
+            NotifyController.error(error?.message)
+            console.log(error);
+        })
+        setDeleteSexualityDialog(false)
+        setRefresh(!refresh)
+    }
+
+    const onDeleteMany = async (listIds: any) => {
+        await SexualityService.getInstance().deleteSexualities(listIds).then(res => NotifyController.success(res)).catch((error) => {
+            NotifyController.error(error?.message)
+            console.log(error);
+        })
+        setRefresh(!refresh)
+    }
     return (
         <div className="grid crud-demo">
             <div className="col-12">
@@ -79,7 +116,7 @@ const Sexuality = () => {
                                 type: "Danger",
                                 onClick: (option) => {
                                     if (option.selectAll || Number(option.selected?.length) > 0) {
-
+                                        onDeleteMany(option.selected?.map(item => item.id))
                                     }
                                     else {
                                         NotifyController.warning("No rows selected")
@@ -91,7 +128,7 @@ const Sexuality = () => {
                         refresh={refresh}
                     >
                         <Column field="key" header="Key" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="name" header="Name" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="value" header="Value" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </CustomDataTable>
 
@@ -99,8 +136,7 @@ const Sexuality = () => {
                         show={deleteSexualityDialog}
                         message={'Please confirm the deletion of this item ?'}
                         onAccept={function (): void {
-                            setDeleteSexualityDialog(false)
-                            setRefresh(!refresh)
+                            onDelete()
                         }}
                         onDeny={function (): void {
                             setDeleteSexualityDialog(false)
@@ -109,21 +145,21 @@ const Sexuality = () => {
                         show={formDialogShow}
                         fields={[
                             {
-                                name: 'name',
-                                label: 'Name',
+                                name: 'value',
+                                label: 'Value',
                                 type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
-                                validate: Joi.string().min(6).required()
+                                validate: Joi.string().min(4).required()
                             },
                             {
                                 name: 'key',
                                 label: 'Key',
                                 type: CUSTOM_FORM_DIALOG_FIELD_TYPE.text,
-                                validate: Joi.string().min(6).required()
+                                validate: Joi.string().min(4).required()
                             },
                         ]}
                         defaultValue={defaultData}
                         onAccept={function (data: any): void {
-                            console.log(data);
+                            onSubmit(data);
                         }}
                         onDeny={function (): void {
                             setFormDialogShow(false)

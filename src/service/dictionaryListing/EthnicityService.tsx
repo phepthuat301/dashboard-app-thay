@@ -1,5 +1,5 @@
 
-import { httpGet } from '../HttpService';
+import { httpDelete, httpGet, httpPost, httpPut } from '../HttpService';
 
 export default class EthnicityService {
     private static instance: EthnicityService;
@@ -11,8 +11,29 @@ export default class EthnicityService {
         return this.instance;
     }
 
-    getEthnicitys() {
-        return httpGet('assets/demo/data/ethnicity.json').then((res) => res.data.data);
+    async getEthnicity() {
+        const res = await httpGet('/dashboard/ethnicity');
+        return res.data;
+    }
+
+    async addEthnicity(key: string, value: string) {
+        const res = await httpPost('/dashboard/ethnicity', { key, value });
+        return res.data;
+    }
+
+    async editEthnicity(data: { id: string, key: string, value: string }) {
+        const res = await httpPut('/dashboard/ethnicity', data);
+        return res.data;
+    }
+
+    async deleteEthnicity(id: string) {
+        const res = await httpDelete(`/dashboard/ethnicity/${id}`);
+        return res.data;
+    }
+
+    async deleteEthnicitys(id: string[]) {
+        const res = await httpPost(`/dashboard/ethnicity/delete-many`, id);
+        return res.data;
     }
 
     getAllEthnicitys() {

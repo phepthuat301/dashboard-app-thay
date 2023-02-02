@@ -1,4 +1,4 @@
-import { httpGet } from "./HttpService";
+import { httpGet, httpPost } from "./HttpService";
 import { deleteToken, persistToken } from "./LocalStorageService";
 
 export default class AuthService {
@@ -11,13 +11,12 @@ export default class AuthService {
         return this.instance;
     }
     async login(email: string, password: string) {
-        // return httpPost("assets/demo/data/login.json", {
-        //     email,
-        //     password
-        // })
-        const res = await httpGet("assets/demo/data/login.json").then((res) => res.data.data)
-        if (res?.accessToken)
-            persistToken(res?.accessToken)
+        const res = await httpPost("/login", {
+            email,
+            password
+        }).then((res) => res.data)
+        if (res?.token)
+            persistToken(res?.token)
         return res
     }
 
