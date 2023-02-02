@@ -8,7 +8,7 @@ export const getUserState = (state: StoreInterface) => {
 
 const initializeState: UserState = {
   id: "",
-  avatar: process.env.REACT_APP_ROOT_PATH + "assets/images/guest-user.png",
+  avatar: "/assets/images/guest-user.png",
   first_name: "",
   last_name: "",
   isLoggedIn: false
