@@ -654,7 +654,7 @@ const Dashboard = () => {
         return (
             <>
                 <span className="p-column-title">Agent</span>
-                <img alt={data.representative.name} src={process.env.REACT_APP_ROOT_PATH + 'assets/demo/images/avatar/' + data.representative.image} width={24} className="mr-2" style={{ verticalAlign: 'middle' }} />
+                <img alt={data.representative.name} src={'/assets/demo/images/avatar/' + data.representative.image} width={24} className="mr-2" style={{ verticalAlign: 'middle' }} />
                 <span className="image-text">{data.representative.name}</span>
             </>
         );
@@ -686,7 +686,7 @@ const Dashboard = () => {
             <div className="card mr-4">
                 <div className="customer-item-content">
                     <div className="mb-6">
-                        <img src={process.env.REACT_APP_ROOT_PATH + 'assets/layout/images/dashboard/' + customer.image + '.png'} alt={customer.image} className="product-image" />
+                        <img src={'/assets/layout/images/dashboard/' + customer.image + '.png'} alt={customer.image} className="product-image" />
                     </div>
                     <div>
                         <h4>{customer.user}</h4>
@@ -732,7 +732,7 @@ const Dashboard = () => {
                                 <div className="overview-text">0.81%</div>
                             </div>
                         </div>
-                        <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/rate.svg"} alt="rate" />
+                        <img src={"/assets/layout/images/dashboard/rate.svg"} alt="rate" />
                     </div>
                 </div>
                 <div className="col-12 md:col-4">
@@ -747,7 +747,7 @@ const Dashboard = () => {
                                 <div className="overview-text">$306.2</div>
                             </div>
                         </div>
-                        <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/value.svg"} alt="value" />
+                        <img src={"/assets/layout/images/dashboard/value.svg"} alt="value" />
                     </div>
                 </div>
                 <div className="col-12 md:col-4">
@@ -762,7 +762,7 @@ const Dashboard = () => {
                                 <div className="overview-text">1,620</div>
                             </div>
                         </div>
-                        <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/quantity.svg"} alt="quantity" />
+                        <img src={"/assets/layout/images/dashboard/quantity.svg"} alt="quantity" />
                     </div>
                 </div>
 
@@ -917,7 +917,7 @@ const Dashboard = () => {
                         <div className="content">
                             <ul>
                                 <li className="person-item">
-                                    <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/ann.png"} className="mr-2 p-overlay-badge" shape="circle">
+                                    <Avatar image={"/assets/layout/images/dashboard/ann.png"} className="mr-2 p-overlay-badge" shape="circle">
                                         <Badge value={1} />
                                     </Avatar>
                                     <div className="person-info">
@@ -926,7 +926,7 @@ const Dashboard = () => {
                                     </div>
                                 </li>
                                 <li className="person-item">
-                                    <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/miracle.png"} className="mr-2 p-overlay-badge" shape="circle">
+                                    <Avatar image={"/assets/layout/images/dashboard/miracle.png"} className="mr-2 p-overlay-badge" shape="circle">
                                         <Badge value={2} />
                                     </Avatar>
                                     <div className="person-info">
@@ -935,7 +935,7 @@ const Dashboard = () => {
                                     </div>
                                 </li>
                                 <li className="person-item">
-                                    <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/kaylynn.png"} className="mr-2 p-overlay-badge" shape="circle">
+                                    <Avatar image={"/assets/layout/images/dashboard/kaylynn.png"} className="mr-2 p-overlay-badge" shape="circle">
                                         <Badge value={3} />
                                     </Avatar>
                                     <div className="person-info">
@@ -944,7 +944,7 @@ const Dashboard = () => {
                                     </div>
                                 </li>
                                 <li className="person-item">
-                                    <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/angel.png"} className="mr-2 p-overlay-badge" shape="circle">
+                                    <Avatar image={"/assets/layout/images/dashboard/angel.png"} className="mr-2 p-overlay-badge" shape="circle">
                                         <Badge value={4} />
                                     </Avatar>
                                     <div className="person-info">
@@ -953,7 +953,7 @@ const Dashboard = () => {
                                     </div>
                                 </li>
                                 <li className="person-item">
-                                    <Avatar image={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/dashboard/cristofer.png"} className="mr-2 p-overlay-badge" shape="circle">
+                                    <Avatar image={"/assets/layout/images/dashboard/cristofer.png"} className="mr-2 p-overlay-badge" shape="circle">
                                         <Badge value={5} />
                                     </Avatar>
                                     <div className="person-info">

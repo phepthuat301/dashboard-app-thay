@@ -23,11 +23,11 @@ const AppTopbar = (props: any) => {
                     </button>
 
                     <button className="logo p-link" onClick={() => navigate('/')}>
-                        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
+                        <img src={`/assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
                     </button>
 
                     <button className="p-link" onClick={() => navigate('/')}>
-                        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="app-name" alt="app-name" />
+                        <img src={`/assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="app-name" alt="app-name" />
                     </button>
                 </div>
 

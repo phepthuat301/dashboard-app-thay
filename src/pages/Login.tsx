@@ -55,13 +55,13 @@ export const Login = (props: any) => {
     return (
         <div className="login-body">
             <div className="login-image">
-                <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/pages/login-${props.colorScheme === 'light' ? 'ondark' : 'onlight'}.png`} alt="atlantis" />
+                <img src={`/assets/layout/images/pages/login-${props.colorScheme === 'light' ? 'ondark' : 'onlight'}.png`} alt="atlantis" />
             </div>
             <div className="login-panel p-fluid">
                 <div className="flex flex-column">
                     <div className="flex align-items-center mb-6 logo-container">
-                        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-logo" alt="login-logo" />
-                        <img src={`${process.env.REACT_APP_ROOT_PATH}assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-appname" alt="login-appname" />
+                        <img src={`/assets/layout/images/logo-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-logo" alt="login-logo" />
+                        <img src={`/assets/layout/images/appname-${props.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-appname" alt="login-appname" />
                     </div>
                     <div className="form-container">
                         <span className="p-input-icon-left">
@@ -91,8 +91,8 @@ export const Login = (props: any) => {
 
                 <div className="login-footer flex align-items-center">
                     <div className="flex align-items-center login-footer-logo-container">
-                        <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/logo-gray.png"} className="login-footer-logo" alt="login-footer-logo" />
-                        <img src={process.env.REACT_APP_ROOT_PATH + "assets/layout/images/appname-gray.png"} className="login-footer-appname" alt="login-footer-appname" />
+                        <img src={"/assets/layout/images/logo-gray.png"} className="login-footer-logo" alt="login-footer-logo" />
+                        <img src={"/assets/layout/images/appname-gray.png"} className="login-footer-appname" alt="login-footer-appname" />
                     </div>
                     <span>Copyright 2021</span>
                 </div>
