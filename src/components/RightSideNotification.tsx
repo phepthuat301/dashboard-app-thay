@@ -15,14 +15,14 @@ export const RightSideNotification: React.FC = () => {
     const [show, setShow] = useState(false)
     const [notifications, setNotifications] = useState<INotification[]>([])
     useEffect(() => {
-        NotificationService
-            .getInstance()
-            .getNotifications()
-            .then((res) => setNotifications(res))
-            ?.catch((error) => {
-                NotifyController.error(error?.message)
-                console.log(error);
-            })
+        // NotificationService
+        //     .getInstance()
+        //     .getNotifications()
+        //     .then((res) => setNotifications(res))
+        //     ?.catch((error) => {
+        //         NotifyController.error(error?.message)
+        //         console.log(error);
+        //     })
     }, [])
     return (
         <>

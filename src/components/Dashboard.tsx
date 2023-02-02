@@ -435,29 +435,29 @@ const Dashboard = () => {
     useEffect(() => {
         const dashboardService = new DashboardService();
 
-        dashboardService.getCustomersLarge().then((customers) => {
-            const _customersTable = customers.map((customer: any) => {
-                let date = new Date(customer.date);
-                return { ...customer, date };
-            });
-            setCustomersTable(_customersTable);
-        });
+        // dashboardService.getCustomersLarge().then((customers) => {
+        //     const _customersTable = customers.map((customer: any) => {
+        //         let date = new Date(customer.date);
+        //         return { ...customer, date };
+        //     });
+        //     setCustomersTable(_customersTable);
+        // });
 
-        dashboardService.getCustomersLarge().then((customers) => {
-            const _customersTable1 = customers.map((customer: any) => {
-                let date = new Date(customer.date);
-                return { ...customer, date };
-            });
-            setCustomersTable1(_customersTable1);
-        });
+        // dashboardService.getCustomersLarge().then((customers) => {
+        //     const _customersTable1 = customers.map((customer: any) => {
+        //         let date = new Date(customer.date);
+        //         return { ...customer, date };
+        //     });
+        //     setCustomersTable1(_customersTable1);
+        // });
 
-        dashboardService.getCustomersMixed().then((customers) => {
-            const _customersTable2 = customers.map((customer: any) => {
-                let date = new Date(customer.date);
-                return { ...customer, date };
-            });
-            setCustomersTable2(_customersTable2);
-        });
+        // dashboardService.getCustomersMixed().then((customers) => {
+        //     const _customersTable2 = customers.map((customer: any) => {
+        //         let date = new Date(customer.date);
+        //         return { ...customer, date };
+        //     });
+        //     setCustomersTable2(_customersTable2);
+        // });
 
         setCustomerCarousel([
             { user: '9,673 Users', value: '$8,362,478', image: 'nasa' },

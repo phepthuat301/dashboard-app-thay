@@ -24,11 +24,9 @@ export const httpGet = async (url: string, config?: AxiosRequestConfig) => {
 }
 
 export const httpPost = async (url: string, body: any, config?: AxiosRequestConfig) => {
-
     const result = await httpApi.post(url, body, config)
     checkHttpStatus(result)
     return result
-
 }
 export const httpPut = async (url: string, body: any, config?: AxiosRequestConfig) => {
 

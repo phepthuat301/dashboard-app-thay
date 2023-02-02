@@ -31,7 +31,7 @@ export const Login = (props: any) => {
                 .getInstance()
                 .login(submitData.email, submitData.password)
                 .then((res) => {
-                    if (res?.accessToken) {
+                    if (res?.token) {
                         dispatch(setLogin(true))
                         NotifyController.success("Login Success")
                         navigate('/')
