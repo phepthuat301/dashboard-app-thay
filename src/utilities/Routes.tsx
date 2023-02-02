@@ -1,4 +1,3 @@
-
 import ContentPage from "../pages/contentManagement/ContentPage";
 import ReportedContentPage from "../pages/reportedManagement/ReportedContentPage";
 import Ethnicity from "../pages/dictionaryListing/Ethnicity";
@@ -7,13 +6,13 @@ import KeenOnMeeting from "../pages/dictionaryListing/KeenOnMeeting";
 import ProfileType from "../pages/dictionaryListing/ProfileType";
 import Sexuality from "../pages/dictionaryListing/Sexuality";
 import { ContentDetailPage } from "../pages/contentManagement/ContentDetailPage";
-import UserPage from "../pages/userManagement/UserPage";
-import { UserDetailPage } from "../pages/userManagement/UserDetailPage";
+import UserPage from "../pages/userManagement/userPage";
+import { UserDetailPage } from "../pages/userManagement/userDetailPage";
 import AdminActivities from "../pages/activitisManagement/AdminActivities";
-import AdminPage from "../pages/adminManagement/AdminPage";
-import { AdminDetailPage } from "../pages/adminManagement/AdminDetailPage";
+import AdminPage from "../pages/AdminManagement/AdminPage";
+import { AdminDetailPage } from "../pages/AdminManagement/AdminDetailPage";
 import UserPermissionManagement from "../pages/userManagement/PermissionManagement";
-import AdminPermissionManagement from "../pages/adminManagement/PermissionManagement";
+import AdminPermissionManagement from "../pages/AdminManagement/PermissionManagement";
 import { BatchUpdateUser } from "../pages/notificationManagement/BatchUpdateUser";
 import { UserGroupUpdateUser } from "../pages/userManagement/UserGroupUpdateUser";
 interface Iroute {
