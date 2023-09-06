@@ -15,6 +15,8 @@ import UserPermissionManagement from "../pages/userManagement/PermissionManageme
 import AdminPermissionManagement from "../pages/AdminManagement/PermissionManagement";
 import { BatchUpdateUser } from "../pages/notificationManagement/BatchUpdateUser";
 import { UserGroupUpdateUser } from "../pages/userManagement/UserGroupUpdateUser";
+import UploadConfig from "../pages/configManagement/UploadConfig/UploadConfig";
+import ListAllConfig from "../pages/configManagement/AllConfig/ListAllConfig";
 interface Iroute {
     path: string;
     element?: any;
@@ -27,124 +29,140 @@ interface Iroute {
 }
 export const routes: Iroute[] = [
     {
-        path: "dictionary-listing",
-        label: 'Dictionary Listing',
+        path: "config",
+        label: 'Config',
         childs: [
             {
-                path: "profile-type",
-                label: 'Profile Type',
-                element: < ProfileType />
+                path: "upload-config",
+                label: 'Upload Config',
+                element: < UploadConfig />
             },
             {
-                path: "sexuality",
-                label: 'Sexuality',
-                element: < Sexuality />
-            },
-            {
-                path: "keen-on-meeting",
-                label: 'Keen On Meeting',
-                element: < KeenOnMeeting />
-            },
-            {
-                path: "interest-topics",
-                label: 'Interest Topics',
-                element: < InterestTopics />
-            },
-            {
-                path: "ethnicity",
-                label: 'Ethnicity',
-                element: < Ethnicity />
-            }
-        ]
-    },
-    {
-        path: "content-management",
-        label: 'Content Management',
-        childs: [
-            {
-                path: "content",
-                label: 'Content',
-                element: < ContentPage />
-            },
-            {
-                path: "content-:id",
-                label: 'Content',
-                element: < ContentDetailPage />
-            },
-            {
-                path: "reported",
-                label: 'Reported Content',
-                element: < ReportedContentPage />
+                path: "list-config",
+                label: 'All Configs',
+                element: < ListAllConfig />
             },
         ]
     },
-    {
-        path: "user-management",
-        label: 'User Management',
-        childs: [
-            {
-                path: "user",
-                label: 'User',
-                element: < UserPage />
-            },
-            {
-                path: "user-:id",
-                label: 'User Detail',
-                element: < UserDetailPage />
-            },
-            {
-                path: "permission",
-                label: 'Permission',
-                element: < UserPermissionManagement />
-            },
-            {
-                path: "usergroup-update-user",
-                label: 'User Group Update User',
-                element: < UserGroupUpdateUser />
-            }
-        ]
-    },
-    {
-        path: "Admin-management",
-        label: 'Team Management',
-        childs: [
-            {
-                path: "admin",
-                label: 'Admin',
-                element: < AdminPage />
-            },
-            {
-                path: "admin-:id",
-                label: 'User Detail',
-                element: < AdminDetailPage />
-            },
-            {
-                path: "permission",
-                label: 'Permission',
-                element: < AdminPermissionManagement />
-            }
-        ]
-    },
-    {
-        path: "notification-management",
-        label: 'Batch Update User',
-        childs: [
-            {
-                path: "bacth-update-user",
-                label: 'Batch Update User',
-                element: < BatchUpdateUser />
-            }
-        ]
-    },
-    {
-        path: "log-management",
-        label: 'Batch Update User',
-        childs: [
-            {
-                path: "activies",
-                label: 'Admin activities',
-                element: < AdminActivities />
-            },
-        ]
-    },
+    // {
+    //     path: "dictionary-listing",
+    //     label: 'Dictionary Listing',
+    //     childs: [
+    //         {
+    //             path: "profile-type",
+    //             label: 'Profile Type',
+    //             element: < ProfileType />
+    //         },
+    //         {
+    //             path: "sexuality",
+    //             label: 'Sexuality',
+    //             element: < Sexuality />
+    //         },
+    //         {
+    //             path: "keen-on-meeting",
+    //             label: 'Keen On Meeting',
+    //             element: < KeenOnMeeting />
+    //         },
+    //         {
+    //             path: "interest-topics",
+    //             label: 'Interest Topics',
+    //             element: < InterestTopics />
+    //         },
+    //         {
+    //             path: "ethnicity",
+    //             label: 'Ethnicity',
+    //             element: < Ethnicity />
+    //         }
+    //     ]
+    // },
+    // {
+    //     path: "content-management",
+    //     label: 'Content Management',
+    //     childs: [
+    //         {
+    //             path: "content",
+    //             label: 'Content',
+    //             element: < ContentPage />
+    //         },
+    //         {
+    //             path: "content-:id",
+    //             label: 'Content',
+    //             element: < ContentDetailPage />
+    //         },
+    //         {
+    //             path: "reported",
+    //             label: 'Reported Content',
+    //             element: < ReportedContentPage />
+    //         },
+    //     ]
+    // },
+    // {
+    //     path: "user-management",
+    //     label: 'User Management',
+    //     childs: [
+    //         {
+    //             path: "user",
+    //             label: 'User',
+    //             element: < UserPage />
+    //         },
+    //         {
+    //             path: "user-:id",
+    //             label: 'User Detail',
+    //             element: < UserDetailPage />
+    //         },
+    //         {
+    //             path: "permission",
+    //             label: 'Permission',
+    //             element: < UserPermissionManagement />
+    //         },
+    //         {
+    //             path: "usergroup-update-user",
+    //             label: 'User Group Update User',
+    //             element: < UserGroupUpdateUser />
+    //         }
+    //     ]
+    // },
+    // {
+    //     path: "Admin-management",
+    //     label: 'Team Management',
+    //     childs: [
+    //         {
+    //             path: "admin",
+    //             label: 'Admin',
+    //             element: < AdminPage />
+    //         },
+    //         {
+    //             path: "admin-:id",
+    //             label: 'User Detail',
+    //             element: < AdminDetailPage />
+    //         },
+    //         {
+    //             path: "permission",
+    //             label: 'Permission',
+    //             element: < AdminPermissionManagement />
+    //         }
+    //     ]
+    // },
+    // {
+    //     path: "notification-management",
+    //     label: 'Batch Update User',
+    //     childs: [
+    //         {
+    //             path: "bacth-update-user",
+    //             label: 'Batch Update User',
+    //             element: < BatchUpdateUser />
+    //         }
+    //     ]
+    // },
+    // {
+    //     path: "log-management",
+    //     label: 'Batch Update User',
+    //     childs: [
+    //         {
+    //             path: "activies",
+    //             label: 'Admin activities',
+    //             element: < AdminActivities />
+    //         },
+    //     ]
+    // },
 ]
