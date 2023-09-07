@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppMenu from './AppMenu';
 import { classNames } from 'primereact/utils';
-import { RightSideNotification } from '../components/RightSideNotification';
 import { useSelector } from 'react-redux';
 import { getUserState } from '../redux/reducers/userReducer';
 import AuthService from '../service/AuthService';
@@ -74,7 +73,6 @@ const AppTopbar = (props: any) => {
                                 </li>
                             </ul>
                         </li>
-                        <RightSideNotification />
                         {/* <li>
                             <button className="p-link">
                                 <i className="topbar-icon pi pi-fw pi-comment"></i>

@@ -17,16 +17,12 @@ import './App.scss';
 import { menu } from './utilities/Menu';
 import { routes } from "./utilities/Routes";
 import { NotFound } from './pages/NotFound';
-import Dashboard from './components/Dashboard';
 import AppBreadcrumb from './layout/AppBreadcrumb';
 import { persistMenuMode, readMenuMode, readToken } from './service/LocalStorageService';
-import ProfileType from './pages/dictionaryListing/ProfileType';
 import { Access } from './pages/Access';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserState } from './redux/reducers/userReducer';
-import { setLogin, setUser } from './redux/actions/userActions';
-import UserService from './service/userManagement/UserService';
-import NotifyController from './utilities/Toast';
+import ListAllConfig from './pages/configManagement/AllConfig/ListAllConfig';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -341,8 +337,7 @@ const App = (props: any) => {
                 <AppBreadcrumb routes={routes} onMenuButtonClick={onMenuButtonClick} menuMode={menuMode} onRightMenuButtonClick={onRightMenuButtonClick} onInputClick={onInputClick} searchActive={searchActive} breadcrumbClick={breadcrumbClick} />
                 <div className="layout-main-content">
                     <Routes>
-                        <Route index element={<Dashboard />} />
-                        <Route path={'dictionary-listing/1'} element={<ProfileType></ProfileType>}></Route>
+                        <Route index element={<ListAllConfig />} />
                         {routes.map((route, key) => <Route key={key} path={route.path} >
                             {
                                 route.childs && route.childs.map((child, key) => <Route key={key} path={child.path} element={child.element} />)
