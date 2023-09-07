@@ -42,8 +42,10 @@ function UploadConfig() {
                         <textarea style={{
                             width:'100%',
                         }}  rows={40}  onChange={onChangeDataUpload} value={dataJsonFiles} >{dataJsonFiles}</textarea>
-                        <Button type='reset' onClick={onReset}>Reset</Button>
-                        <Button type='submit' onClick={onSubmit}>Submit</Button>
+                        <div className='flex gap-2'>
+                            <Button className='p-button-info' onClick={onReset}>Reset</Button>
+                            <Button className='p-button-success' onClick={onSubmit}>Submit</Button>
+                        </div>
                     </div>
                 </div>
             </div>
