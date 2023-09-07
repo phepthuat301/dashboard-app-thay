@@ -14,11 +14,11 @@ export default class ConfigService {
         const uploaded = await httpPost('dashboard/import-style', data)
         return uploaded.data
     }
-    async putEditConfig(data: any) {   
+    async putEditConfig(data: any) {
         const uploaded = await httpPut('dashboard/style', data)
         return uploaded.data
     }
-    async deleteConfig( data:any) {  
+    async deleteConfig(data: any) {
         const uploaded = await httpPost('dashboard/delete-styles', data)
         return uploaded
     }
@@ -34,28 +34,28 @@ export default class ConfigService {
         const uploaded = await httpPut('dashboard/custom', data)
         return uploaded.data
     }
-    async addNewConfigs(dataValue:any) {
-        const data = await httpPost('dashboard/style',dataValue)
+    async addNewConfigs(dataValue: any) {
+        const data = await httpPost('dashboard/style', dataValue)
         return data.data
     }
     async uploadImage(file: any) {
-       const data= await  httpGet(`dashboard/signed-url?fileName=${new Date().getTime()}-${file.name}&fileType=${file.type}`)
-       return data.data  
+        const data = await httpGet(`dashboard/signed-url?fileName=${new Date().getTime()}-${file.name}&fileType=${file.type}`)
+        return data.data
     }
-    uploadFileS3(file: any, signedRequest: string, url: string)  {
+    uploadFileS3(file: any, signedRequest: string, url: string) {
         const xhr = new XMLHttpRequest();
-         xhr.open("PUT", signedRequest);
+        xhr.open("PUT", signedRequest);
         xhr.onreadystatechange = () => {
-          if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-             return url
-            } else {
-            //   alert("Could not upload file.");
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    return url
+                } else {
+                    //   alert("Could not upload file.");
+                }
             }
-          }
         };
         xhr.send(file);
-      };
+    };
 
     // getConfigDetail(id: string) {
     //     return httpGet('assets/demo/data/content-detail.json').then((res) => res.data.data);

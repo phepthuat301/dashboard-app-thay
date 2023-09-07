@@ -37,15 +37,68 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
             </div>
         );
     };
-
-    const onClickBtnEdit = (data: any) => {
+    const closeModel=()=>{
+        setVisibleModal(false);
+        NotifyController.success("Edit Success")
+    }
+    const onClickBtnEdit = async (res: any) => {
         setVisibleModal(true);
-        setDataModal(data);
+        setDataModal(res);
+    }
+    const onClickBtnConfirm = async (res: any) => {
+        setVisibleModal(true);
+        setDataModal(res);
         switch (active) {
             case 'place':
-                
+                data.data.place = res
+              const isUpdatePlace = await ConfigService.getInstance().putEditPromptCustomize(data);
+              if(isUpdatePlace.success){
+                closeModel()
+              }
                 break;
-        
+            case 'age':
+                data.data.age = res
+               const isUpdateAge= await ConfigService.getInstance().putEditPromptCustomize(data);
+               if(isUpdateAge.success){
+                closeModel()
+              }
+                break;
+            case 'hair':
+                data.data.hair = res
+                const isUpdateHair =await ConfigService.getInstance().putEditPromptCustomize(data);
+                if(isUpdateHair.success){
+                    closeModel()
+                  }
+                break;
+            case 'skinTone':
+                data.data.skinTone = res
+               const isUpdateSkinTone=  await ConfigService.getInstance().putEditPromptCustomize(data);
+                if(isUpdateSkinTone.success){
+                    closeModel()
+                  }
+                break;
+            case 'accessory':
+                data.data.accessory = res
+                const  isUpdateAccessory= await ConfigService.getInstance().putEditPromptCustomize(data);
+                if(isUpdateAccessory.success){
+                    closeModel()
+                  }
+                break;
+            case 'light':
+                data.data.light = res
+                const isUpdateLight = await ConfigService.getInstance().putEditPromptCustomize(data);
+                if(isUpdateLight.success){
+                    closeModel()
+                  }
+                break;
+            case 'emotion':
+                data.data.emotion = res
+               const isUpdateEmotion= await ConfigService.getInstance().putEditPromptCustomize(data);
+                if(isUpdateEmotion.success){
+                    closeModel()
+                  }
+                break;
+
             default:
                 break;
         }
@@ -53,7 +106,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     const footerContent = (
         <div>
             <Button className='p-button-secondary' label="Discard" icon="pi pi-times" onClick={() => setVisibleModal(false)} />
-            <Button className='p-button-success' label="Save" icon="pi pi-check" autoFocus />
+            <Button className='p-button-success' label="Save" icon="pi pi-check" onClick={e => onClickBtnConfirm(dataModal)} autoFocus />
         </div>
     );
     const handleImageUpload = async (e: any) => {
@@ -82,7 +135,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
         return <Button onClick={(e) => { onClickBtnEdit(data.props.value) }}>Edit</Button>
     }
     console.log(data);
-    
+
     return (
         <div>
             <TabMenu model={itemsType} activeIndex={activeIndex} onTabChange={(e) => { setActiveIndex(e.index); setActive(e.value.label as string) }} />
@@ -100,7 +153,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
                 </>
             ))}
             <Dialog header={`Edit ${active}`} visible={visibleModal} onHide={() => setVisibleModal(false)} footer={footerContent}>
-                <textarea rows={30} cols={70} >{JSON.stringify(dataModal, undefined, 4)}</textarea>
+                <textarea rows={30} cols={70} onChange={(e) => setDataModal(JSON.parse(e.target.value))} >{JSON.stringify(dataModal, undefined, 4)}</textarea>
                 <Dialog header={'URL image '} visible={showModalURL} onHide={() => setShowModalURL(false)} style={{ width: '30%', height: '200px' }}  >
                     <p>Copy url and past to field <b>image</b> of json file</p>
                     <div className='flex justify-content-center align-item-center gap-2'>
