@@ -21,7 +21,7 @@ const AppBreadcrumb = (props: any) => {
 
     let items: any[] = [];
     if (location.pathname === '/') {
-        items = [{ label: 'Dashboard' }, { label: 'Dashboard' }];
+        items = [{ label: 'Config' }, { label: 'List Config' }];
     } else if (!activeRoute) {
         items = [];
     } else {

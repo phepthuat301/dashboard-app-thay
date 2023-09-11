@@ -1,20 +1,6 @@
-import ContentPage from "../pages/contentManagement/ContentPage";
-import ReportedContentPage from "../pages/reportedManagement/ReportedContentPage";
-import Ethnicity from "../pages/dictionaryListing/Ethnicity";
-import InterestTopics from "../pages/dictionaryListing/InterestTopics";
-import KeenOnMeeting from "../pages/dictionaryListing/KeenOnMeeting";
-import ProfileType from "../pages/dictionaryListing/ProfileType";
-import Sexuality from "../pages/dictionaryListing/Sexuality";
-import { ContentDetailPage } from "../pages/contentManagement/ContentDetailPage";
-import UserPage from "../pages/userManagement/userPage";
-import { UserDetailPage } from "../pages/userManagement/userDetailPage";
-import AdminActivities from "../pages/activitisManagement/AdminActivities";
-import AdminPage from "../pages/AdminManagement/AdminPage";
-import { AdminDetailPage } from "../pages/AdminManagement/AdminDetailPage";
-import UserPermissionManagement from "../pages/userManagement/PermissionManagement";
-import AdminPermissionManagement from "../pages/AdminManagement/PermissionManagement";
-import { BatchUpdateUser } from "../pages/notificationManagement/BatchUpdateUser";
-import { UserGroupUpdateUser } from "../pages/userManagement/UserGroupUpdateUser";
+import UploadConfig from "../pages/configManagement/UploadConfig/UploadConfig";
+import ListAllConfig from "../pages/configManagement/AllConfig/ListAllConfig";
+import ListAllPromptCustomize from "../pages/promptCustomizeManagement/ListAllPromptCustomize";
 interface Iroute {
     path: string;
     element?: any;
@@ -23,128 +9,35 @@ interface Iroute {
         path: string;
         element: any;
         label?: string;
+        child?:any
     }>
 }
 export const routes: Iroute[] = [
     {
-        path: "dictionary-listing",
-        label: 'Dictionary Listing',
+        path: "config",
+        label: 'Config',
         childs: [
             {
-                path: "profile-type",
-                label: 'Profile Type',
-                element: < ProfileType />
+                path: "upload-config",
+                label: 'Upload Config',
+                element: <UploadConfig />
             },
             {
-                path: "sexuality",
-                label: 'Sexuality',
-                element: < Sexuality />
+                path: "list-config",
+                label: 'All Configs',
+                element: <ListAllConfig />
             },
+        ]
+    },
+    {
+        path: "custom-prompt",
+        label: 'Prompt Customize',
+        childs: [
             {
-                path: "keen-on-meeting",
-                label: 'Keen On Meeting',
-                element: < KeenOnMeeting />
-            },
-            {
-                path: "interest-topics",
-                label: 'Interest Topics',
-                element: < InterestTopics />
-            },
-            {
-                path: "ethnicity",
-                label: 'Ethnicity',
-                element: < Ethnicity />
+                path: "list-prompt",
+                label: 'All Prompt',
+                element: <ListAllPromptCustomize />,
             }
         ]
-    },
-    {
-        path: "content-management",
-        label: 'Content Management',
-        childs: [
-            {
-                path: "content",
-                label: 'Content',
-                element: < ContentPage />
-            },
-            {
-                path: "content-:id",
-                label: 'Content',
-                element: < ContentDetailPage />
-            },
-            {
-                path: "reported",
-                label: 'Reported Content',
-                element: < ReportedContentPage />
-            },
-        ]
-    },
-    {
-        path: "user-management",
-        label: 'User Management',
-        childs: [
-            {
-                path: "user",
-                label: 'User',
-                element: < UserPage />
-            },
-            {
-                path: "user-:id",
-                label: 'User Detail',
-                element: < UserDetailPage />
-            },
-            {
-                path: "permission",
-                label: 'Permission',
-                element: < UserPermissionManagement />
-            },
-            {
-                path: "usergroup-update-user",
-                label: 'User Group Update User',
-                element: < UserGroupUpdateUser />
-            }
-        ]
-    },
-    {
-        path: "Admin-management",
-        label: 'Team Management',
-        childs: [
-            {
-                path: "admin",
-                label: 'Admin',
-                element: < AdminPage />
-            },
-            {
-                path: "admin-:id",
-                label: 'User Detail',
-                element: < AdminDetailPage />
-            },
-            {
-                path: "permission",
-                label: 'Permission',
-                element: < AdminPermissionManagement />
-            }
-        ]
-    },
-    {
-        path: "notification-management",
-        label: 'Batch Update User',
-        childs: [
-            {
-                path: "bacth-update-user",
-                label: 'Batch Update User',
-                element: < BatchUpdateUser />
-            }
-        ]
-    },
-    {
-        path: "log-management",
-        label: 'Batch Update User',
-        childs: [
-            {
-                path: "activies",
-                label: 'Admin activities',
-                element: < AdminActivities />
-            },
-        ]
-    },
+    }
 ]
