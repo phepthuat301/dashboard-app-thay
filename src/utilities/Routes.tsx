@@ -1,6 +1,7 @@
 import UploadConfig from "../pages/configManagement/UploadConfig/UploadConfig";
 import ListAllConfig from "../pages/configManagement/AllConfig/ListAllConfig";
 import ListAllPromptCustomize from "../pages/promptCustomizeManagement/ListAllPromptCustomize";
+import ImportTemplate from "../pages/templateManagement/ImportTemplate";
 interface Iroute {
     path: string;
     element?: any;
@@ -13,6 +14,17 @@ interface Iroute {
     }>
 }
 export const routes: Iroute[] = [
+    {
+        path: "template",
+        label: 'Template',
+        childs: [
+            {
+                path: "import",
+                label: 'Import Template',
+                element: <ImportTemplate />
+            },
+        ]
+    },
     {
         path: "config",
         label: 'Config',
