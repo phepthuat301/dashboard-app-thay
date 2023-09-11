@@ -48,9 +48,10 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     const onClickBtnConfirm = async (res: any) => {
         setVisibleModal(true);
         setDataModal(res);
+        finalSaveS3()
         switch (active) {
             case 'place':
-                data.data.place = res
+                data.data.place = res;
               const isUpdatePlace = await ConfigService.getInstance().putEditPromptCustomize(data);
               if(isUpdatePlace.success){
                 closeModel()
@@ -123,7 +124,11 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
             setURLS3(ob as any)
         }
 
-    }
+    } 
+    const finalSaveS3 = ()=>{
+        ConfigService.getInstance().uploadFileS3(urlS3.file,urlS3.signedRequest,urlS3.url);
+        
+      }
     const onCopy = (link: string) => {
         navigator.clipboard.writeText(link);
         NotifyController.success('Copy success');
@@ -132,10 +137,8 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     }
     const headerTable = (data: any) => {
 
-        return <Button onClick={(e) => { onClickBtnEdit(data.props.value) }}>Edit</Button>
+        return <Button onClick={(e) => { onClickBtnEdit(data.props.value) }} className='pi pi-pencil w-1'>Edit</Button>
     }
-    console.log(data);
-
     return (
         <div>
             <TabMenu model={itemsType} activeIndex={activeIndex} onTabChange={(e) => { setActiveIndex(e.index); setActive(e.value.label as string) }} />
