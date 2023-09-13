@@ -75,8 +75,6 @@ function ListAllConfig() {
     };
     const onEdit = async (value: string) => {
         const edited = await ConfigService.getInstance().putEditConfig(JSON.parse(value));
-        console.log('edit', edited);
-
         if (edited.success) {
             getList();
             setVisibleModal(false)
