@@ -1,5 +1,12 @@
 export const menu = [
     {
+        label: 'Import Template',
+        icon: 'pi pi-th-large',
+        items: [
+            { label: 'Import Template', icon: 'pi pi-cloud-upload', to: '/template/import' },
+        ]
+    },
+    {
         label: 'Config ',
         icon: 'pi pi-th-large',
         items: [
@@ -11,7 +18,7 @@ export const menu = [
         label: 'Prompt Customize ',
         icon: 'pi pi-th-large',
         items: [
-            { label: 'List customize', icon: 'pi pi-list', to: '/custom-prompt/list-prompt'}
+            { label: 'List customize', icon: 'pi pi-list', to: '/custom-prompt/list-prompt' }
         ]
     }
 ];

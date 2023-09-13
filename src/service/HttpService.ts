@@ -28,13 +28,13 @@ export const httpPost = async (url: string, body: any, config?: AxiosRequestConf
     checkHttpStatus(result)
     return result
 }
-export const httpPut = async (url: string, body: any, config?: AxiosRequestConfig) => {
 
+export const httpPut = async (url: string, body: any, config?: AxiosRequestConfig) => {
     const result = await httpApi.put(url, body, config)
     checkHttpStatus(result)
     return result
-
 }
+
 export const httpDelete = async (url: string, body?: any) => {
     const result = await httpApi.delete(url, body ?? {})
     checkHttpStatus(result)

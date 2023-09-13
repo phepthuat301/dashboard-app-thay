@@ -18,18 +18,18 @@ const handleImageUpload = (e:any) => {
     fileReader.readAsText(e.currentTarget.files[0], "UTF-8");
     
     fileReader.onload = (e:any) => {
-        NotifyController.success("Upload Success")
+        // NotifyController.success("Upload Success")
         setDataJsonFiles(e.currentTarget.result);
         setIsUpload(false)
     };
     fileReader.onerror = (e:any) => {
-        NotifyController.error("Upload Fail!");
+        NotifyController.error("Load file fail!");
         setIsUpload(true)
       };
   };
   return (
       <div className='container-upload flex flex-column align-items-center justify-content-center'>
-        <span> Upload from your device</span>
+        <span className='mb-3'> Upload from your device</span>
         <div className='box-icon-upload flex align-items-center justify-content-center border-round-sm  w-8rem h-8rem surface-600 cursor-pointer' onClick={onChangeUpload} >
         <input id="input-upload-image" type="file" accept=".json" onChange={handleImageUpload}  className="hidden" />
             <li className='pi pi-upload'></li>
