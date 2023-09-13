@@ -73,6 +73,7 @@ function ModelAddNew({isOpen,setIsOpen,onAdd}:ModelAddNewProps) {
   const [showModalURL, setShowModalURL] = useState(false)
   const [valueURLTemp, setValueURLTemp] = useState('')
   const [isCopy, setIsCopy] = useState('Copy')
+  const [isUpload, setIsUpload] = useState(false)
   const [urlS3, setURLS3] = useState({
     file: {},
     signedRequest: '',
@@ -81,7 +82,7 @@ function ModelAddNew({isOpen,setIsOpen,onAdd}:ModelAddNewProps) {
   const footerContent = (
     <div>
       <Button className='p-button-secondary' label="Cancel" icon="pi pi-times" onClick={() => setIsOpen(false)} />
-      <Button className='p-button-success' label="Add" icon="pi pi-check" onClick={e => {onAdd(value);finalSaveS3();}} autoFocus />
+      <Button className='p-button-success' label="Add" icon="pi pi-check" onClick={e => {onAdd(value);isUpload && finalSaveS3();}} autoFocus />
     </div>
   );
   const finalSaveS3 = ()=>{
@@ -90,6 +91,7 @@ function ModelAddNew({isOpen,setIsOpen,onAdd}:ModelAddNewProps) {
   const handleImageUpload = async (e: any) => {
     const fileName = e.target.files[0]
     const upload = await ConfigService.getInstance().uploadImage(fileName);
+    upload && setIsUpload(true)
     const ob = {
       file: fileName,
       signedRequest: upload.data.signedRequest,

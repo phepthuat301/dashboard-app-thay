@@ -19,6 +19,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     const [showModalURL, setShowModalURL] = useState(false)
     const [valueURLTemp, setValueURLTemp] = useState('')
     const [isCopy, setIsCopy] = useState('Copy')
+    const [isUpload, setIsUpload] = useState(false)
     const [urlS3, setURLS3] = useState({
         file: {},
         signedRequest: '',
@@ -48,7 +49,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     const onClickBtnConfirm = async (res: any) => {
         setVisibleModal(true);
         setDataModal(res);
-        finalSaveS3()
+        isUpload && finalSaveS3()
         switch (active) {
             case 'place':
                 data.data.place = res;
@@ -113,6 +114,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     const handleImageUpload = async (e: any) => {
         const fileName = e.target.files[0]
         const upload = await ConfigService.getInstance().uploadImage(fileName);
+        upload && setIsUpload(true)
         const ob = {
             file: fileName,
             signedRequest: upload.data.signedRequest,

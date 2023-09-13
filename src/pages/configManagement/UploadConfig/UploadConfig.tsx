@@ -14,7 +14,6 @@ function UploadConfig() {
         // const arrayData = Object.keys(parseJson).map(key => parseJson[key]);
  
         const upload = await ConfigService.getInstance().postUploadConfig(parseJson);
-        console.log('upload', upload);
         if(upload.success){
             NotifyController.success("Submit success!");
             navigate('/config/list-config');
