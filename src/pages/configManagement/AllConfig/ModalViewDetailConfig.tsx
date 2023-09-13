@@ -17,20 +17,21 @@ function ModelViewDetailConfig({ visible, setVisible, data, onEdit }: ModalViewD
   const [valueURLTemp, setValueURLTemp] = useState('')
   const [showModalURL, setShowModalURL] = useState(false)
   const [isCopy, setIsCopy] = useState('Copy')
+  const [isUpload, setIsUpload] = useState(false)
   const [urlS3, setURLS3] = useState({
     file: {},
     signedRequest: '',
     url: ''
   })
   const onChangeTextArea = (e: any) => {
-    console.log(e.target.value);
+
     setValue(e.target.value)
   }
 
   const footerContent = (
     <div>
       <Button className='p-button-secondary' label="Discard" icon="pi pi-times" onClick={() => setVisible(false)} />
-      <Button className='p-button-success' label="Save" icon="pi pi-check" onClick={e => {onEdit(value);finalSaveS3()}} autoFocus />
+      <Button className='p-button-success' label="Save" icon="pi pi-check" onClick={e => {onEdit(value); isUpload &&finalSaveS3()}} autoFocus />
     </div>
   );
   const finalSaveS3 = ()=>{
@@ -39,6 +40,7 @@ function ModelViewDetailConfig({ visible, setVisible, data, onEdit }: ModalViewD
   const handleImageUpload = async (e: any) => {
     const fileName = e.target.files[0]
     const upload = await ConfigService.getInstance().uploadImage(fileName);
+    upload && setIsUpload(true)
     const ob = {
       file: fileName,
       signedRequest: upload.data.signedRequest,

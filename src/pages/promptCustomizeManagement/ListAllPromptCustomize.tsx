@@ -16,7 +16,7 @@ function ListAllPromptCustomize() {
         const data = await ConfigService.getInstance().getAllPromptCustomize(); 
         
         setListData(data.data)
-        console.log((listData));
+      
         
     }
     useEffect(()=>{
