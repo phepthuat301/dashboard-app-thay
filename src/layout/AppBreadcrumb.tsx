@@ -46,13 +46,13 @@ const AppBreadcrumb = (props: any) => {
             <div className="layout-breadcrumb-right-items">
 
 
-                <span className="layout-rightmenu-button-desktop">
+                {/* <span className="layout-rightmenu-button-desktop">
                     <Button label="Today" icon="pi pi-bookmark" className="layout-rightmenu-button" onClick={props.onRightMenuButtonClick}></Button>
                 </span>
 
                 <span className="layout-rightmenu-button-mobile">
                     <Button icon="pi pi-bookmark" className="layout-rightmenu-button" onClick={props.onRightMenuButtonClick}></Button>
-                </span>
+                </span> */}
             </div>
         </div>
     );
