@@ -91,6 +91,7 @@ function ListAllConfig() {
             </Dialog>
             <ButtonAdd getList={getList} />
             <DataTable width={'100%'} value={listData} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} selectOnEdit={true}>
+                <Column  body={(data, options) => options.rowIndex + 1} header="#"  ></Column>
                 <Column field="type" header="type" sortable ></Column>
                 <Column field="name" header="Name" sortable ></Column>
                 <Column field="model" header="model" sortable ></Column>
