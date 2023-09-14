@@ -150,6 +150,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
                         textTransform: 'capitalize'
                     }} width={'100%'} value={item[1]}
                         paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} selectOnEdit={true} header={headerTable}>
+                            <Column  body={(data, options) => options.rowIndex + 1} header="#"  ></Column>
                         <Column field="name" header="Name" ></Column>
                         <Column field="weight" header="weight"></Column>
                         <Column field="prompt" header="Prompt" ></Column>
