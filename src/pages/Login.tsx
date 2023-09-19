@@ -19,25 +19,25 @@ export const Login = (props: any) => {
 
     const onSubmit = () => {
         const validateSchema = Joi.object({
-            email: Joi.string().email({ tlds: { allow: false } }).required(),
+            email: Joi.string().required(),
             password: Joi.string().min(6).max(30).required(),
         })
         const validate = validateSchema.validate(submitData, {
             abortEarly: false
         })
         if (!validate.error) {
-            setError([])
-            AuthService
-                .getInstance()
-                .login(submitData.email, submitData.password)
-                .then((res) => {
-                    if (res?.token) {
-                        dispatch(setLogin(true))
-                        NotifyController.success("Login Success")
-                        navigate('/')
-                    } else throw new Error("Login failed");
-                })
-                .catch((error) => NotifyController.error(error?.message))
+            // setError([])
+            // AuthService
+            //     .getInstance()
+            //     .login(submitData.email, submitData.password)
+            //     .then((res) => {
+            //         if (res?.data?.token) {
+            //             dispatch(setLogin(true))
+            //             NotifyController.success("Login Success")
+            //             navigate('/')
+            //         } else throw new Error("Login failed");
+            //     })
+            //     .catch((error) => NotifyController.error(error?.message))
         }
         else {
             setError(validate.error.details)
@@ -94,7 +94,7 @@ export const Login = (props: any) => {
                         <img src={"/assets/layout/images/logo-gray.png"} className="login-footer-logo" alt="login-footer-logo" />
                         <img src={"/assets/layout/images/appname-gray.png"} className="login-footer-appname" alt="login-footer-appname" />
                     </div>
-                    <span>Copyright 2021</span>
+                    <span>Copyright 2023</span>
                 </div>
             </div>
         </div>

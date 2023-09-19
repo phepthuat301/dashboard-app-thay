@@ -1,4 +1,5 @@
 
+import Axios from 'axios';
 import { httpDelete, httpGet, httpPost, httpPut } from '../HttpService';
 
 export default class ConfigService {
@@ -34,6 +35,44 @@ export default class ConfigService {
         const data = await httpGet('dashboard/style')
         return data.data
     }
+    async getAllStyles() {
+        const token = localStorage.getItem('accessToken');
+
+        const data = await Axios.get(process.env.REACT_APP_BE_WEB_API + '/sdstyle', {
+            headers: {
+                'Authorization': `Basic ${token}`
+            },
+        })
+        return data.data
+    }
+    async postEditStyles(data: any) {
+        const token = localStorage.getItem('accessToken');
+        const result = await Axios.post(process.env.REACT_APP_BE_WEB_API + '/sdstyle', data, {
+            headers: {
+                'Authorization': `Basic ${token}`
+            },
+        })
+        return result.data
+    }
+    async postAddStyles(data: any) {
+        const token = localStorage.getItem('accessToken');
+        const result = await Axios.post(process.env.REACT_APP_BE_WEB_API + '/sdstyle', data, {
+            headers: {
+                'Authorization': `Basic ${token}`
+            },
+        })
+        return result.data
+    }
+    async deleteStyles(id: string) {
+        const token = localStorage.getItem('accessToken');
+        const result = await Axios.delete(process.env.REACT_APP_BE_WEB_API + '/sdstyle?id=' + id, {
+            headers: {
+                'Authorization': `Basic ${token}`
+            },
+        })
+        return result.status
+    }
+
 
     async getAllPromptCustomize() {
         const data = await httpGet('/dashboard/custom')
@@ -82,8 +121,4 @@ export default class ConfigService {
     // deleteConfig(id: string) {
     //     return httpDelete('').then((res) => res.data.data);
     // }
-
-
-
-
 }
