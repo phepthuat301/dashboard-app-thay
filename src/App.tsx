@@ -23,6 +23,7 @@ import { Access } from './pages/Access';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserState } from './redux/reducers/userReducer';
 import ListAllConfig from './pages/configManagement/AllConfig/ListAllConfig';
+import { setLogin } from './redux/actions/userActions';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -64,23 +65,13 @@ const App = (props: any) => {
     }, [menuMode]);
 
     // useEffect(() => {
-    //     const token = readToken()
+    //     const token = readToken();   
     //     if (token && token.length > 0) {
     //         dispatch(setLogin(true))
-    //         UserService.getInstance().getUser().then((res) => {
-    //             dispatch(setUser({
-    //                 id: res.id,
-    //                 avatar: res.avatar,
-    //                 first_name: res.first_name,
-    //                 last_name: res.last_name,
-    //                 isLoggedIn: true
-    //             }))
-    //         }).catch((error) => NotifyController.error(error?.message))
-
+    //         navigate('/')
     //     } else {
     //         navigate("login")
     //     }
-
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [user.isLoggedIn])
 

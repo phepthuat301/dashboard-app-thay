@@ -2,6 +2,8 @@ import UploadConfig from "../pages/configManagement/UploadConfig/UploadConfig";
 import ListAllConfig from "../pages/configManagement/AllConfig/ListAllConfig";
 import ListAllPromptCustomize from "../pages/promptCustomizeManagement/ListAllPromptCustomize";
 import ImportTemplate from "../pages/templateManagement/ImportTemplate";
+import ListAllStyles from "../pages/configManagement/AllStyles/ListAllStyles";
+import { Login } from "../pages/Login";
 interface Iroute {
     path: string;
     element?: any;
@@ -39,6 +41,11 @@ export const routes: Iroute[] = [
                 label: 'All Configs',
                 element: <ListAllConfig />
             },
+            {
+                path: "list-style",
+                label: 'All Styles',
+                element: <ListAllStyles />
+            },
         ]
     },
     {
@@ -49,6 +56,17 @@ export const routes: Iroute[] = [
                 path: "list-prompt",
                 label: 'All Prompt',
                 element: <ListAllPromptCustomize />,
+            }
+        ]
+    },
+    {
+        path: "login",
+        label: 'Login',
+        childs: [
+            {
+                path: "login",
+                label: 'Login',
+                element: <Login />,
             }
         ]
     }

@@ -11,7 +11,8 @@ export const menu = [
         icon: 'pi pi-th-large',
         items: [
             { label: 'Upload config', icon: 'pi pi-cloud-upload', to: '/config/upload-config' },
-            { label: 'List config', icon: 'pi pi-list', to: '/config/list-config' }
+            { label: 'List configs', icon: 'pi pi-list', to: '/config/list-config' },
+            { label: 'List models', icon: 'pi pi-list', to: '/config/list-style' }
         ]
     },
     {
