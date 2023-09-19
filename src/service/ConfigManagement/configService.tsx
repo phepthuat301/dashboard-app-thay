@@ -36,40 +36,40 @@ export default class ConfigService {
         return data.data
     }
     async getAllStyles() {
-    const token =localStorage.getItem('accessToken');
+        const token = localStorage.getItem('accessToken');
 
-      const data = await Axios.get(process.env.REACT_APP_BE_WEB_API + '/sdstyle', {
+        const data = await Axios.get(process.env.REACT_APP_BE_WEB_API + '/sdstyle', {
             headers: {
-              'Authorization': `Basic ${token}`
+                'Authorization': `Basic ${token}`
             },
-          })
+        })
         return data.data
     }
     async postEditStyles(data: any) {
-        const token =localStorage.getItem('accessToken');
-  const result = await Axios.post(process.env.REACT_APP_BE_WEB_API + '/sdstyle', data, {
+        const token = localStorage.getItem('accessToken');
+        const result = await Axios.post(process.env.REACT_APP_BE_WEB_API + '/sdstyle', data, {
             headers: {
-              'Authorization': `Basic ${token}`
+                'Authorization': `Basic ${token}`
             },
-          })
+        })
         return result.data
     }
     async postAddStyles(data: any) {
-        const token =localStorage.getItem('accessToken');
-   const result = await Axios.post(process.env.REACT_APP_BE_WEB_API + '/sdstyle', data, {
+        const token = localStorage.getItem('accessToken');
+        const result = await Axios.post(process.env.REACT_APP_BE_WEB_API + '/sdstyle', data, {
             headers: {
-              'Authorization': `Basic ${token}`
+                'Authorization': `Basic ${token}`
             },
-          })
+        })
         return result.data
     }
     async deleteStyles(id: string) {
-        const token =localStorage.getItem('accessToken');
-   const result = await Axios.delete(process.env.REACT_APP_BE_WEB_API + '/sdstyle?id=' + id, {
+        const token = localStorage.getItem('accessToken');
+        const result = await Axios.delete(process.env.REACT_APP_BE_WEB_API + '/sdstyle?id=' + id, {
             headers: {
-              'Authorization': `Basic ${token}`
+                'Authorization': `Basic ${token}`
             },
-          })
+        })
         return result.status
     }
 
@@ -121,8 +121,4 @@ export default class ConfigService {
     // deleteConfig(id: string) {
     //     return httpDelete('').then((res) => res.data.data);
     // }
-
-
-
-
 }

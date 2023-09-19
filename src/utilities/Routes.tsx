@@ -59,15 +59,15 @@ export const routes: Iroute[] = [
             }
         ]
     },
-    {
-        path: "login",
-        label: 'Login',
-        childs: [
-            {
-                path: "login",
-                label: 'Login',
-                element: <Login />,
-            }
-        ]
-    }
+    // {
+    //     path: "login",
+    //     label: 'Login',
+    //     childs: [
+    //         {
+    //             path: "login",
+    //             label: 'Login',
+    //             element: <Login />,
+    //         }
+    //     ]
+    // }
 ]
