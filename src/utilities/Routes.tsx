@@ -4,6 +4,7 @@ import ListAllPromptCustomize from "../pages/promptCustomizeManagement/ListAllPr
 import ImportTemplate from "../pages/templateManagement/ImportTemplate";
 import ListAllStyles from "../pages/configManagement/AllStyles/ListAllStyles";
 import { Login } from "../pages/Login";
+import ListAllPose from "../pages/poseManagement/ListAllPose";
 interface Iroute {
     path: string;
     element?: any;
@@ -56,6 +57,17 @@ export const routes: Iroute[] = [
                 path: "list-prompt",
                 label: 'All Prompt',
                 element: <ListAllPromptCustomize />,
+            }
+        ]
+    },
+    {
+        path: "pose",
+        label: 'List pose',
+        childs: [
+            {
+                path: "list-pose",
+                label: 'All Pose',
+                element: <ListAllPose/>,
             }
         ]
     },
