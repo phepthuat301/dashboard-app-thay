@@ -155,6 +155,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
                         <Column field="weight" header="weight"></Column>
                         <Column field="prompt" header="Prompt" ></Column>
                         <Column field="imageUrl" header="Image" body={imgTemplate}></Column>
+                        <Column field="is_active" header="Active" ></Column>
                     </DataTable>
                 </>
             ))}
