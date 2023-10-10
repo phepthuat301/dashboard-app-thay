@@ -21,6 +21,13 @@ export const menu = [
         items: [
             { label: 'List customize', icon: 'pi pi-list', to: '/custom-prompt/list-prompt' }
         ]
+    },
+    {
+        label: 'Pose ',
+        icon: 'pi pi-th-large',
+        items: [
+            { label: 'List Pose', icon: 'pi pi-list', to: '/pose/list-pose' }
+        ]
     }
 ];
 

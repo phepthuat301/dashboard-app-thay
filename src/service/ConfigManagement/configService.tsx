@@ -113,7 +113,14 @@ export default class ConfigService {
         };
         xhr.send(file);
     };
-
+    async getAllPose(type: string) {
+        const data = await httpGet(`dashboard/poses?type=${type}`)
+        return data.data
+    }
+    async editPose(type:string,dataPose:any) {
+        const data = await httpPut(`dashboard/poses?type=${type}`,dataPose)
+        return data.data
+    }
     // getConfigDetail(id: string) {
     //     return httpGet('assets/demo/data/content-detail.json').then((res) => res.data.data);
     // }
