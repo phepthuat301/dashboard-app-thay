@@ -14,11 +14,10 @@ function ListAllPose() {
     const [listData, setListData] = useState([])
     const [type, setType] = useState('dress')
     const [activeIndex, setActiveIndex] = useState(0)
-
+    const [editSuccess, setEditSuccess] = useState(false)
     const getList = async (type: string) => {
         const data = await ConfigService.getInstance().getAllPose(type);
         setListData(data.data)
-        console.log('data api', data.data);
     }
 
     const itemsType = [{
@@ -29,42 +28,6 @@ function ListAllPose() {
         label: "T-shirt",
         dataIndex: "shirt",
     }]
-
-    const data = [
-        {
-            id: "650bf409195c07414380ef79",
-            image_url: "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-            name: "Ma-nơ-canh full dáng",
-            type: "shirt",
-            is_pose: true,
-            sample: [
-                {
-                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                    "name": "Tên là shirt abc11"
-                },
-                {
-                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                    "name": "Tên là shirt abc12"
-                },
-                {
-                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                    "name": "Tên là  shirt abc13"
-                },
-                {
-                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                    "name": "Tên là  shirt abc14"
-                }
-            ],
-            guideline: [
-                "1. 1Kích thước hình sau khi crop phải lớn hơn 768x1024",
-                "2. Kích thước hình sau khi crop phải lớn hơn 768x1024 và Kích thước hình sau khi crop phải lớn hơn 768x1024 Kích thước hình sau khi crop phải lớn hơn 768x1024",
-                "3. Kích thước hình sau khi crop phải lớn hơn 768x1024",
-                "4. Kích thước hình sau khi crop phải lớn hơn 768x1024",
-                "5. Kích thước hình sau khi crop phải lớn hơn 768x1024 và Kích thước hình sau khi crop phải lớn hơn 768x1024 Kích thước hình sau khi crop phải lớn hơn 768x1024",
-                "6. Kích thước hình sau khi crop phải lớn hơn 768x1024"
-            ]
-        }
-    ]
 
     const onChangeType = (pose: any) => {
         setType(pose.value.dataIndex);
@@ -98,20 +61,23 @@ function ListAllPose() {
             </div>
         );
     };
+    const openModalEdit = (data: any) => {
+        setIsOpenModalEdit(true);
+        setDataModal(data);
 
+    }
     const editPose = (data: any) => {
 
         return (
             <div className="flex align-items-center gap-2">
-                <Button onClick={e => { setIsOpenModalEdit(true); setDataModal(data) }}>Edit</Button>
-                <Button>Remove</Button>
+                <Button onClick={e => { openModalEdit(data) }}>Edit</Button>
             </div>
         );
     }
 
     useEffect(() => {
         getList(type)
-    }, [type])
+    }, [type, editSuccess])
 
     return (
         <div>
@@ -125,7 +91,7 @@ function ListAllPose() {
                 <Column field="is_pose" header="show"></Column>
                 <Column header="Edit" body={editPose}></Column>
             </DataTable>
-            <ModalEdit setIsOpenModalEdit={setIsOpenModalEdit} isOpenModalEdit={isOpenModalEdit} data={dataModal} />
+            <ModalEdit setIsOpenModalEdit={setIsOpenModalEdit} isOpenModalEdit={isOpenModalEdit} data={dataModal} setEditSuccess={setEditSuccess} />
         </div>
     )
 }
