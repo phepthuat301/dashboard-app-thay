@@ -11,8 +11,6 @@ type ModelEditProps = {
     data: any
 }
 function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data }: ModelEditProps) {
-    console.log('data', data);
-
     const [isUpload, setIsUpload] = useState(false)
     const [showModalURL, setShowModalURL] = useState(false)
     const [valueURLTemp, setValueURLTemp] = useState('')
@@ -22,9 +20,15 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data }: ModelEditProps
         signedRequest: '',
         url: ''
     })
+
     const finalSaveS3 = () => {
         const save = ConfigService.getInstance().uploadFileS3(urlS3.file, urlS3.signedRequest, urlS3.url)
     }
+
+    const onEdit = () => {
+
+    }
+    
     const handleImageUpload = async (e: any) => {
         const fileName = e.target.files[0]
         const upload = await ConfigService.getInstance().uploadImage(fileName);
@@ -41,12 +45,14 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data }: ModelEditProps
         }
 
     }
+
     const onCopy = (link: string) => {
         navigator.clipboard.writeText(link);
         NotifyController.success('Copy success');
         setIsCopy('Copied');
         setShowModalURL(false)
     }
+
     return (
         <div>
             <Dialog onHide={() => setIsOpenModalEdit(false)} visible={isOpenModalEdit} header={'Edit pose'}>
@@ -55,7 +61,7 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data }: ModelEditProps
                         Name: <InputText className='w-full' value={data.name} />
                     </div>
                     <div className='flex gap-2 w-full'>
-                        Image: <InputText className='w-full' placeholder='URL image' value={data.image_url}  width={100} />
+                        Image: <InputText className='w-full' placeholder='URL image' value={data.image_url} width={100} />
                     </div>
                     <div className='flex flex-column gap-2'>
                         List Sample:
@@ -70,8 +76,10 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data }: ModelEditProps
                         </textarea>
                     </div>
                     <div className='flex flex-column'>
-                        Show in modeli.ai:
-                        <Checkbox></Checkbox>
+                        Override Config
+                        <textarea cols={80} rows={10} >
+                            {JSON.stringify(data.override_config, undefined, 4)}
+                        </textarea>
                     </div>
                     <div>
                         Get url image
@@ -87,6 +95,7 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data }: ModelEditProps
                         <Button onClick={e => onCopy(valueURLTemp)} className='pi pi-copy'>{isCopy}</Button>
                     </div>
                 </Dialog>
+                <Button className='mt-3' onClick={() => onEdit()}>Edit</Button>
             </Dialog>
         </div>
     )

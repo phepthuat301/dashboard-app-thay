@@ -14,62 +14,63 @@ function ListAllPose() {
     const [listData, setListData] = useState([])
     const [type, setType] = useState('dress')
     const [activeIndex, setActiveIndex] = useState(0)
-    const getList = async (type:string)=>{
-        const data = await ConfigService.getInstance().getAllPose(type); 
+
+    const getList = async (type: string) => {
+        const data = await ConfigService.getInstance().getAllPose(type);
         setListData(data.data)
-        console.log('data api',data.data);
-        
-        
+        console.log('data api', data.data);
     }
+
     const itemsType = [{
         label: "Dress",
-        dataIndex:"dress",
+        dataIndex: "dress",
     },
     {
         label: "T-shirt",
-        dataIndex:"shirt",
+        dataIndex: "shirt",
     }]
+
     const data = [
         {
-        id: "650bf409195c07414380ef79",
-        image_url: "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-        name: "Ma-nơ-canh full dáng",
-        type: "shirt",
-        is_pose: true,
-        sample: [
-            {
-                "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                "name": "Tên là shirt abc11"
-            },
-            {
-                "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                "name": "Tên là shirt abc12"
-            },
-            {
-                "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                "name": "Tên là  shirt abc13"
-            },
-            {
-                "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
-                "name": "Tên là  shirt abc14"
-            }
-        ],
-        guideline: [
-            "1. 1Kích thước hình sau khi crop phải lớn hơn 768x1024",
-            "2. Kích thước hình sau khi crop phải lớn hơn 768x1024 và Kích thước hình sau khi crop phải lớn hơn 768x1024 Kích thước hình sau khi crop phải lớn hơn 768x1024",
-            "3. Kích thước hình sau khi crop phải lớn hơn 768x1024",
-            "4. Kích thước hình sau khi crop phải lớn hơn 768x1024",
-            "5. Kích thước hình sau khi crop phải lớn hơn 768x1024 và Kích thước hình sau khi crop phải lớn hơn 768x1024 Kích thước hình sau khi crop phải lớn hơn 768x1024",
-            "6. Kích thước hình sau khi crop phải lớn hơn 768x1024"
-        ]
-    }
+            id: "650bf409195c07414380ef79",
+            image_url: "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
+            name: "Ma-nơ-canh full dáng",
+            type: "shirt",
+            is_pose: true,
+            sample: [
+                {
+                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
+                    "name": "Tên là shirt abc11"
+                },
+                {
+                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
+                    "name": "Tên là shirt abc12"
+                },
+                {
+                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
+                    "name": "Tên là  shirt abc13"
+                },
+                {
+                    "image_url": "https://res.cloudinary.com/shoestoreproject/image/upload/v1695263134/mannequin.9d3395052b80eec55e07_ru3wkc.png",
+                    "name": "Tên là  shirt abc14"
+                }
+            ],
+            guideline: [
+                "1. 1Kích thước hình sau khi crop phải lớn hơn 768x1024",
+                "2. Kích thước hình sau khi crop phải lớn hơn 768x1024 và Kích thước hình sau khi crop phải lớn hơn 768x1024 Kích thước hình sau khi crop phải lớn hơn 768x1024",
+                "3. Kích thước hình sau khi crop phải lớn hơn 768x1024",
+                "4. Kích thước hình sau khi crop phải lớn hơn 768x1024",
+                "5. Kích thước hình sau khi crop phải lớn hơn 768x1024 và Kích thước hình sau khi crop phải lớn hơn 768x1024 Kích thước hình sau khi crop phải lớn hơn 768x1024",
+                "6. Kích thước hình sau khi crop phải lớn hơn 768x1024"
+            ]
+        }
     ]
-    const onChangeType =(pose:any)=>{
+
+    const onChangeType = (pose: any) => {
         setType(pose.value.dataIndex);
         setActiveIndex(pose.index)
-        // getList(type)
-        
     }
+
     const GuideTemplate = (data: any) => {
         const image = data.guideline;
         return (
@@ -78,6 +79,7 @@ function ListAllPose() {
             </div>
         );
     };
+
     const ImageTemplate = (data: any) => {
         const image = data.image_url;
         return (
@@ -86,6 +88,7 @@ function ListAllPose() {
             </div>
         );
     };
+
     const SampleTemplate = (data: any) => {
         const image = data.sample;
         return (
@@ -95,6 +98,7 @@ function ListAllPose() {
             </div>
         );
     };
+
     const editPose = (data: any) => {
 
         return (
@@ -104,12 +108,14 @@ function ListAllPose() {
             </div>
         );
     }
-    useEffect(()=>{
+
+    useEffect(() => {
         getList(type)
-    },[type])
+    }, [type])
+
     return (
         <div>
-            <TabMenu model={itemsType} activeIndex={activeIndex} onTabChange={e=>onChangeType(e)} />
+            <TabMenu model={itemsType} activeIndex={activeIndex} onTabChange={e => onChangeType(e)} />
             <DataTable value={listData} stripedRows tableStyle={{ minWidth: '50rem' }}>
                 <Column field="id" header="#"></Column>
                 <Column field="name" header="Name"></Column>

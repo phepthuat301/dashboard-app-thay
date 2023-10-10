@@ -113,8 +113,8 @@ export default class ConfigService {
         };
         xhr.send(file);
     };
-    async getAllPose(type:string) {
-        const data = await httpGet(`fashion/poses?type=${type}`)
+    async getAllPose(type: string) {
+        const data = await httpGet(`dashboard/poses?type=${type}`)
         return data.data
     }
     // getConfigDetail(id: string) {
