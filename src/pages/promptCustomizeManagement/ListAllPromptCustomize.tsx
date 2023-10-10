@@ -11,7 +11,7 @@ function ListAllPromptCustomize() {
     const [visibleModal, setVisibleModal]= useState(false)
     const [dataModal, setDataModal]= useState([]);    
     const [activeIndex, setActiveIndex] = useState(0);
-    const [active, setActive] = useState('Váy nữ');
+    const [active, setActive] = useState('Dress');
     const getList = async ()=>{
         const data = await ConfigService.getInstance().getAllPromptCustomize(); 
         
@@ -19,13 +19,12 @@ function ListAllPromptCustomize() {
       
         
     }
-    useEffect(()=>{
-        getList();
-    },
-    [])
     const itemsType = listData.map((item) => ({
         label: item.name || ''
       }));
+      useEffect(()=>{
+        getList();
+    },[])
   return (
     <div>
          {/* <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}  /> */}
