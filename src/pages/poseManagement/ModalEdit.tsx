@@ -66,8 +66,8 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data, setEditSuccess }
     }
     const footerContent = (
         <div>
-            <Button className='p-button-secondary' label="Discard" icon="pi pi-times" onClick={() => onEdit()} />
-            <Button className='p-button-success' label="Save" icon="pi pi-check" onClick={() => setIsOpenModalEdit(false)} autoFocus />
+            <Button className='p-button-secondary' label="Discard" icon="pi pi-times" onClick={() => setIsOpenModalEdit(false) } />
+            <Button className='p-button-success' label="Save" icon="pi pi-check" onClick={() => onEdit()} autoFocus />
         </div>
     );
     useEffect(() => {
@@ -77,7 +77,7 @@ function ModalEdit({ setIsOpenModalEdit, isOpenModalEdit, data, setEditSuccess }
     return (
         <div>
             <Dialog onHide={() => setIsOpenModalEdit(false)} visible={isOpenModalEdit} header={'Edit pose'} footer={footerContent} style={{
-                width: 'fit-content'
+                width: '80%'
             }}>
                 <div className='flex flex-column gap-4'>
                     <div className='flex flex-column gap-2'>
