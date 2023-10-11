@@ -58,6 +58,14 @@ function ListAllStyles() {
             </div>
         );
     };
+    const imgWebTemplate = (data: any) => {
+        const image = data.icon_web;
+        return (
+            <div className="flex align-items-center gap-2">
+                <img src={image} width="100" />
+            </div>
+        );
+    };
 
     function containsWhitespace(str:string) {
         return /\s/.test(str);
@@ -96,6 +104,7 @@ function ListAllStyles() {
                 <Column field="file" header="File" sortable filter filterPlaceholder="Search by file name" ></Column>
                 <Column field="link_file" header="URL file"  filter filterPlaceholder="Search by url file" sortable></Column>
                 <Column field="icon" header="icon" body={imgTemplate}></Column>
+                <Column field="icon_web" header="icon web" body={imgWebTemplate}></Column>
                 <Column field="civitaiLink" header="Civitai Link"  filter filterPlaceholder="Search by civitai link" sortable ></Column>
                 <Column field="display_name" header="Display Name"  sortable filter filterPlaceholder="Search by display name" ></Column>
                 <Column field="type" header="Type" sortable filter filterPlaceholder="Search by type"></Column>
