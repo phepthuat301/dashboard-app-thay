@@ -88,7 +88,7 @@ function ListAllPose() {
                 <Column field="image_url" header="Image" body={ImageTemplate}></Column>
                 <Column field="sample" header="List Sample" body={SampleTemplate}></Column>
                 <Column field="guideline" header="Guide" body={GuideTemplate}></Column>
-                <Column field="is_pose" header="show"></Column>
+                <Column field="is_pose" header="Is pose"></Column>
                 <Column header="Edit" body={editPose}></Column>
             </DataTable>
             <ModalEdit setIsOpenModalEdit={setIsOpenModalEdit} isOpenModalEdit={isOpenModalEdit} data={dataModal} setEditSuccess={setEditSuccess} />
