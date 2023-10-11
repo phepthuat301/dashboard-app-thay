@@ -28,6 +28,13 @@ export const menu = [
         items: [
             { label: 'List Pose', icon: 'pi pi-list', to: '/pose/list-pose' }
         ]
+    },
+    {
+        label: 'Link ',
+        icon: 'pi pi-link',
+        items: [
+            { label: 'All Link', icon: 'pi pi-list', to: '/links/list-links' }
+        ]
     }
 ];
 
