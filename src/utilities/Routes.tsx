@@ -5,6 +5,7 @@ import ImportTemplate from "../pages/templateManagement/ImportTemplate";
 import ListAllStyles from "../pages/configManagement/AllStyles/ListAllStyles";
 import { Login } from "../pages/Login";
 import ListAllPose from "../pages/poseManagement/ListAllPose";
+import ListLinks from "../pages/allLinks/ListLinks";
 interface Iroute {
     path: string;
     element?: any;
@@ -70,6 +71,18 @@ export const routes: Iroute[] = [
                 element: <ListAllPose/>,
             }
         ]
+    },
+    {
+        path: "links",
+        label: 'Links',
+        childs: [
+            {
+                path: "list-links",
+                label: 'All Link',
+                element: <ListLinks/>,
+            }
+        ]
+
     },
     // {
     //     path: "login",
