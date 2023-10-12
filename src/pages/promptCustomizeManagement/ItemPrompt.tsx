@@ -3,10 +3,11 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
 import { TabMenu } from 'primereact/tabmenu';
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import ConfigService from '../../service/ConfigManagement/configService';
 import { InputText } from 'primereact/inputtext';
 import NotifyController from '../../utilities/Toast';
+import { InputSwitch } from 'primereact/inputswitch';
 type ItemPromptProps = {
     data: any,
     listItem: any
@@ -20,6 +21,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
     const [valueURLTemp, setValueURLTemp] = useState('')
     const [isCopy, setIsCopy] = useState('Copy')
     const [isUpload, setIsUpload] = useState(false)
+    const [checked, setChecked] = useState(false)
     const [urlS3, setURLS3] = useState({
         file: {},
         signedRequest: '',
@@ -141,6 +143,80 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
 
         return <Button onClick={(e) => { onClickBtnEdit(data.props.value) }} className='pi pi-pencil w-1'>Edit</Button>
     }
+    const statusTemplate = (dataInput:any,options:any)=>{
+        const isActive = dataInput.is_active;
+
+        const onChangeStatus = async (checked:boolean) =>{
+            switch (active) {
+                case 'place':
+                    data.data.place[options.rowIndex].is_active = checked;
+                  const isUpdatePlace = await ConfigService.getInstance().putEditPromptCustomize(data);
+                  if(isUpdatePlace.success){
+                    setChecked(false)
+                   NotifyController.success('Change status success')
+                  }
+                    break;
+                case 'age':
+                    data.data.age[options.rowIndex].is_active = checked;
+                   const isUpdateAge= await ConfigService.getInstance().putEditPromptCustomize(data);
+                   if(isUpdateAge.success){
+                    setChecked(false)
+                    NotifyController.success('Change status success')
+                  }
+                    break;
+                case 'hair':
+                    data.data.hair[options.rowIndex].is_active = checked;
+                    const isUpdateHair =await ConfigService.getInstance().putEditPromptCustomize(data);
+                    if(isUpdateHair.success){
+                        setChecked(false)
+                        NotifyController.success('Change status success')
+                      }
+                    break;
+                case 'skinTone':
+                    data.data.skinTone[options.rowIndex].is_active = checked;
+                   const isUpdateSkinTone=  await ConfigService.getInstance().putEditPromptCustomize(data);
+                    if(isUpdateSkinTone.success){
+                        setChecked(false)
+                        NotifyController.success('Change status success')
+                      }
+                    break;
+                case 'accessory':
+                    data.data.accessory[options.rowIndex].is_active = checked;
+                    const  isUpdateAccessory= await ConfigService.getInstance().putEditPromptCustomize(data);
+                    if(isUpdateAccessory.success){
+                        setChecked(false)
+                        NotifyController.success('Change status success')
+                      }
+                    break;
+                case 'light':
+                    data.data.light[options.rowIndex].is_active = checked;
+                    const isUpdateLight = await ConfigService.getInstance().putEditPromptCustomize(data);
+                    if(isUpdateLight.success){
+                        setChecked(false)
+                        NotifyController.success('Change status success')
+                      }
+                    break;
+                case 'emotion':
+                    data.data.emotion[options.rowIndex].is_active = checked;
+                   const isUpdateEmotion= await ConfigService.getInstance().putEditPromptCustomize(data);
+                    if(isUpdateEmotion.success){
+                        setChecked(false)
+                        NotifyController.success('Change status success')
+                      }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return (
+            <div className="flex align-items-center gap-2">
+                <InputSwitch checked={isActive} onChange={e=>onChangeStatus(e.value)}/>
+            </div>
+        );
+    }
+    useEffect(()=>{
+        setChecked(true)
+    },[checked])
     return (
         <div>
             <TabMenu model={itemsType} activeIndex={activeIndex} onTabChange={(e) => { setActiveIndex(e.index); setActive(e.value.label as string) }} />
@@ -155,7 +231,7 @@ function ItemPrompt({ data, listItem }: ItemPromptProps) {
                         <Column field="weight" header="weight"></Column>
                         <Column field="prompt" header="Prompt" ></Column>
                         <Column field="imageUrl" header="Image" body={imgTemplate}></Column>
-                        <Column field="is_active" header="Active" ></Column>
+                        <Column field="is_active" header="Active" body={statusTemplate} ></Column>
                     </DataTable>
                 </>
             ))}
