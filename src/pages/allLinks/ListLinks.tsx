@@ -4,7 +4,7 @@ import React from 'react'
 function ListLinks() {
     const onClickLink =() =>{
         window.open(
-            '',
+            'https://docs.google.com/spreadsheets/d/1GiQi5T-qAg8FEl3-S36ksdgmbNcSx2Vb/edit#gid=306732625',
             '_blank' // <- This is what makes it open in a new window.
           );
     }
