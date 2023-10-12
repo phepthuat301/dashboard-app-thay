@@ -14,60 +14,77 @@ type ModelAddNewProps = {
 }
 function ModelAddNew({isOpen,setIsOpen,onAdd}:ModelAddNewProps) {
   const initalValue=`[{
-    "controlNet": {
-      "module": "canny",
-      "model": "control_v11p_sd15_canny [d14c016b]",
-        "weight": 1,
-        "guidance_start": 0,
-        "guidance_end": 1,
-        "control_mode": 0,
-        "pixel_perfect": false,
-        "resize_mode": 1,
-        "threshold_a": 100,
-        "threshold_b": 200,
-        "processor_res": 512
-    },
-    "type": "dress",
+    "code": "shirt-vn",
+    "promptWithCustom": "8k wallpaper,best quality,CG unity,extremely detailed,film grain,intricate,masterpiece,realistic,ultra realistic,BREAK (man),(Masterpiece:1.1),nude,natural hands,natural arms,BREAK (vietnamese),(handsome man:1.2),BREAK$$$,\n <lora:add_detail:0.8>,<lora:epi_noiseoffset2:0.6>,",
     "platform": "FASHION_WEB",
-    "name": "Mẫu VN",
-    "prompt": "(1girl), (Masterpiece:1.1), nude, 8k wallpaper, best quality, CG unity, extremely detailed, film grain, intricate, masterpiece, natural hand, realistic, ultra realistic, <lora:bthuong:0.8>, <lora:add_detail:0.6>",
-    "promptWithCustom": "8k wallpaper,best quality,CG unity,extremely detailed,film grain,intricate,masterpiece, realistic,ultra realistic,BREAK (1girl),(Masterpiece:1.1),nude, natural hands, natural arms,BREAK$$$,<lora:bthuong:0.8>, <lora:add_detail:0.6>",
-    "cfgscale": 7,
-    "clipskip": "2",
-    "image": "",
+    "type": "shirt",
+    "name": "Tshirt - Vietnam",
+    "prompt": "8k wallpaper,best quality,CG unity,extremely detailed,film grain,intricate,masterpiece,realistic,ultra realistic,BREAK (1 man:1.2),(Masterpiece:1.1),natural hands,natural arms,BREAK (vietnamese),(handsome man:1.2),<lora:add_detail:0.8>,<lora:epi_noiseoffset2:0.6>,",
+    "cfg_scale": 7,
+    "clip_skip": "2",
+    "image": "https://media.vision2art.ai/1695725895437-image-mPosJONI2zY-1695721795083.jpg",
     "restore_faces": true,
-    "model": "Majicmix",
-    "negative": "(worst quality, low quality:1.4), (EasyNegative:0.8), multiple views, multiple panels, blurry, watermark, letterbox, text, easynegative, (low quality, worst quality:1.4), poorly drawn hands, bad anatomy, monochrome, long body , bad anatomy, liquid body, malformed, mutated, anatomical nonsense, bad proportions, uncoordinated body, unnatural body, disfigured, ugly, gross proportions, mutation, disfigured, deformed, mutation, poorlydrawn, bad hand, mutated hand, bad fingers, mutated fingers, liquid tongue, long neck, fused ears, bad ears, poorly drawn ears, extra ears, liquid ears, heavy ears, missing ears, fused animal ears, bad animal ears, poorly drawn animal ears, extra animal ears, liquid animal ears, heavy animal ears, missing animal ears, bad hairs, poorly drawn hairs, fused hairs, bad face, fused face, poorly drawn face, cloned face, big face, long face, bad eyes, fused eyes poorly drawn eyes, extra eyes, bad mouth, fused mouth, poorly drawn mouth, bad tongue, big mouth, bad perspective, bad objects placement, mole, logo, verybadimagenegative_v1.3, plants, negative_hand-neg, logo, digits, mole, plants,",
-    "sampler": "Euler a",
+    "model": "Photon",
+    "negative_prompt": "(woman:1.2),(worst quality, low quality:1.4), (EasyNegative:0.8), multiple views, multiple panels, blurry, watermark, letterbox, text, easynegative, (low quality, worst quality:1.4), poorly drawn hands, bad anatomy, monochrome, long body , bad anatomy, liquid body, malformed, mutated, anatomical nonsense, bad proportions, uncoordinated body, unnatural body, disfigured, ugly, gross proportions, mutation, disfigured, deformed, mutation, poorlydrawn, bad hand, mutated hand, bad fingers, mutated fingers, liquid tongue, long neck, fused ears, bad ears, poorly drawn ears, extra ears, liquid ears, heavy ears, missing ears, fused animal ears, bad animal ears, poorly drawn animal ears, extra animal ears, liquid animal ears, heavy animal ears, missing animal ears, bad hairs, poorly drawn hairs, fused hairs, bad face, fused face, poorly drawn face, cloned face, big face, long face, bad eyes, fused eyes poorly drawn eyes, extra eyes, bad mouth, fused mouth, poorly drawn mouth, bad tongue, big mouth, bad perspective, bad objects placement, mole, logo, verybadimagenegative_v1.3, plants, negative_hand-neg, logo, digits, mole, plants,",
+    "sampler_name": "DPM++ SDE Karras",
     "size": "768x1011",
     "steps": 30,
     "denoising_strength": 1,
-    "mask_blur": 4,
+    "mask_blur": 1,
     "width": 768,
     "height": 1011,
     "inpaint_full_res_padding": 32,
-    "ad": [
-        {
-            "_id": "64f8352d9f0b7e83fcae121d",
-            "ad_model": "face_yolov8n.pt",
-            "ad_confidence": 0.3,
-            "ad_dilate_erode": 4,
-            "ad_mask_blur": 4,
-            "ad_denoising_strength": 0.4,
-            "ad_inpaint_only_masked": true,
-            "ad_inpaint_only_masked_padding": 32
-        },
-        {
-            "_id": "64f8352d9f0b7e83fcae121e",
-            "ad_model": "hand_yolov8n.pt",
-            "ad_confidence": 0.3,
-            "ad_dilate_erode": 4,
-            "ad_mask_blur": 4,
-            "ad_denoising_strength": 0.4,
-            "ad_inpaint_only_masked": true,
-            "ad_inpaint_only_masked_padding": 32
-        }
-    ]
+    "controlnet": {
+        "args": [
+            {
+                "module": "canny",
+                "model": "control_v11p_sd15_canny [d14c016b]",
+                "weight": 0.85,
+                "guidance_start": 0.1,
+                "guidance_end": 0.85,
+                "control_mode": 0,
+                "pixel_perfect": false,
+                "resize_mode": 1,
+                "threshold_a": 100,
+                "threshold_b": 200,
+                "processor_res": 512
+            }
+        ]
+    },
+    "adetailer": {
+        "args": [
+            {
+                "ad_model": "face_yolov8n.pt",
+                "ad_confidence": 0.3,
+                "ad_dilate_erode": 4,
+                "ad_mask_blur": 4,
+                "ad_denoising_strength": 0.4,
+                "ad_inpaint_only_masked": true,
+                "ad_inpaint_only_masked_padding": 32
+            }
+        ]
+    },
+    "resize_mode": 0,
+    "image_cfg_scale": 0,
+    "mask_blur_x": 4,
+    "mask_blur_y": 4,
+    "inpainting_fill": 0,
+    "inpaint_full_res": 0,
+    "inpainting_mask_invert": 1,
+    "n_iter": 1,
+    "tiling": false,
+    "send_images": false,
+    "save_images": true,
+    "override_settings_restore_afterwards": false,
+    "seed": -1,
+    "subseed": -1,
+    "subseed_strength": 0,
+    "seed_resize_from_h": 0,
+    "seed_resize_from_w": 0,
+    "status": "ACTIVE",
+    "updated_ts": "2023-10-10T10:08:01.388Z",
+    "created_ts": "2023-10-10T10:08:01.388Z",
+    "__v": 0
 }]`;
   const [value, setValue] = useState(initalValue)
   const [showModalURL, setShowModalURL] = useState(false)
