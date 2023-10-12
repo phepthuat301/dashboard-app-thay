@@ -31,7 +31,8 @@ function ListAllConfig() {
 
     const onDuplicate = async (data: any) => {
         delete data._id;
-        data.name = data.name + " Copy"
+        data.name = data.name + " Copy";
+        data.code = data.code + "_copy"
         const addNewClone = await ConfigService.getInstance().addNewConfigs(data);
         if (addNewClone.success) {
             NotifyController.success('Duplicate success')
