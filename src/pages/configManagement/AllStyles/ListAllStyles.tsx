@@ -98,7 +98,7 @@ function ListAllStyles() {
                 </div>
             </Dialog>
             <ButtonAdd getList={getList} />
-            <DataTable width={'100%'} value={listData} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} selectOnEdit={true}>
+            <DataTable width={'100%'} value={listData} paginator rows={10} rowsPerPageOptions={[5, 10, 25, 50]} selectOnEdit={true}>
                 <Column  body={(data, options) => options.rowIndex + 1} header="#"  ></Column>
                 <Column field="name" header="ID" filter filterPlaceholder="Search by id" sortable ></Column>
                 <Column field="file" header="File" sortable filter filterPlaceholder="Search by file name" ></Column>
