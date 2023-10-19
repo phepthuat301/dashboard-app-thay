@@ -1,40 +1,37 @@
-import { Button } from 'primereact/button';
-import React,{useEffect,useState} from 'react'
-import { Tooltip } from 'primereact/tooltip';
+import { useEffect, useState } from 'react'
 import ConfigService from '../../service/ConfigManagement/configService';
-import NotifyController from '../../utilities/Toast';
 import { TabMenu } from 'primereact/tabmenu';
 import ItemPrompt from './ItemPrompt';
 
 function ListAllPromptCustomize() {
-    const [listData,setListData]= useState<any[]>([])
-    const [visibleModal, setVisibleModal]= useState(false)
-    const [dataModal, setDataModal]= useState([]);    
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [active, setActive] = useState('Dress');
-    const getList = async ()=>{
-        const data = await ConfigService.getInstance().getAllPromptCustomize(); 
-        
-        setListData(data.data)
-      
-        
-    }
-    const itemsType = listData.map((item) => ({
-        label: item.name || ''
-      }));
-      useEffect(()=>{
-        getList();
-    },[])
+  const [listData, setListData] = useState<any[]>([])
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [active, setActive] = useState('dress');
+
+  const getList = async () => {
+    const data = await ConfigService.getInstance().getAllPromptCustomize();
+    setListData(data.data)
+  }
+
+  const itemsType = listData.map((item) => ({
+    label: item.name || ''
+  }));
+
+  useEffect(() => {
+    getList();
+  }, [])
+  
   return (
     <div>
-         {/* <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}  /> */}
-         <TabMenu model={itemsType} activeIndex={activeIndex}  onTabChange={(e) => {setActiveIndex(e.index);setActive(e.value.label as string)}}  />
-         {listData?.map(data=>(<>
-           <div className={`${active===data.name?null:'hidden'}`}>
-            <ItemPrompt  data={data} listItem={data.data}/>
-           </div>
-         </>
-         ))}
+      {/* <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}  /> */}
+      <TabMenu model={itemsType} activeIndex={activeIndex} onTabChange={(e) => { setActiveIndex(e.index); setActive(e.value.label as string) }} />
+      {listData?.map((data: any) => {
+        return <>
+          <div className={`${active === data.type ? null : 'hidden'}`}>
+            <ItemPrompt data={data} />
+          </div>
+        </>
+      })}
     </div>
   )
 }
