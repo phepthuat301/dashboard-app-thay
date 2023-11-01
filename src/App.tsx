@@ -27,6 +27,7 @@ import { getUserState } from './redux/reducers/userReducer';
 import { setLogin, setUser } from './redux/actions/userActions';
 import UserService from './service/userManagement/UserService';
 import NotifyController from './utilities/Toast';
+import Feedback from './pages/Feedback';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -66,27 +67,6 @@ const App = (props: any) => {
         setResetActiveIndex(true);
         setMenuActive(false);
     }, [menuMode]);
-
-    // useEffect(() => {
-    //     const token = readToken()
-    //     if (token && token.length > 0) {
-    //         dispatch(setLogin(true))
-    //         UserService.getInstance().getUser().then((res) => {
-    //             dispatch(setUser({
-    //                 id: res.id,
-    //                 avatar: res.avatar,
-    //                 first_name: res.first_name,
-    //                 last_name: res.last_name,
-    //                 isLoggedIn: true
-    //             }))
-    //         }).catch((error) => NotifyController.error(error?.message))
-
-    //     } else {
-    //         navigate("login")
-    //     }
-
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [user.isLoggedIn])
 
     const onDocumentClick = () => {
         if (!searchClick && searchActive) {
@@ -297,6 +277,28 @@ const App = (props: any) => {
         setSearchActive(true);
     };
 
+    useEffect(() => {
+        const token = readToken()
+        if (token && token.length > 0) {
+            dispatch(setLogin(true))
+            UserService.getInstance().getUser().then((res) => {
+                console.log(res);
+                dispatch(setUser({
+                    id: res.id,
+                    avatar: res.avatar,
+                    first_name: res.username,
+                    last_name: res.username,
+                    isLoggedIn: true
+                }))
+            }).catch((error) => {
+                NotifyController.error(error?.message)
+                navigate("/login")
+            })
+        } else {
+            navigate("/login")
+        }
+    }, [])
+
     return (
         <div className={layoutClassName} onClick={onDocumentClick}>
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
@@ -341,7 +343,7 @@ const App = (props: any) => {
                 <AppBreadcrumb routes={routes} onMenuButtonClick={onMenuButtonClick} menuMode={menuMode} onRightMenuButtonClick={onRightMenuButtonClick} onInputClick={onInputClick} searchActive={searchActive} breadcrumbClick={breadcrumbClick} />
                 <div className="layout-main-content">
                     <Routes>
-                        <Route index element={<Dashboard />} />
+                        <Route index element={<Feedback />} />
                         <Route path={'dictionary-listing/1'} element={<ProfileType></ProfileType>}></Route>
                         {routes.map((route, key) => <Route key={key} path={route.path} >
                             {

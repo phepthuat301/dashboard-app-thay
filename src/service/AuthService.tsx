@@ -11,12 +11,11 @@ export default class AuthService {
         return this.instance;
     }
     async login(email: string, password: string) {
-        const res = await httpPost("/login", {
+        const res = await httpPost("/account/login", {
             email,
             password
         }).then((res) => res.data)
-        if (res?.token)
-            persistToken(res?.token)
+        if (res?.data.token) persistToken(res?.data.token)
         return res
     }
 
@@ -25,7 +24,7 @@ export default class AuthService {
             .then((res) => res.data.data)
             .finally(() => {
                 deleteToken()
-                window.location.reload()
+                window.location.href = '/login';
             })
 
         return res

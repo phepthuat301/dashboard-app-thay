@@ -12,8 +12,7 @@ export default class UserService {
     }
 
     async getUser() {
-        const user:any = {}
-        // const user = await httpGet('assets/demo/data/current-user.json').then((res) => res.data.data);
+        const user = await httpGet('/account/user-info').then((res) => res.data.data);
         return user
     }
 
