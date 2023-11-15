@@ -17,17 +17,16 @@ import './App.scss';
 import { menu } from './utilities/Menu';
 import { routes } from "./utilities/Routes";
 import { NotFound } from './pages/NotFound';
-import Dashboard from './components/Dashboard';
 import AppBreadcrumb from './layout/AppBreadcrumb';
 import { persistMenuMode, readMenuMode, readToken } from './service/LocalStorageService';
-import ProfileType from './pages/dictionaryListing/ProfileType';
 import { Access } from './pages/Access';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserState } from './redux/reducers/userReducer';
 import { setLogin, setUser } from './redux/actions/userActions';
-import Feedback from './pages/Patient';
 import Patient from './pages/Patient';
 import PatientDetail from './pages/PatientDetail';
+import Dashboard from './components/Dashboard';
+import Statistic from './pages/Statistic';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -345,11 +344,8 @@ const App = (props: any) => {
                     <Routes>
                         <Route index element={<Patient />} />
                         <Route path="/patient-detail/:id" element={<PatientDetail />} />
-                        {routes.map((route, key) => <Route key={key} path={route.path} >
-                            {
-                                route.childs && route.childs.map((child, key) => <Route key={key} path={child.path} element={child.element} />)
-                            }
-                        </Route>)}
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/statistic" element={<Statistic />} />
                         <Route path="/access" element={<Access colorScheme={props.colorScheme} />} />
                         <Route path="*" element={<NotFound colorScheme={props.colorScheme} />} />
                     </Routes>

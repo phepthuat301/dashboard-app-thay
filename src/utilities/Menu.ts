@@ -2,8 +2,19 @@ export const menu = [
     {
         label: 'Dashboard',
         icon: 'pi pi-home',
-        items: [{ label: 'Feedback', icon: 'pi pi-envelope', to: '/' }]
+        items: [{ label: 'Người Dùng', icon: 'pi pi-id-card', to: '/' }]
     },
+    {
+        label: 'Thống Kê',
+        icon: 'pi pi-desktop',
+        items: [
+            {
+                label: 'Thống Kê',
+                icon: 'pi pi-desktop',
+                to: '/statistic'
+            }
+        ]
+    }
     // {
     //     label: 'Dictionary Listing',
     //     icon: 'pi pi-th-large',
@@ -132,17 +143,5 @@ export const menu = [
     //         },
     //     ]
     // },
-
-    // {
-    //     label: 'Log management',
-    //     icon: 'pi pi-desktop',
-    //     items: [
-    //         {
-    //             label: 'Admin Activities',
-    //             icon: 'pi pi-user',
-    //             to: '/log-management/activies'
-    //         }
-    //     ]
-    // }
 ];
 

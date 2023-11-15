@@ -21,4 +21,9 @@ export default class PatientService {
         const res = await httpGet(`/v1/dashboard/patient/${id}?page=${page}&limit=${limit}`);
         return res.data;
     }
+
+    async getStatistic() {
+        const res = await httpGet(`/v1/dashboard/statistic`);
+        return res.data;
+    }
 }

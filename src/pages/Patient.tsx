@@ -5,13 +5,6 @@ import NotifyController from '../utilities/Toast';
 import { Image } from 'primereact/image';
 import PatientService from '../service/PatientService';
 
-
-interface IFeedback {
-    id: string,
-    key: string,
-    value: string,
-}
-
 const Patient = () => {
     const [refresh, setRefresh] = useState<boolean>(false)
 
