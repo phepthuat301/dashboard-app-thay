@@ -11,6 +11,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { Toolbar } from 'primereact/toolbar';
 import { Column } from 'primereact/column';
+import { useNavigate } from 'react-router-dom';
 
 interface customDataTableProps {
     rowPerPage?: number;
@@ -21,7 +22,8 @@ interface customDataTableProps {
         total: number;
         data: Array<any>
     }>;
-    leftToolbarBtn?: Array<leftToolbarBtnProps>
+    leftToolbarBtn?: Array<leftToolbarBtnProps>;
+    onClickEnabled?: boolean;
 }
 
 interface leftToolbarBtnProps {
@@ -46,7 +48,7 @@ export interface tableOptions {
 }
 
 
-export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn, refresh, rowPerPage, onOptionChange, children, defaultFilter }) => {
+export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn, refresh, rowPerPage, onOptionChange, children, defaultFilter, onClickEnabled }) => {
     const [value, setValue] = useState<{
         total: number;
         data: Array<any>
@@ -67,7 +69,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
             selectAll: false
         }
     )
-
+    const navigate = useNavigate();
     const dt = useRef<any>(null);
     const exportCSV = () => {
         dt.current.exportCSV();
@@ -139,13 +141,13 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
             </React.Fragment>
         );
     };
-
     return (
         <>
             <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
             <DataTable
                 selection={options.selected}
                 onSelectionChange={(e) => setOptions({ ...options, selected: e.value, selectAll: e.value.length === value.data.length })}
+                onRowClick={onClickEnabled ? (e) => navigate(`/patient-detail/${e.data.id}`) : undefined}
                 ref={dt}
                 value={value?.data}
                 paginator={false}
@@ -157,7 +159,6 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
                 onSort={(e) => { setOptions({ ...options, order: e.sortField, orderType: e.sortOrder }) }}
                 sortOrder={options.orderType}
                 loading={loading}
-                totalRecords={2}
                 onFilter={(filters) => {
                     setOptions({ ...options, filters: filters.filters })
                 }}
@@ -172,7 +173,7 @@ export const CustomDataTable: React.FC<customDataTableProps> = ({ leftToolbarBtn
             </DataTable>
             <br />
             {Math.ceil(value?.total / options.rowPerPage) > 1 && <ReactPaginate
-                onPageChange={(e) => { setOptions({ ...options, page: e.selected }) }}
+                onPageChange={(e) => { setOptions({ ...options, page: e.selected + 1 }) }}
                 pageCount={Math.ceil(value?.total / options.rowPerPage)}
                 previousLabel="Prev"
                 nextLabel="Next"

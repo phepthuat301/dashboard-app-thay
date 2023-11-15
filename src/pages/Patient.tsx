@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Column } from 'primereact/column';
 import { CustomDataTable, filterApplyTemplate, filterClearTemplate, tableOptions } from '../components/CustomDatatable';
 import NotifyController from '../utilities/Toast';
-import FeedbackService from '../service/FeedbackService';
 import { Image } from 'primereact/image';
+import PatientService from '../service/PatientService';
 
 
 interface IFeedback {
@@ -12,16 +12,16 @@ interface IFeedback {
     value: string,
 }
 
-const Feedback = () => {
+const Patient = () => {
     const [refresh, setRefresh] = useState<boolean>(false)
 
 
     const onOptionChange = async (option: tableOptions) => {
-        const Feedbacks = await FeedbackService.getInstance().getListFeedback().catch((error) => {
+        const patients = await PatientService.getInstance().getListPatient(option.page, option.rowPerPage).catch((error) => {
             NotifyController.error(error?.message)
             console.log(error);
         })
-        return Feedbacks
+        return {total: patients.data.totalRecords, data: patients.data.listUser}
     }
 
     const bodyAssetUrl = (rowData: any) => {
@@ -45,7 +45,7 @@ const Feedback = () => {
     };
 
     const bodyFormattedDateTime = (rowData: any) => {
-        const timestamp = rowData.created_ts;
+        const timestamp = rowData.createdAt;
         const date = new Date(timestamp); // Convert the timestamp to a Date object
         date.setHours(date.getHours() + 7); // Adjust for GMT+7 timezone
 
@@ -61,25 +61,21 @@ const Feedback = () => {
         <div className="grid crud-demo">
             <div className="col-12">
                 <div className="card">
-                    <h5>Feedback</h5>
+                    <h5>Patient</h5>
                     <CustomDataTable
                         onOptionChange={onOptionChange}
                         refresh={refresh}
+                        onClickEnabled={true}
                     >
-                        <Column field="created_ts" sortable body={bodyFormattedDateTime} header="Created" headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="device_token" header="Device Token" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        {/* <Column field="name" header="Name" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column> */}
-                        <Column field="content" header="Content" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        {/* <Column field="source" header="Source" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column> */}
-                        <Column field="image_url" body={bodyAssetUrl} header="Asset" headerStyle={{ width: 120 }}></Column>
-                        <Column field="is_like" body={bodyIsLike} header="Is Like" headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="type" header="Type" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="createdAt" sortable body={bodyFormattedDateTime} header="Ngày tạo" headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="username" header="Tên người dùng" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="email" header="Email" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="phone" header="SĐT" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                     </CustomDataTable>
-
                 </div>
             </div>
         </div>
     );
 };
 
-export default Feedback;
+export default Patient;

@@ -25,9 +25,9 @@ import { Access } from './pages/Access';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserState } from './redux/reducers/userReducer';
 import { setLogin, setUser } from './redux/actions/userActions';
-import UserService from './service/userManagement/UserService';
-import NotifyController from './utilities/Toast';
-import Feedback from './pages/Feedback';
+import Feedback from './pages/Patient';
+import Patient from './pages/Patient';
+import PatientDetail from './pages/PatientDetail';
 
 const App = (props: any) => {
     const [rightMenuActive, setRightMenuActive] = useState(false);
@@ -281,19 +281,19 @@ const App = (props: any) => {
         const token = readToken()
         if (token && token.length > 0) {
             dispatch(setLogin(true))
-            UserService.getInstance().getUser().then((res) => {
-                console.log(res);
-                dispatch(setUser({
-                    id: res.id,
-                    avatar: res.avatar,
-                    first_name: res.username,
-                    last_name: res.username,
-                    isLoggedIn: true
-                }))
-            }).catch((error) => {
-                NotifyController.error(error?.message)
-                navigate("/login")
-            })
+            // UserService.getInstance().getUser().then((res) => {
+            //     console.log(res);
+            //     dispatch(setUser({
+            //         id: res.id,
+            //         avatar: res.avatar,
+            //         first_name: res.username,
+            //         last_name: res.username,
+            //         isLoggedIn: true
+            //     }))
+            // }).catch((error) => {
+            //     NotifyController.error(error?.message)
+            //     navigate("/login")
+            // })
         } else {
             navigate("/login")
         }
@@ -343,8 +343,8 @@ const App = (props: any) => {
                 <AppBreadcrumb routes={routes} onMenuButtonClick={onMenuButtonClick} menuMode={menuMode} onRightMenuButtonClick={onRightMenuButtonClick} onInputClick={onInputClick} searchActive={searchActive} breadcrumbClick={breadcrumbClick} />
                 <div className="layout-main-content">
                     <Routes>
-                        <Route index element={<Feedback />} />
-                        <Route path={'dictionary-listing/1'} element={<ProfileType></ProfileType>}></Route>
+                        <Route index element={<Patient />} />
+                        <Route path="/patient-detail/:id" element={<PatientDetail />} />
                         {routes.map((route, key) => <Route key={key} path={route.path} >
                             {
                                 route.childs && route.childs.map((child, key) => <Route key={key} path={child.path} element={child.element} />)

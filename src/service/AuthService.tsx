@@ -11,11 +11,11 @@ export default class AuthService {
         return this.instance;
     }
     async login(email: string, password: string) {
-        const res = await httpPost("/account/login", {
+        const res = await httpPost("/v1/dashboard/login", {
             email,
             password
         }).then((res) => res.data)
-        if (res?.data.token) persistToken(res?.data.token)
+        if (res?.data) persistToken(res?.data)
         return res
     }
 
