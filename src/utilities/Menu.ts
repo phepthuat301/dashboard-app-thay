@@ -5,7 +5,7 @@ export const menu = [
         items: [{ label: 'Người Dùng', icon: 'pi pi-id-card', to: '/' }]
     },
     {
-        label: 'Thống Kê',
+        label: 'Quản Lý',
         icon: 'pi pi-desktop',
         items: [
             {

@@ -61,9 +61,10 @@ const Patient = () => {
                         onClickEnabled={true}
                     >
                         <Column field="createdAt" sortable body={bodyFormattedDateTime} header="Ngày tạo" headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
-                        <Column field="username" header="Tên người dùng" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="name" header="Tên người dùng" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="email" header="Email" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                         <Column field="phone" header="SĐT" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
+                        <Column field="gender" header="Giới tính" sortable headerStyle={{ minWidth: '10rem' }} filter filterClear={filterClearTemplate} filterApply={filterApplyTemplate}></Column>
                     </CustomDataTable>
                 </div>
             </div>

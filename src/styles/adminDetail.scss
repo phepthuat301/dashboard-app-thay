@@ -1,22 +1,21 @@
 .admin-detail {
-    .detail-content{
-        .basic-info{
-            .left-info{
+    .detail-content {
+        .basic-info {
+            .left-info {
                 text-align: center;
-                
             }
             .right-info {
                 padding-left: 20px;
                 padding-right: 20px;
                 border-left: 1px solid gray;
             }
-         
+
             padding-bottom: 20px;
         }
-        .more-info{
+        .more-info {
             padding-top: 20px;
             border-top: 1px solid gray;
-            .grid{
+            .grid {
                 padding-right: 10px;
                 padding-left: 10px;
             }
@@ -26,7 +25,28 @@
             border-top: 1px solid gray;
         }
     }
-    .save-permission{
+    .save-permission {
         width: auto;
+    }
+}
+
+.login-body2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .login-panel {
+        grid-column: 2; /* Position the login panel in the second column */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%; /* Take the full height of the grid cell */
+    }
+}
+
+@media (max-width: 555px) {
+    .form-container {
+        width: auto !important;
     }
 }

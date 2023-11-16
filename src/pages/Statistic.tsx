@@ -7,19 +7,6 @@ import NotifyController from "../utilities/Toast";
 const Statistic = () => {
     const [chart, setChart] = useState<any>({})
 
-    const countryChart = {
-        labels: ['RUS', 'Other', 'IND', 'AUS', 'JPN', 'USA', 'CHN'],
-        datasets: [
-            {
-                data: [30, 18, 36, 54, 61, 90, 72],
-                backgroundColor: ['#0F8BFD', '#545C6B', '#EC4DBC', '#EEE500', '#FC6161', '#00D0DE', '#873EFE'],
-                hoverBackgroundColor: ['#0F8BFD', '#545C6B', '#EC4DBC', '#EEE500', '#FC6161', '#00D0DE', '#873EFE'],
-                borderColor: 'transparent',
-                fill: true
-            }
-        ]
-    };
-
     const countryChartOptions = {
         responsive: true
     };
@@ -51,7 +38,7 @@ const Statistic = () => {
     }, []);
 
     return (
-        <div className="">
+        <div className="grid crud-demo">
             <div className="card widget-country-graph">
                 <div className="country-title">Thống kê về điểm danh bệnh nhân trong ngày {bodyFormattedDateTime()}</div>
                 <div className="country-graph flex justify-content-center">
