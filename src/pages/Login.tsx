@@ -38,7 +38,7 @@ export const Login = (props: any) => {
                         navigate('/')
                     } else throw new Error("Login failed");
                 })
-                .catch((error) => NotifyController.error(error?.message))
+                .catch((error) => NotifyController.error(error.response.data.message))
         }
         else {
             setError(validate.error.details)

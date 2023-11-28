@@ -22,8 +22,8 @@ export default class PatientService {
         return res.data;
     }
 
-    async getStatistic() {
-        const res = await httpGet(`/v1/dashboard/statistic`);
+    async getStatistic(from: any, to: any, id: any) {
+        const res = await httpGet(`/v1/dashboard/statistic?from=${from}&to=${to}&id=${id}`);
         return res.data;
     }
 }

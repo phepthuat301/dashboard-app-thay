@@ -4,17 +4,17 @@ export const menu = [
         icon: 'pi pi-home',
         items: [{ label: 'Người Dùng', icon: 'pi pi-id-card', to: '/' }]
     },
-    {
-        label: 'Quản Lý',
-        icon: 'pi pi-desktop',
-        items: [
-            {
-                label: 'Thống Kê',
-                icon: 'pi pi-desktop',
-                to: '/statistic'
-            }
-        ]
-    }
+    // {
+    //     label: 'Quản Lý',
+    //     icon: 'pi pi-desktop',
+    //     items: [
+    //         {
+    //             label: 'Thống Kê',
+    //             icon: 'pi pi-desktop',
+    //             to: '/statistic'
+    //         }
+    //     ]
+    // }
     // {
     //     label: 'Dictionary Listing',
     //     icon: 'pi pi-th-large',

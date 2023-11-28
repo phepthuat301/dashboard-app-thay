@@ -345,7 +345,7 @@ const App = (props: any) => {
                         <Route index element={<Patient />} />
                         <Route path="/patient-detail/:id" element={<PatientDetail />} />
                         <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/statistic" element={<Statistic />} />
+                        {/* <Route path="/statistic" element={<Statistic />} /> */}
                         <Route path="/access" element={<Access colorScheme={props.colorScheme} />} />
                         <Route path="*" element={<NotFound colorScheme={props.colorScheme} />} />
                     </Routes>

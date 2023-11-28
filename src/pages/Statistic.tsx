@@ -25,17 +25,17 @@ const Statistic = () => {
         );
     };
 
-    const getChart = async () => {
-        const chart = await PatientService.getInstance().getStatistic().catch((error) => {
-            NotifyController.error(error?.message)
-            console.log(error);
-        })
-        setChart(chart.data);
-    }
+    // const getChart = async () => {
+    //     const chart = await PatientService.getInstance().getStatistic().catch((error) => {
+    //         NotifyController.error(error?.message)
+    //         console.log(error);
+    //     })
+    //     setChart(chart.data);
+    // }
 
-    useEffect(() => {
-        getChart()
-    }, []);
+    // useEffect(() => {
+    //     getChart()
+    // }, []);
 
     return (
         <div className="grid crud-demo">
